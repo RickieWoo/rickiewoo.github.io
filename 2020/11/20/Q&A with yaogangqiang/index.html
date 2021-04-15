@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="记一次ONE-ONE疑问前端的职能，与后端的边界？  后端负责提供一个稳定的服务，前端在此之上做易变的功能  做项目的时候就要思考这个产品是不是未来会产生变化，有时候还挺难预见的，   比如peace的出现，刚开始做的时候可能大家都不知道未来会有一个新系统   前后端边界是什么   如何定义领域？谁来下这个定义   @wzx说：直接后端提供一个rpc 接口，前端需要的逻辑拼装在node层做   思">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:url" content="http://rickiewoo.github.io/2020/11/20/Q&A%20with%20yaogangqiang/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="记一次ONE-ONE疑问前端的职能，与后端的边界？  后端负责提供一个稳定的服务，前端在此之上做易变的功能  做项目的时候就要思考这个产品是不是未来会产生变化，有时候还挺难预见的，   比如peace的出现，刚开始做的时候可能大家都不知道未来会有一个新系统   前后端边界是什么   如何定义领域？谁来下这个定义   @wzx说：直接后端提供一个rpc 接口，前端需要的逻辑拼装在node层做   思">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-20T06:15:57.525Z">
+<meta property="article:modified_time" content="2021-04-15T10:52:31.929Z">
+<meta property="article:author" content="Rickie Woo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2020/11/20/Q&A%20with%20yaogangqiang/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title> | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/11/20/Q&A%20with%20yaogangqiang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/Q&A%20with%20yaogangqiang.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-20 14:15:57" itemprop="dateCreated datePublished" datetime="2020-11-20T14:15:57+08:00">2020-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-15 18:52:31" itemprop="dateModified" datetime="2021-04-15T18:52:31+08:00">2021-04-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="记一次ONE-ONE"><a href="#记一次ONE-ONE" class="headerlink" title="记一次ONE-ONE"></a>记一次ONE-ONE</h1><h6 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h6><p>前端的职能，与后端的边界？</p>
+<ul>
+<li><p>后端负责提供一个稳定的服务，前端在此之上做易变的功能</p>
+</li>
+<li><p>做项目的时候就要思考这个产品是不是未来会产生变化，有时候还挺难预见的，</p>
+</li>
+<li><ul>
+<li>比如peace的出现，刚开始做的时候可能大家都不知道未来会有一个新系统</li>
+</ul>
+</li>
+<li><p>前后端边界是什么</p>
+</li>
+<li><ul>
+<li>如何定义领域？谁来下这个定义</li>
+</ul>
+</li>
+<li><p>@wzx说：直接后端提供一个rpc 接口，前端需要的逻辑拼装在node层做</p>
+</li>
+</ul>
+<h6 id="思考和讨论"><a href="#思考和讨论" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>领域的概念是随着业务的变化而变化的，比如在电商系统中有几个比较成熟的领域模型，如订单、运单、商品等，但是在我们的业务中，可能需要前后端共同讨论并达成一致。TODO</p>
+<p>bff层是一个概念，这个概念由谁来做是不确定的，要根据团队的能力、人员分配及其技术水平等来判断</p>
+<p>一个产品必然是不断变更迭代的，谁也说不清这个业务会发展成什么样，所以只能保证在设计系统的时候，该系统具有可延展的能力</p>
+<p>至于后端只提供rpc的稳定服务，其他都放在bff层拼装，首先在架构方面层级多并不是件好事，多了bff层反而会有一定风险，比如对bff层的稳定性要求极高，该层发布频率也会很高，会有频繁的变更。所以目前是在各个服务中做自己的领域内的事，这样一个服务出问题也不会影响到另外一个。</p>
+<h6 id="疑问-1"><a href="#疑问-1" class="headerlink" title="疑问"></a>疑问</h6><p>养成一个好习惯，那什么是好习惯？在哪些方面需要关注呢？</p>
+<ul>
+<li><p>感觉目前只能在个人方面靠一些学习养成好习惯</p>
+</li>
+<li><p>在团队方面，习惯是跟着团队走的，那该怎么养成好习惯呢？</p>
+<ul>
+<li>因为团队已经有一种既定的运行模式了，自己作为系统中的一员，养成的习惯就是团队的习惯，但是团队的习惯一定是好习惯吗？怎么避免呢？</li>
+<li>比如昨天的会议，其实是从怎么做 -&gt; 老板解释一下为什么这么做。也就是说这是一种默认的稳定的方式，那一定是最好的方式吗？</li>
+<li>比如昨天的结论，对于前端来说大概就是一个更好的接口文档，但是这是本来就应该养成的习惯。。</li>
+<li>比如你说在知乎做的系统，毫秒级发布，回滚，但是在做这个修改之前系统一定还是一个稳定的状态，感觉大家都不愿意去改变一个稳定的东西，因为去改变是有风险的，需要一定的知识储备去说服他人做改变。又或者是到一个必须改变的场景才会去改变。</li>
+</ul>
+</li>
+</ul>
+<h6 id="思考和讨论-1"><a href="#思考和讨论-1" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>团队方面可以做一些统一的风格和文档，如果个人习惯某一种，应该有所依据，可以跟大家拿出来讨论，哪种是最好最合适的</p>
+<ul>
+<li>TODO：目前写的很多不是纯函数，不符合rxjs本身的函数式编程的理念，在写单测的时候也发现必须使用纯函数<ul>
+<li>该如何写好一个纯函数（最佳实践）？目前很多变量需要调用service方法，纯函数需要把方法也传入纯函数中，此时typescript要求该方法类型声明，这种声明看起来是一件很繁琐的事</li>
+<li>推动写纯函数的最佳实践</li>
+</ul>
+</li>
+</ul>
+<p>勇敢表达自己的观点：关于某些值得讨论的点，在具有一定基础的情况下（比如表达的观点都有所依据）可以跟大家一起讨论，获得更多的知识和成长，然后根据大家的意见整理学习，得到更好的观点和解释，并得出讨论结果。</p>
+<h6 id="疑问-2"><a href="#疑问-2" class="headerlink" title="疑问"></a>疑问</h6><p>如何成为一个好前端？对于个人发展而言</p>
+<ul>
+<li>比如昨天阳哥说一个前端面试的时候不会说自己多么了解业务，而是更多关注提升用户体验等</li>
+<li>但是凯哥说不应该把个人发展拿出来说，脏活累活大家都要做，大家总是在做一些重复的东西</li>
+<li>那我的结论是，前端首先作为团队的一员，需要完成自己份内的事，再关注优化体验，到提升自己，但是感觉留下的时间就不那么多了</li>
+<li>以前以为写框架的前端最厉害，走在前列，但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
+<li>但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
+<li>现在做的一些跟业务有关的尝试，比如自动化测试是我最近找到的一个可以探索的方向，最近在往这个方向努力</li>
+<li>但是对于新东西，自己抽出其他时间探索的话，其实每天只有一点时间了，要成为那样厉害的人，就有一个非常漫长的路要走，</li>
+<li>可能就是自己目前知识储备量很少，所以每次听完大佬讲话都很焦虑，不知道自己该怎么成长，不知道怎么样算是一条正确的路</li>
+</ul>
+<h6 id="思考和讨论-2"><a href="#思考和讨论-2" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>长期有耐心：半年时间掌握一个核心知识模块，专攻某个领域</p>
+<ul>
+<li>TODO：分析有哪些核心模块，哪些不熟悉，哪些目前最重要</li>
+</ul>
+<p>养成良好思考习惯：</p>
+<p>思考方式：</p>
+<ul>
+<li>为什么<ul>
+<li>为什么要有这种方式/技术</li>
+<li>当时的背景是怎么样的，<ul>
+<li>有哪些条件促成这种技术的形成</li>
+<li>为什么选择这个方案？还有别的可选技术吗？优劣有哪些</li>
+</ul>
+</li>
+<li>为什么选择这种技术<ul>
+<li>现在的条件适用该技术吗，有哪些已经被替代/解决的原因呢</li>
+<li>考虑团队，目前的团队水平（技术、人力水平）可以适应该方案吗</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>是什么<ul>
+<li>这种方案是什么</li>
+</ul>
+</li>
+<li><h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2></li>
+</ul>
+<p>并不是说新技术就是最好的，首先掌握最基础最系统的知识体系</p>
+<p>做的探索一定是要跟业务挂钩，这样学到的知识有机会得到有效的利用和巩固以及实践</p>
+<h6 id="疑问-3"><a href="#疑问-3" class="headerlink" title="疑问"></a>疑问</h6><p>如何定义产出？目前更多是业务，需要数据说话，是不是需要埋点？</p>
+<h6 id="讨论和思考"><a href="#讨论和思考" class="headerlink" title="讨论和思考"></a>讨论和思考</h6><ul>
+<li>不要局限思维，除了分内之事以外，可以做一些事情推动团队的发展</li>
+<li>好的工程师，做事的时候可以超出预期，得到意外的收获和收益</li>
+<li>将一些好的收获和习惯总结下来，并不断迭代<ul>
+<li>一次好的意料之外的结果，形成是有原因的，思考这么做的方式并整理下来，以后按照这些点去做，并在工作学习中不断去更新这些点，长此以往，这个思路就会成为一个好的实践</li>
+</ul>
+</li>
+</ul>
+<p>额外思考</p>
+<ul>
+<li>不要求所有人都吸收接纳自己的思考，期望应该是：在所有的思考行为中自己得到了成长，并可能可以对他人有正面影响</li>
+<li>期待自己的变化，给自己定短期目标，短期的目标更容易实现</li>
+<li>思考问题要有一个清晰的逻辑链，起码在这个链路中自己逻辑自洽，很多东西都是想清楚的，再去跟大家讨论</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/26/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/" rel="prev" title="基于angular的自动化测试探索">
+      <i class="fa fa-chevron-left"></i> 基于angular的自动化测试探索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/" rel="next" title="webpack 5 简介">
+      webpack 5 简介 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E4%B8%80%E6%AC%A1ONE-ONE"><span class="nav-number">1.</span> <span class="nav-text">记一次ONE-ONE</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%96%91%E9%97%AE"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E5%92%8C%E8%AE%A8%E8%AE%BA"><span class="nav-number">1.0.0.0.0.2.</span> <span class="nav-text">思考和讨论</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%96%91%E9%97%AE-1"><span class="nav-number">1.0.0.0.0.3.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E5%92%8C%E8%AE%A8%E8%AE%BA-1"><span class="nav-number">1.0.0.0.0.4.</span> <span class="nav-text">思考和讨论</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%96%91%E9%97%AE-2"><span class="nav-number">1.0.0.0.0.5.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E5%92%8C%E8%AE%A8%E8%AE%BA-2"><span class="nav-number">1.0.0.0.0.6.</span> <span class="nav-text">思考和讨论</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%81%9A"><span class="nav-number">1.1.</span> <span class="nav-text">怎么做</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%96%91%E9%97%AE-3"><span class="nav-number">1.1.0.0.0.1.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A8%E8%AE%BA%E5%92%8C%E6%80%9D%E8%80%83"><span class="nav-number">1.1.0.0.0.2.</span> <span class="nav-text">讨论和思考</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rickie Woo"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Rickie Woo</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickie Woo</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
