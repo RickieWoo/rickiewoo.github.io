@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 16:50:40" itemprop="dateModified" datetime="2021-04-15T16:50:40+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-15 18:32:01" itemprop="dateModified" datetime="2021-04-15T18:32:01+08:00">2021-04-15</time>
               </span>
 
           
@@ -289,10 +289,21 @@
 
 <h3 id="html-plugin-ts"><a href="#html-plugin-ts" class="headerlink" title="html-plugin.ts"></a>html-plugin.ts</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> html = <span class="built_in">require</span>(<span class="string">'@rollup/plugin-html'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> indexHtmlContent = fs?.readFileSync(<span class="string">'./index.html'</span>)?.toString();</span><br><span class="line"><span class="keyword">enum</span> applyType &#123;</span><br><span class="line">  <span class="string">'serve'</span> = <span class="string">'serve'</span>,</span><br><span class="line">  <span class="string">'build'</span> = <span class="string">'build'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> serveHtmlPlugin = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name: <span class="string">'generate html for developer'</span>,</span><br><span class="line">    apply: applyType.serve,</span><br><span class="line">    transformIndexHtml(indexHtml: <span class="built_in">string</span>) &#123;</span><br><span class="line">      <span class="comment">// 将 index.html 中的 script 换成 main.tsx，同时不使用 style.css 的样式（因为dev环境下没有生成）</span></span><br><span class="line">      <span class="keyword">return</span> indexHtml</span><br><span class="line">        .replace(<span class="string">`type="text/javascript"`</span>, <span class="string">`type="module"`</span>)</span><br><span class="line">        .replace(<span class="string">`src="<span class="subst">$&#123;dist中js文件名称&#125;</span>.umd.js"`</span>, <span class="string">`src="/src/main.tsx""`</span>)</span><br><span class="line">        .replace(<span class="string">`href="style.css"`</span>, <span class="string">''</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> buildHtmlPlugin = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ...html(&#123;</span><br><span class="line">      template: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!indexHtmlContent?.length) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'没有找到 index.html 文件'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> indexHtmlContent;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">    name: <span class="string">'generate html for production'</span>,</span><br><span class="line">    apply: applyType.build,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p> 加了两个npm脚本</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">"qiankun:preview": "cd dist/ &amp;&amp; http-server -p=8080 --cors",</span><br><span class="line">"qiankun:rebuild": "npm run build:test &amp;&amp; npm run qiankun:preview"</span><br></pre></td></tr></table></figure>
 
-
-
-
+<ul>
+<li><p>需要运行</p>
+<ul>
+<li>（未打包）npm run qiankun:rebuild</li>
+<li>（已打包）npm run qiankun:preview</li>
+</ul>
+</li>
+<li><p>启动 微前端主应用，保证主应用中 local 模式下<code>entry</code>端口号与上面一致</p>
+</li>
+<li><p>访问对应的地址（如 <a href="http://localhost:8427/#/react），查看是否能正常显示" target="_blank" rel="noopener">http://localhost:8427/#/react），查看是否能正常显示</a></p>
+</li>
+</ul>
 
       
     </div>
