@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="123456var s &#x3D; &quot;azerty&quot;;var s2 &#x3D; s.substr(0, 3); &#x2F;&#x2F; s2 是一个新的字符串&#x2F;&#x2F; 因为字符串是不变量，&#x2F;&#x2F; JavaScript 可能决定不分配内存，&#x2F;&#x2F; 只是存储了 [0-3] 的范围。&#x2F;&#x2F;????????????????? Memory leak patterns in JavaScript paper in 2007  IE和Mozilla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 内存泄露">
+<meta property="og:url" content="http://rickiewoo.github.io/2018/04/25/JS-%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="123456var s &#x3D; &quot;azerty&quot;;var s2 &#x3D; s.substr(0, 3); &#x2F;&#x2F; s2 是一个新的字符串&#x2F;&#x2F; 因为字符串是不变量，&#x2F;&#x2F; JavaScript 可能决定不分配内存，&#x2F;&#x2F; 只是存储了 [0-3] 的范围。&#x2F;&#x2F;????????????????? Memory leak patterns in JavaScript paper in 2007  IE和Mozilla">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-25T10:25:39.000Z">
+<meta property="article:modified_time" content="2020-06-08T10:34:27.196Z">
+<meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2018/04/25/JS-%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>JS 内存泄露 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/04/25/JS-%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS 内存泄露<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/JS-%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-25 18:25:39" itemprop="dateCreated datePublished" datetime="2018-04-25T18:25:39+08:00">2018-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-08 18:34:27" itemprop="dateModified" datetime="2020-06-08T18:34:27+08:00">2020-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+         <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"azerty"</span>;</span><br><span class="line"><span class="keyword">var</span> s2 = s.substr(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">// s2 是一个新的字符串</span></span><br><span class="line"><span class="comment">// 因为字符串是不变量，</span></span><br><span class="line"><span class="comment">// JavaScript 可能决定不分配内存，</span></span><br><span class="line"><span class="comment">// 只是存储了 [0-3] 的范围。</span></span><br><span class="line"><span class="comment">//?????????????????</span></span><br></pre></td></tr></table></figure>
+<p>Memory leak patterns in JavaScript</p>
+<p>paper in 2007 </p>
+<p>IE和Mozilla Firefox：在JS中最容易内存泄露的浏览器。问题的根源是组件对象模型拿来管理dom对象，Windows的<a href="https://en.wikipedia.org/wiki/Component_Object_Model" target="_blank" rel="noopener">COM 组件对象模型</a>，和Mozilla的<a href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Tech/XPCOM" target="_blank" rel="noopener">XPCOM</a>（跨平台组件对象模型）关于内存的分配和失而复得都用的reference-counting型垃圾收集，而reference-counting 机制并不能与JS的mark-and-sweep机制一直友好相处</p>
+<p>JS是一个垃圾收集语言，意味着内存被释放，在对象被浏览器创建，且已经没有被引用的时候。虽然JS的垃圾回收机制没有任何毛病，但它与一些浏览器处理DOM对象的内存释放与回收不太一致。</p>
+<p>IE和Firefox在这个问题上使用的是reference counting 的方式。 在一个reference counting 系统中，每个有引用的object 维持一个“有多少对象正在引用它”的计数，如果计数为0，这个对象将会被销毁并且内存回到堆顶。虽然这个解决方案通常非常有效，但是它有一个盲点，当它被循环引用的时候。</p>
+<h3 id="循环引用有什么问题呢？"><a href="#循环引用有什么问题呢？" class="headerlink" title="循环引用有什么问题呢？"></a>循环引用有什么问题呢？</h3><p>循环引用是有两个互相指向对方的对象组成的，他们各给对方一个为1的计数。在一个纯粹的垃圾回收机制中，循环引用是没有问题的：如果两个被需要的对象都没有被其他任何对象引用，那么它们会被回收。在一个reference counting系统中，他们都不会被回收，因为计数永远不会达到为0。在一个混用系统中，当这两种机制一起被使用的时候，会因为系统无法区分一个循环引用而导致内存泄露，DOM对象或者JS对象都不会被销毁。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [obj1, obj2] = [&#123;&#125;, &#123;&#125;] ;</span><br><span class="line">obj2.a = obj1;</span><br><span class="line">obj1.a = obj2;<span class="comment">//循环引用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">let</span> obj;</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    obj = <span class="built_in">document</span>.getElementById(<span class="string">"DivElement"</span>);</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"DivElement"</span>).expandoProperty = obj; <span class="comment">//循环引用</span></span><br><span class="line">    obj.bigString = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000</span>).join(<span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2000</span>).join(<span class="string">'xxxx'</span>));<span class="comment">//大量内存消耗</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有一种内存泄露的pattern：</p>
+<p>下面是一个循环引用的例子，是由于call一个外部函数导致的，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.elementReference = element;</span><br><span class="line">    <span class="comment">//这里是循环引用的代码</span></span><br><span class="line">    <span class="comment">//by DOM--&gt;JS --&gt;DOM</span></span><br><span class="line">    element.expandoProperty = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Leak</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//This code will leak</span></span><br><span class="line">    <span class="keyword">new</span> myFunction(<span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><h6 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h6><p>引用计数法是将垃圾定义为没有被引用的内存，而标记-清除算法是将其定义为对象是否可以被获得。</p>
+<p>定期从root开始向下寻找所有对象，垃圾回收记住所有的可被找到和不被找到的对象，并且将不被找到的对象回收。</p>
+<hr>
+<p>从12年开始，所有现代浏览器都使用了标记-清除算法。</p>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/js/" rel="tag"># js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/23/ES6-%E5%AD%A6%E4%B9%A0%E4%B9%8B-%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="prev" title="ES6 学习之 扩展运算符">
+      <i class="fa fa-chevron-left"></i> ES6 学习之 扩展运算符
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/25/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" rel="next" title="深拷贝与浅拷贝">
+      深拷贝与浅拷贝 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环引用有什么问题呢？"><span class="nav-number">1.</span> <span class="nav-text">循环引用有什么问题呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#标记-清除算法"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">标记-清除算法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rickie Woo"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Rickie Woo</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickie Woo</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

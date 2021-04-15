@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="webpack 5 简介关于webpack v5.0.0 主要改变 通过持久缓存(Persistent Caching)提高构建性能 用更好的算法和默认值来改进长期缓存(Long Term Caching) 通过更好的 Tree Shaking 和 Code Generation 改善 bundle size 改善与 Web 平台的兼容性 在不引入 breaking change 的情况下，清理那">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack 5 简介">
+<meta property="og:url" content="http://rickiewoo.github.io/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="webpack 5 简介关于webpack v5.0.0 主要改变 通过持久缓存(Persistent Caching)提高构建性能 用更好的算法和默认值来改进长期缓存(Long Term Caching) 通过更好的 Tree Shaking 和 Code Generation 改善 bundle size 改善与 Web 平台的兼容性 在不引入 breaking change 的情况下，清理那">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-12T03:21:31.559Z">
+<meta property="article:modified_time" content="2020-12-15T05:32:36.439Z">
+<meta property="article:author" content="Rickie Woo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>webpack 5 简介 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webpack 5 简介<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/webpack%205%20%E7%AE%80%E4%BB%8B.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-12 11:21:31" itemprop="dateCreated datePublished" datetime="2020-12-12T11:21:31+08:00">2020-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-15 13:32:36" itemprop="dateModified" datetime="2020-12-15T13:32:36+08:00">2020-12-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="webpack-5-简介"><a href="#webpack-5-简介" class="headerlink" title="webpack 5 简介"></a>webpack 5 简介</h1><p>关于webpack v5.0.0</p>
+<h2 id="主要改变"><a href="#主要改变" class="headerlink" title="主要改变"></a>主要改变</h2><ul>
+<li>通过持久缓存(Persistent Caching)提高构建性能</li>
+<li>用更好的算法和默认值来改进长期缓存(Long Term Caching)</li>
+<li>通过更好的 Tree Shaking 和 Code Generation 改善 bundle size</li>
+<li>改善与 Web 平台的兼容性</li>
+<li>在不引入 breaking change 的情况下，清理那些在实现 v4 时处于奇怪状态的内部结构</li>
+<li>通过引入 breaking change 为未来的功能做准备，并允许我们尽量长时间保持在v5</li>
+</ul>
+<h3 id="关于持久缓存（Persistent-Caching）"><a href="#关于持久缓存（Persistent-Caching）" class="headerlink" title="关于持久缓存（Persistent Caching）"></a>关于持久缓存（Persistent Caching）</h3><h4 id="什么是持久缓存？"><a href="#什么是持久缓存？" class="headerlink" title="什么是持久缓存？"></a>什么是持久缓存？</h4><blockquote>
+<p><a href="https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html" target="_blank" rel="noopener">https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html</a></p>
+</blockquote>
+<p>文件的持久性缓存旨在用于文档和对象的中期存储。</p>
+<p>文缓存可以选择性的使用持久缓存。在早期版本中，这种缓存类似于内存中缓存，但是除了将最近使用的节点保留在内存中之外，它还将它们存储到磁盘中。这样，很多读取行为将从存储后端（例如MongoDB）读取替换为本地磁盘读取。如果从本地磁盘读取的速度比从存储后端读取的速度快，这将特别有用。除此之外，持久缓存还可以减轻存储后端的负载。</p>
+<h4 id="Webpack-怎么做持久缓存？"><a href="#Webpack-怎么做持久缓存？" class="headerlink" title="Webpack 怎么做持久缓存？"></a>Webpack 怎么做持久缓存？</h4><blockquote>
+<p><a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching" target="_blank" rel="noopener">https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching</a></p>
+<p><a href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md" target="_blank" rel="noopener">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
+</blockquote>
+<p>#####一个可选的文件系统缓存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  cache: &#123;</span><br><span class="line">    <span class="comment">// 1. 将缓存类型设置为文件系统</span></span><br><span class="line">    type: <span class="string">'filesystem'</span>,</span><br><span class="line"></span><br><span class="line">    buildDependencies: &#123;</span><br><span class="line">      <span class="comment">// 2. 将你的 config 添加为 buildDependency，以便在改变 config 时使缓存无效</span></span><br><span class="line">      <span class="comment">// 当配置或配置依赖于require()更改的任何内容时，这会使持久性缓存无效。</span></span><br><span class="line">      config: [__filename],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们</span></span><br><span class="line">      <span class="comment">// 注意，webpack、lodaers 和所有从你的配置中引用的模块都会被自动添加</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="缓存在哪？"><a href="#缓存在哪？" class="headerlink" title="缓存在哪？"></a>缓存在哪？</h5><p>缓存将默认存储在 <code>node_modules/.cache/webpack</code>（当使用 node_modules 时）或 <code>.yarn/.cache/webpack</code>（当使用 Yarn PnP 时）中。当所有的插件都正确处理缓存时，你可能永远都不需要手动删除它。</p>
+<h5 id="谁会使用？"><a href="#谁会使用？" class="headerlink" title="谁会使用？"></a>谁会使用？</h5><p>许多内部插件也会使用持久性缓存。例如 <code>SourceMapDevToolPlugin</code> (缓存 SourceMap 的生成)或 <code>ProgressPlugin</code> (缓存模块数量)</p>
+<p>#####什么策略？</p>
+<blockquote>
+<p><a href="https://webpack.js.org/configuration/other-options/#cache" target="_blank" rel="noopener">https://webpack.js.org/configuration/other-options/#cache</a></p>
+</blockquote>
+<p>持久性缓存将根据使用情况自动创建多个缓存文件，以优化对缓存的读写访问。</p>
+<p>算法使用hash算法，默认为md4</p>
+<p>默认情况下，时间戳将用于开发模式的快照，而文件哈希将用于生产模式。文件哈希也允许在 CI 中使用持久性缓存。</p>
+<h5 id="什么影响？——监视模式下的增量构建速度很快，但是重新启动Webpack可能会非常慢。"><a href="#什么影响？——监视模式下的增量构建速度很快，但是重新启动Webpack可能会非常慢。" class="headerlink" title="什么影响？——监视模式下的增量构建速度很快，但是重新启动Webpack可能会非常慢。"></a>什么影响？——监视模式下的增量构建速度很快，<em>但是</em>重新启动Webpack可能会非常慢。</h5><h6 id="关于编译器的空闲和关闭"><a href="#关于编译器的空闲和关闭" class="headerlink" title="关于编译器的空闲和关闭"></a>关于编译器的空闲和关闭</h6><p>现在编译器需要在使用后被关闭。编译器会进入/离开空闲状态，并且有这些状态的钩子。一些插件可能是用这些钩子来做不重要的工作（例如持续缓存会缓慢的存储缓存到磁盘上）。（默认在空闲10000ms时，会开始进行缓存存储<code>cache.idleTimeout</code>）。在编译器关闭时——所有剩余的工作应该尽快完成。将会有一个callback标志关闭完成。</p>
+<p>插件及其作者应该注意，某些用户会忘记关闭编译器。所以，所有的工作在空闲状态也可以下最终完成。当工作正在进行时，我们应该放置进程退出。</p>
+<p>当被传递回调时，<code>webpack()</code>方法将会自动调用<code>close</code></p>
+<p><em>迁移</em>：将使用Node.js API时，要保证完成工作时调用<code>Compiler.close</code>。</p>
+<p>######关于文件生成</p>
+<p>过去：</p>
+<p> 总是在第一次构建时发出所有的输出文件，但在增量（观察）构建时跳过了写入未更改的文件。（假设在 webpack 运行时，没有任何其他东西改变输出文件。）</p>
+<p>现在：</p>
+<p>增加了持久性缓存后，不能认为即使在 webpack 不运行时也没有其他东西改变输出目录。</p>
+<p>所以 webpack 现在会检查输出目录中现有的文件，并将其内容与内存中的输出文件进行比较。只有当文件被改变时，它才会写入文件。 这只在第一次构建时进行。在运行中的 webpack 进程中，任何增量构建都会在生成新的资产(assets)时写入文件。</p>
+<h5 id="我们怎么用？"><a href="#我们怎么用？" class="headerlink" title="我们怎么用？"></a>我们怎么用？</h5><blockquote>
+<p><a href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md" target="_blank" rel="noopener">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
+</blockquote>
+<p>首先，请注意默认情况下不启用持久性缓存。我们必须选择使用它。</p>
+<p>这是为什么？webpack试图强调安全性而非性能。我们不想默认启用一项功能，该功能将使您的性能提高95％，但会使您的应用程序/工作流/构建中断5％。</p>
+<p>听起来好像坏了，但相信我，事实并非如此。但这需要开发人员采取额外的步骤来正确配置它。</p>
+<p><em>我们可以直接使用序列化和反序列化，但是无法立即使用缓存失效</em></p>
+<p>缓存失效：webpack需要找出什么时候缓存不再有效，并停止将其用于构建，</p>
+<p>因此，当在应用程序中更改文件时，就会发生缓存失效</p>
+<p>例如：更改了magic.js， webpack必须使magic.js的缓存条目失效。构建将会再次处理这个文件。例如 运行babel、typescript等等，然后解析文件并再次运行code generation。然后，webpack可能还会使bundle.js的缓存条目无效，并且构建将从包含的模块中重建该文件。</p>
+<p>为此webpack会跟踪每个模块的<code>fileDependencies</code> <code>contextDependencies</code>和<code>missingDependencies</code>，并创建文件系统快照。将该快照与真实文件系统进行比较，并且当检测到差异时，将触发该模块的重建。</p>
+<p>然后，对于的缓存条目<code>bundle.js</code>，webpack将存储一个<code>etag</code>，这是所有贡献者的哈希值。比较<code>etag</code>，并且仅当它与缓存条目匹配时才可以使用</p>
+<p>以上这些对于webpack 4中的内存缓存也是必要的。并且以上特性开发人员可以直接使用，而无需额外的配置。对于webpack 5中的持久缓存，存在新的挑战。</p>
+<p>webpack还需要使缓存条目无效：</p>
+<ul>
+<li>当您npm升级加载程序或插件时</li>
+<li>当您更改配置时</li>
+<li>当您更改正在配置中读取的文件时</li>
+<li>npm升级配置中使用的依赖项时</li>
+<li>当您将不同的命令行参数传递给构建脚本时</li>
+<li>当您拥有自定义的构建脚本并进行更改时</li>
+</ul>
+<h3 id="关于长期缓存"><a href="#关于长期缓存" class="headerlink" title="关于长期缓存"></a>关于长期缓存</h3><h4 id="webpack-怎么做长期缓存？"><a href="#webpack-怎么做长期缓存？" class="headerlink" title="webpack 怎么做长期缓存？"></a>webpack 怎么做长期缓存？</h4><p>修改了某个模块的代码，不会破坏其他模块的缓存，这就是我们想要实现的持久性缓存</p>
+<h5 id="确定的-Chunk、模块-ID-和导出名称"><a href="#确定的-Chunk、模块-ID-和导出名称" class="headerlink" title="确定的 Chunk、模块 ID 和导出名称"></a>确定的 Chunk、模块 ID 和导出名称</h5><p>新增了长期缓存的算法。这些算法在生产模式下是默认启用的。</p>
+<p>在以前，默认情况下，Webpack根据顺序为模块分配整数ID。因此，在更改模块时，所有ID可能都会更改，从而使缓存无效。</p>
+<p>该算法以确定性方式为模块和块分配短（3或5位数字）数字ID，并为导出分配短（2个字符）名称。这是包大小和长期缓存之间的折衷方案。由于这些配置将使用确定的 ID 和名称，<strong>这意味着生成的缓存失效不再更频繁</strong>。</p>
+<h5 id="真正的内容哈希"><a href="#真正的内容哈希" class="headerlink" title="真正的内容哈希"></a>真正的内容哈希</h5><p>当使用<code>[contenthash]</code>时，Webpack 5 将使用真正的文件内容哈希值。之前它 “只 “使用内部结构的哈希值。当只有注释被修改或变量被重命名时，这对长期缓存会有积极影响。这些变化在压缩后是不可见的。</p>
+<h3 id="关于改善-bundle-size"><a href="#关于改善-bundle-size" class="headerlink" title="关于改善 bundle size"></a>关于改善 bundle size</h3><h4 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree-shaking"></a>tree-shaking</h4><p><code>import()</code>允许通过<code>/* webpackExports: [&quot;abc&quot;, &quot;default&quot;] */</code>魔术注释手动摇动模块。</p>
+<h5 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h5><p>webpack 现在能够跟踪对导出的嵌套属性的访问。（清除未使用的导出和混淆导出）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inner.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">as</span> inner <span class="keyword">from</span> <span class="string">'./inner'</span>;</span><br><span class="line"><span class="comment">// or import * as inner from './inner'; export &#123; inner &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// user.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="built_in">module</span> <span class="keyword">from</span> <span class="string">'./module'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.inner.a);</span><br><span class="line">In <span class="keyword">this</span> example, the <span class="keyword">export</span> b can be removed <span class="keyword">in</span> production mode.</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，可以在生产模式下删除导出的<code>b</code>。</p>
+<h5 id="内部模块"><a href="#内部模块" class="headerlink" title="内部模块"></a>内部模块</h5><p>webpack 4 没有分析模块的 export 和 import 之间的依赖关系。webpack 5 有一个新的选项 <code>optimization.innerGraph</code>，在生产模式下是默认启用的，它可以对模块中的标志进行分析，找出 export 和 import 之间的依赖关系。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; something &#125; <span class="keyword">from</span> <span class="string">'./something'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">usingSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> something;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> usingSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>内部依赖图算法会找出 <code>something</code> 只有在使用 <code>test</code> 导出时才会使用。这允许将更多的 export 标记为未使用，并从代码包中省略更多的代码。</p>
+<p>注意：使用 <code>eval()</code> 将为一个模块放弃这个优化，因为经过 eval 的代码可以引用范围内的任何标记。这种优化也被称为深度范围分析。</p>
+<h5 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h5><p>webpack 曾经不进行对 CommonJs 导出和 <code>require()</code> 调用时的导出使用分析。</p>
+<p>webpack 5 增加了对一些 CommonJs 构造的支持，允许消除未使用的 CommonJs 导出，并从 <code>require()</code> 调用中跟踪引用的导出名称。</p>
+<h4 id="code-generation"><a href="#code-generation" class="headerlink" title="code generation"></a>code generation</h4><p>webpack会检测何时发生ASI，并且在未插入分号时会生成较短的代码。<code>Object(...)</code>-&gt;<code>(0, ...)</code></p>
+<p>webpack将多个导出 getter 合并为一个运行时函数调用：<code>r.d(x, &quot;a&quot;, () =&gt; a); r.d(x, &quot;b&quot;, () =&gt; b);</code>-&gt;<code>r.d(x, {a: () =&gt; a, b: () =&gt; b});</code></p>
+<p>webpack 4仅用于发出ES5代码。webpack 5现在可以生成ES5和ES6 / ES2015代码。</p>
+<p>仅支持现代的浏览器，将使用箭头功能生成较短的代码，并使用<code>const</code>TDZ for的声明生成更多符合规范的代码<code>export default</code>。</p>
+<h3 id="关于改善与-Web-平台的兼容性"><a href="#关于改善与-Web-平台的兼容性" class="headerlink" title="关于改善与 Web 平台的兼容性"></a>关于改善与 Web 平台的兼容性</h3><h4 id="不再为-Node-js-模块-自动引用-Polyfills"><a href="#不再为-Node-js-模块-自动引用-Polyfills" class="headerlink" title="不再为 Node.js 模块 自动引用 Polyfills"></a>不再为 Node.js 模块 自动引用 Polyfills</h4><blockquote>
+<p>早期，webpack的目标是允许在浏览器中运行大多数Node.js模块，但是模块格局发生了变化，现在许多模块用途的编写主要是出于前端目的。webpack &lt;= 4带有许多Node.js核心模块的polyfill，一旦模块使用了任何核心模块（即<code>crypto</code>模块），这些模块就会自动应用。</p>
+<p>虽然这使使用为Node.js编写的模块变得容易，但它会将这些巨大的polyfill添加到包中。在许多情况下，这些填充材料是不必要的。</p>
+<p>webpack 5会自动停止填充这些核心模块，并专注于与前端兼容的模块。我们的目标是提高与Web平台的兼容性，在Web平台上，Node.js核心模块不可用。</p>
+</blockquote>
+<p>如果你的代码中有引用这些 <code>Node.js</code> 的模块，要升级到 <code>webpack 5</code>, 将尽量使用前端的模块，或者自行手动添加适合的 <code>Polyfills</code>。</p>
+<p>而针对那些类库的开发者，请在 <code>package.json</code> 中定义 <code>browser</code> 字段，使类库在前端能适用。</p>
+<h3 id="关于迁移"><a href="#关于迁移" class="headerlink" title="关于迁移"></a>关于迁移</h3><blockquote>
+<p>webpack迁移文档：<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">https://webpack.js.org/migrate/5/</a></p>
+<p>angular11文档：<a href="https://indepth.dev/posts/1388/angular-11-towards-type-safety" target="_blank" rel="noopener">https://indepth.dev/posts/1388/angular-11-towards-type-safety</a></p>
+<p>升级angular11文档：<a href="https://update.angular.io/?v=9.1-11.0" target="_blank" rel="noopener">https://update.angular.io/?v=9.1-11.0</a></p>
+</blockquote>
+<p>webpack 5的最低node.js版本为10.13.0</p>
+<p>现状：</p>
+<p>![WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa](/Users/rickie/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application Support/WXWork/Temp/ScreenCapture/WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa.png)</p>
+<p>![WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296](/Users/rickie/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application Support/WXWork/Temp/ScreenCapture/WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296.png)</p>
+<p>升级Angular = 11</p>
+<p>![image-20201214173622039](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173622039.png)</p>
+<p>![image-20201214173649535](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173649535.png)</p>
+<p>![image-20201214173717556](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173717556.png)</p>
+<p>升级到 weback = 5.0.0</p>
+<p>![image-20201214175449325](/Users/rickie/Library/Application Support/typora-user-images/image-20201214175449325.png)</p>
+<p>解决：</p>
+<p>yarn add <a href="mailto:rxjs-tslint@0.1.5">rxjs-tslint@0.1.5</a> -D</p>
+<p>需要指定版本。。且需要降版本到0.1.5</p>
+<p>then</p>
+<p>![image-20201214181031819](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181031819.png)</p>
+<p>By : <a href="https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs" target="_blank" rel="noopener">https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs</a></p>
+<p>![image-20201214181204709](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181204709.png)</p>
+<p>finally</p>
+<p>直播项目引入了jszip，这里用了stream</p>
+<p>![image-20201214182343009](/Users/rickie/Library/Application Support/typora-user-images/image-20201214182343009.png)</p>
+<p>![image-20201214184152985](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184152985.png)</p>
+<p>![image-20201214184227357](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184227357.png)</p>
+<p>![image-20201214184316771](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184316771.png)</p>
+<hr>
+<p>在新站</p>
+<p>![image-20201214202259262](/Users/rickie/Library/Application Support/typora-user-images/image-20201214202259262.png)</p>
+<p>recomplie</p>
+<p>![image-20201214202454418](/Users/rickie/Library/Application Support/typora-user-images/image-20201214202454418.png)</p>
+<p>angular 11，antd不支持，mkd不支持</p>
+<p>![image-20201214211347225](/Users/rickie/Library/Application Support/typora-user-images/image-20201214211347225.png)</p>
+<p>![image-20201214211217405](/Users/rickie/Library/Application Support/typora-user-images/image-20201214211217405.png)</p>
+<p>![image-20201214212316268](/Users/rickie/Library/Application Support/typora-user-images/image-20201214212316268.png)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/26/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/" rel="prev" title="基于angular的自动化测试探索">
+      <i class="fa fa-chevron-left"></i> 基于angular的自动化测试探索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="Angular-去除组件标签的解决方案">
+      Angular-去除组件标签的解决方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack-5-简介"><span class="nav-number">1.</span> <span class="nav-text">webpack 5 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要改变"><span class="nav-number">1.1.</span> <span class="nav-text">主要改变</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于持久缓存（Persistent-Caching）"><span class="nav-number">1.1.1.</span> <span class="nav-text">关于持久缓存（Persistent Caching）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是持久缓存？"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">什么是持久缓存？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Webpack-怎么做持久缓存？"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Webpack 怎么做持久缓存？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存在哪？"><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">缓存在哪？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#谁会使用？"><span class="nav-number">1.1.1.2.2.</span> <span class="nav-text">谁会使用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么影响？——监视模式下的增量构建速度很快，但是重新启动Webpack可能会非常慢。"><span class="nav-number">1.1.1.2.3.</span> <span class="nav-text">什么影响？——监视模式下的增量构建速度很快，但是重新启动Webpack可能会非常慢。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#关于编译器的空闲和关闭"><span class="nav-number">1.1.1.2.3.1.</span> <span class="nav-text">关于编译器的空闲和关闭</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我们怎么用？"><span class="nav-number">1.1.1.2.4.</span> <span class="nav-text">我们怎么用？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于长期缓存"><span class="nav-number">1.1.2.</span> <span class="nav-text">关于长期缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-怎么做长期缓存？"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">webpack 怎么做长期缓存？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#确定的-Chunk、模块-ID-和导出名称"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">确定的 Chunk、模块 ID 和导出名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#真正的内容哈希"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">真正的内容哈希</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于改善-bundle-size"><span class="nav-number">1.1.3.</span> <span class="nav-text">关于改善 bundle size</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tree-shaking"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">tree-shaking</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#嵌套"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内部模块"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">内部模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CommonJs"><span class="nav-number">1.1.3.1.3.</span> <span class="nav-text">CommonJs</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#code-generation"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">code generation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于改善与-Web-平台的兼容性"><span class="nav-number">1.1.4.</span> <span class="nav-text">关于改善与 Web 平台的兼容性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不再为-Node-js-模块-自动引用-Polyfills"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">不再为 Node.js 模块 自动引用 Polyfills</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于迁移"><span class="nav-number">1.1.5.</span> <span class="nav-text">关于迁移</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rickie Woo"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Rickie Woo</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickie Woo</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
