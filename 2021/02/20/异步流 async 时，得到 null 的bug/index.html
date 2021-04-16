@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="问题：假设模版代码中使用了asyncPipe：   obs$ | async 如果obs$是一个异步得到的值，例如请求、delay等那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果 场景12&lt;!-- *.html --&gt;&lt;app-component [input]&#x3D;&quot;asyncObservable$ | async&quot;&gt;&lt;">
+  <meta name="description" content="问题：假设模版代码中使用了asyncPipe：   obs$ | async 如果obs$是一个异步得到的值，例如请求、delay等那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果 场景12&lt;!-- *.html --&gt;&lt;app-component [input]&#x3D;&quot;asyncObservable$ | async&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="异步流 async 时，得到 null 的bug">
+<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:url" content="http://rickiewoo.github.io/2021/02/20/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
-<meta property="og:description" content="问题：假设模版代码中使用了asyncPipe：   obs$ | async 如果obs$是一个异步得到的值，例如请求、delay等那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果 场景12&lt;!-- *.html --&gt;&lt;app-component [input]&#x3D;&quot;asyncObservable$ | async&quot;&gt;&lt;">
+<meta property="og:description" content="问题：假设模版代码中使用了asyncPipe：   obs$ | async 如果obs$是一个异步得到的值，例如请求、delay等那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果 场景12&lt;!-- *.html --&gt;&lt;app-component [input]&#x3D;&quot;asyncObservable$ | async&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-20T03:45:13.299Z">
 <meta property="article:modified_time" content="2021-02-20T03:46:16.314Z">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>异步流 async 时，得到 null 的bug | Rickie Woo's Wonder Land</title>
+  <title> | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          异步流 async 时，得到 null 的bug<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -217,11 +217,11 @@
         <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>假设模版代码中使用了asyncPipe：</p>
 <p>  obs$ | async</p>
 <p>如果obs$是一个异步得到的值，例如请求、delay等<br>那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- *.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-component</span> [<span class="attr">input</span>]=<span class="string">"asyncObservable$ | async"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- *.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-component</span> [<span class="attr">input</span>]=<span class="string">&quot;asyncObservable$ | async&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// *.ts</span></span><br><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> input(input: <span class="built_in">any</span>) &#123;</span><br><span class="line">  <span class="comment">// 如果不加判断，则在得到正确的值前，会先有 this.input$.next(null)</span></span><br><span class="line">  <span class="keyword">if</span> (input !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.input$.next(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">input$ = <span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// *.ts</span></span><br><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title">input</span>(<span class="params">input: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="comment">// 如果不加判断，则在得到正确的值前，会先有 this.input$.next(null)</span></span><br><span class="line">  <span class="keyword">if</span> (input !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">this</span>.input$.next(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">input$ = <span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="关于asyncPipe"><a href="#关于asyncPipe" class="headerlink" title="关于asyncPipe"></a>关于asyncPipe</h2><p>asyncPipe源码解析：<a href="https://www.cnblogs.com/qianxiaox/p/13750539.html" target="_blank" rel="noopener">https://www.cnblogs.com/qianxiaox/p/13750539.html</a></p>
+<h2 id="关于asyncPipe"><a href="#关于asyncPipe" class="headerlink" title="关于asyncPipe"></a>关于asyncPipe</h2><p>asyncPipe源码解析：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianxiaox/p/13750539.html">https://www.cnblogs.com/qianxiaox/p/13750539.html</a></p>
 
     </div>
 
@@ -237,12 +237,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="Angular-去除组件标签的解决方案">
-      <i class="fa fa-chevron-left"></i> Angular-去除组件标签的解决方案
+    <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/03/15/React%20hook/" rel="next" title="React hook">
-      React hook <i class="fa fa-chevron-right"></i>
+    <a href="/2021/03/15/React%20hook/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

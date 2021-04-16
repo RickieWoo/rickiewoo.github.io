@@ -22,7 +22,7 @@
 
   <meta name="description" content="InnerHtml InnerText And TextcCntent在js中，有三种方式设置&#x2F;得到DOM中HTML元素的内容 InnerHtml设置&#x2F;返回一个元素content，以新的HTML形式 12const example &#x3D; document.getElementById(‘example’)example.innerHTML &#x3D; “&lt;p&gt;This is &lt;strong">
 <meta property="og:type" content="article">
-<meta property="og:title" content="InnerHtml InnerText And TextcCntent">
+<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:url" content="http://rickiewoo.github.io/2020/07/13/InnerHtml%20InnerText%20And%20TextcCntent/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:description" content="InnerHtml InnerText And TextcCntent在js中，有三种方式设置&#x2F;得到DOM中HTML元素的内容 InnerHtml设置&#x2F;返回一个元素content，以新的HTML形式 12const example &#x3D; document.getElementById(‘example’)example.innerHTML &#x3D; “&lt;p&gt;This is &lt;strong">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>InnerHtml InnerText And TextcCntent | Rickie Woo's Wonder Land</title>
+  <title> | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          InnerHtml InnerText And TextcCntent<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/InnerHtml%20InnerText%20And%20TextcCntent.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/InnerHtml%20InnerText%20And%20TextcCntent.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -227,7 +227,7 @@
 
 
 <p>HTML5禁止在innerHtml中包含script标签，因为会产生XSS脚本攻击这类安全问题。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***以下alert将不会显示***/</span></span><br><span class="line"><span class="keyword">const</span> example1 = <span class="string">"&lt;script&gt;alert('I am an annoying alert!')&lt;/script&gt;"</span></span><br><span class="line">el.innerHTML = example1 </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> example2 = <span class="built_in">document</span>.getElementById(<span class="string">'example2'</span>)</span><br><span class="line">example2.innerHTML = <span class="string">'&lt;script deferred&gt;alert("XSS Attack");&lt;/script&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/***以下将产生脚本注入的网络问题***/</span></span><br><span class="line"><span class="keyword">const</span> example3 = <span class="string">"&lt;img src='x' onerror="</span>alert(<span class="number">1</span>)<span class="string">"</span></span><br><span class="line"><span class="string">const example4 = '&lt;img src=x onerror="</span>alert(\<span class="string">'XSS Attack\')"&gt;'</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">'&lt;img src="urlNotExist" onerror="alert(document.cookie)"&gt;'</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">'&lt;img src=x onerror="alert(\'XSS Attack\')"&gt;'</span></span><br><span class="line">&lt;button onmouseover=alert(<span class="string">'Wufff!'</span>)&gt;click me!&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">&lt;img src=j&amp;#X41vascript:alert('test2')&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***以下alert将不会显示***/</span></span><br><span class="line"><span class="keyword">const</span> example1 = <span class="string">&quot;&lt;script&gt;alert(&#x27;I am an annoying alert!&#x27;)&lt;/script&gt;&quot;</span></span><br><span class="line">el.innerHTML = example1 </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> example2 = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;example2&#x27;</span>)</span><br><span class="line">example2.innerHTML = <span class="string">&#x27;&lt;script deferred&gt;alert(&quot;XSS Attack&quot;);&lt;/script&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/***以下将产生脚本注入的网络问题***/</span></span><br><span class="line"><span class="keyword">const</span> example3 = <span class="string">&quot;&lt;img src=&#x27;x&#x27; onerror=&quot;</span>alert(<span class="number">1</span>)<span class="string">&quot;</span></span><br><span class="line"><span class="string">const example4 = &#x27;&lt;img src=x onerror=&quot;</span>alert(\<span class="string">&#x27;XSS Attack\&#x27;)&quot;&gt;&#x27;</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">&#x27;&lt;img src=&quot;urlNotExist&quot; onerror=&quot;alert(document.cookie)&quot;&gt;&#x27;</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">&#x27;&lt;img src=x onerror=&quot;alert(\&#x27;XSS Attack\&#x27;)&quot;&gt;&#x27;</span></span><br><span class="line">&lt;button onmouseover=alert(<span class="string">&#x27;Wufff!&#x27;</span>)&gt;click me!&lt;/button&gt;</span><br><span class="line">&lt;img src=j&amp;#X41vascript:alert(<span class="string">&#x27;test2&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -250,12 +250,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/30/js-%E5%85%B3%E4%BA%8E%E6%95%B0%E5%AD%97/" rel="prev" title="js-关于数字">
-      <i class="fa fa-chevron-left"></i> js-关于数字
+    <a href="/2020/06/30/js-%E5%85%B3%E4%BA%8E%E6%95%B0%E5%AD%97/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/13/Null%20is%20not%20a%20obeject/" rel="next" title="Null is not a obeject">
-      Null is not a obeject <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/13/Null%20is%20not%20a%20obeject/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

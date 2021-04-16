@@ -22,7 +22,7 @@
 
   <meta name="description" content="webpack 5 简介关于webpack v5.0.0 主要改变 通过持久缓存(Persistent Caching)提高构建性能 用更好的算法和默认值来改进长期缓存(Long Term Caching) 通过更好的 Tree Shaking 和 Code Generation 改善 bundle size 改善与 Web 平台的兼容性 在不引入 breaking change 的情况下，清理那">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webpack 5 简介">
+<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:url" content="http://rickiewoo.github.io/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:description" content="webpack 5 简介关于webpack v5.0.0 主要改变 通过持久缓存(Persistent Caching)提高构建性能 用更好的算法和默认值来改进长期缓存(Long Term Caching) 通过更好的 Tree Shaking 和 Code Generation 改善 bundle size 改善与 Web 平台的兼容性 在不引入 breaking change 的情况下，清理那">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>webpack 5 简介 | Rickie Woo's Wonder Land</title>
+  <title> | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          webpack 5 简介<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/webpack%205%20%E7%AE%80%E4%BB%8B.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/webpack%205%20%E7%AE%80%E4%BB%8B.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -230,22 +230,22 @@
 <li>通过引入 breaking change 为未来的功能做准备，并允许我们尽量长时间保持在v5</li>
 </ul>
 <h3 id="关于持久缓存（Persistent-Caching）"><a href="#关于持久缓存（Persistent-Caching）" class="headerlink" title="关于持久缓存（Persistent Caching）"></a>关于持久缓存（Persistent Caching）</h3><h4 id="什么是持久缓存？"><a href="#什么是持久缓存？" class="headerlink" title="什么是持久缓存？"></a>什么是持久缓存？</h4><blockquote>
-<p><a href="https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html" target="_blank" rel="noopener">https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html">https://jackrabbit.apache.org/oak/docs/nodestore/persistent-cache.html</a></p>
 </blockquote>
 <p>文件的持久性缓存旨在用于文档和对象的中期存储。</p>
 <p>文缓存可以选择性的使用持久缓存。在早期版本中，这种缓存类似于内存中缓存，但是除了将最近使用的节点保留在内存中之外，它还将它们存储到磁盘中。这样，很多读取行为将从存储后端（例如MongoDB）读取替换为本地磁盘读取。如果从本地磁盘读取的速度比从存储后端读取的速度快，这将特别有用。除此之外，持久缓存还可以减轻存储后端的负载。</p>
 <h4 id="Webpack-怎么做持久缓存？"><a href="#Webpack-怎么做持久缓存？" class="headerlink" title="Webpack 怎么做持久缓存？"></a>Webpack 怎么做持久缓存？</h4><blockquote>
-<p><a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching" target="_blank" rel="noopener">https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching</a></p>
-<p><a href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md" target="_blank" rel="noopener">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
+<p><a target="_blank" rel="noopener" href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching">https://webpack.js.org/blog/2020-10-10-webpack-5-release/#persistent-caching</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
 </blockquote>
 <p>#####一个可选的文件系统缓存</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  cache: &#123;</span><br><span class="line">    <span class="comment">// 1. 将缓存类型设置为文件系统</span></span><br><span class="line">    type: <span class="string">'filesystem'</span>,</span><br><span class="line"></span><br><span class="line">    buildDependencies: &#123;</span><br><span class="line">      <span class="comment">// 2. 将你的 config 添加为 buildDependency，以便在改变 config 时使缓存无效</span></span><br><span class="line">      <span class="comment">// 当配置或配置依赖于require()更改的任何内容时，这会使持久性缓存无效。</span></span><br><span class="line">      config: [__filename],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们</span></span><br><span class="line">      <span class="comment">// 注意，webpack、lodaers 和所有从你的配置中引用的模块都会被自动添加</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  cache: &#123;</span><br><span class="line">    <span class="comment">// 1. 将缓存类型设置为文件系统</span></span><br><span class="line">    type: <span class="string">&#x27;filesystem&#x27;</span>,</span><br><span class="line"></span><br><span class="line">    buildDependencies: &#123;</span><br><span class="line">      <span class="comment">// 2. 将你的 config 添加为 buildDependency，以便在改变 config 时使缓存无效</span></span><br><span class="line">      <span class="comment">// 当配置或配置依赖于require()更改的任何内容时，这会使持久性缓存无效。</span></span><br><span class="line">      config: [__filename],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们</span></span><br><span class="line">      <span class="comment">// 注意，webpack、lodaers 和所有从你的配置中引用的模块都会被自动添加</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h5 id="缓存在哪？"><a href="#缓存在哪？" class="headerlink" title="缓存在哪？"></a>缓存在哪？</h5><p>缓存将默认存储在 <code>node_modules/.cache/webpack</code>（当使用 node_modules 时）或 <code>.yarn/.cache/webpack</code>（当使用 Yarn PnP 时）中。当所有的插件都正确处理缓存时，你可能永远都不需要手动删除它。</p>
 <h5 id="谁会使用？"><a href="#谁会使用？" class="headerlink" title="谁会使用？"></a>谁会使用？</h5><p>许多内部插件也会使用持久性缓存。例如 <code>SourceMapDevToolPlugin</code> (缓存 SourceMap 的生成)或 <code>ProgressPlugin</code> (缓存模块数量)</p>
 <p>#####什么策略？</p>
 <blockquote>
-<p><a href="https://webpack.js.org/configuration/other-options/#cache" target="_blank" rel="noopener">https://webpack.js.org/configuration/other-options/#cache</a></p>
+<p><a target="_blank" rel="noopener" href="https://webpack.js.org/configuration/other-options/#cache">https://webpack.js.org/configuration/other-options/#cache</a></p>
 </blockquote>
 <p>持久性缓存将根据使用情况自动创建多个缓存文件，以优化对缓存的读写访问。</p>
 <p>算法使用hash算法，默认为md4</p>
@@ -261,7 +261,7 @@
 <p>增加了持久性缓存后，不能认为即使在 webpack 不运行时也没有其他东西改变输出目录。</p>
 <p>所以 webpack 现在会检查输出目录中现有的文件，并将其内容与内存中的输出文件进行比较。只有当文件被改变时，它才会写入文件。 这只在第一次构建时进行。在运行中的 webpack 进程中，任何增量构建都会在生成新的资产(assets)时写入文件。</p>
 <h5 id="我们怎么用？"><a href="#我们怎么用？" class="headerlink" title="我们怎么用？"></a>我们怎么用？</h5><blockquote>
-<p><a href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md" target="_blank" rel="noopener">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md">https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md</a></p>
 </blockquote>
 <p>首先，请注意默认情况下不启用持久性缓存。我们必须选择使用它。</p>
 <p>这是为什么？webpack试图强调安全性而非性能。我们不想默认启用一项功能，该功能将使您的性能提高95％，但会使您的应用程序/工作流/构建中断5％。</p>
@@ -289,18 +289,18 @@
 <h5 id="真正的内容哈希"><a href="#真正的内容哈希" class="headerlink" title="真正的内容哈希"></a>真正的内容哈希</h5><p>当使用<code>[contenthash]</code>时，Webpack 5 将使用真正的文件内容哈希值。之前它 “只 “使用内部结构的哈希值。当只有注释被修改或变量被重命名时，这对长期缓存会有积极影响。这些变化在压缩后是不可见的。</p>
 <h3 id="关于改善-bundle-size"><a href="#关于改善-bundle-size" class="headerlink" title="关于改善 bundle size"></a>关于改善 bundle size</h3><h4 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree-shaking"></a>tree-shaking</h4><p><code>import()</code>允许通过<code>/* webpackExports: [&quot;abc&quot;, &quot;default&quot;] */</code>魔术注释手动摇动模块。</p>
 <h5 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h5><p>webpack 现在能够跟踪对导出的嵌套属性的访问。（清除未使用的导出和混淆导出）</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inner.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">as</span> inner <span class="keyword">from</span> <span class="string">'./inner'</span>;</span><br><span class="line"><span class="comment">// or import * as inner from './inner'; export &#123; inner &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// user.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="built_in">module</span> <span class="keyword">from</span> <span class="string">'./module'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.inner.a);</span><br><span class="line">In <span class="keyword">this</span> example, the <span class="keyword">export</span> b can be removed <span class="keyword">in</span> production mode.</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inner.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">as</span> inner <span class="keyword">from</span> <span class="string">&#x27;./inner&#x27;</span>;</span><br><span class="line"><span class="comment">// or import * as inner from &#x27;./inner&#x27;; export &#123; inner &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// user.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="built_in">module</span> <span class="keyword">from</span> <span class="string">&#x27;./module&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.inner.a);</span><br><span class="line">In <span class="built_in">this</span> example, the <span class="keyword">export</span> b can be removed <span class="keyword">in</span> production mode.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>在这个例子中，可以在生产模式下删除导出的<code>b</code>。</p>
 <h5 id="内部模块"><a href="#内部模块" class="headerlink" title="内部模块"></a>内部模块</h5><p>webpack 4 没有分析模块的 export 和 import 之间的依赖关系。webpack 5 有一个新的选项 <code>optimization.innerGraph</code>，在生产模式下是默认启用的，它可以对模块中的标志进行分析，找出 export 和 import 之间的依赖关系。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; something &#125; <span class="keyword">from</span> <span class="string">'./something'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">usingSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> something;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> usingSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; something &#125; <span class="keyword">from</span> <span class="string">&#x27;./something&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">usingSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> something;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> usingSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>内部依赖图算法会找出 <code>something</code> 只有在使用 <code>test</code> 导出时才会使用。这允许将更多的 export 标记为未使用，并从代码包中省略更多的代码。</p>
 <p>注意：使用 <code>eval()</code> 将为一个模块放弃这个优化，因为经过 eval 的代码可以引用范围内的任何标记。这种优化也被称为深度范围分析。</p>
 <h5 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h5><p>webpack 曾经不进行对 CommonJs 导出和 <code>require()</code> 调用时的导出使用分析。</p>
 <p>webpack 5 增加了对一些 CommonJs 构造的支持，允许消除未使用的 CommonJs 导出，并从 <code>require()</code> 调用中跟踪引用的导出名称。</p>
 <h4 id="code-generation"><a href="#code-generation" class="headerlink" title="code generation"></a>code generation</h4><p>webpack会检测何时发生ASI，并且在未插入分号时会生成较短的代码。<code>Object(...)</code>-&gt;<code>(0, ...)</code></p>
-<p>webpack将多个导出 getter 合并为一个运行时函数调用：<code>r.d(x, &quot;a&quot;, () =&gt; a); r.d(x, &quot;b&quot;, () =&gt; b);</code>-&gt;<code>r.d(x, {a: () =&gt; a, b: () =&gt; b});</code></p>
+<p>webpack将多个导出 getter 合并为一个运行时函数调用：<code>r.d(x, &quot;a&quot;, () =&gt; a); r.d(x, &quot;b&quot;, () =&gt; b);</code>-&gt;<code>r.d(x, &#123;a: () =&gt; a, b: () =&gt; b&#125;);</code></p>
 <p>webpack 4仅用于发出ES5代码。webpack 5现在可以生成ES5和ES6 / ES2015代码。</p>
 <p>仅支持现代的浏览器，将使用箭头功能生成较短的代码，并使用<code>const</code>TDZ for的声明生成更多符合规范的代码<code>export default</code>。</p>
 <h3 id="关于改善与-Web-平台的兼容性"><a href="#关于改善与-Web-平台的兼容性" class="headerlink" title="关于改善与 Web 平台的兼容性"></a>关于改善与 Web 平台的兼容性</h3><h4 id="不再为-Node-js-模块-自动引用-Polyfills"><a href="#不再为-Node-js-模块-自动引用-Polyfills" class="headerlink" title="不再为 Node.js 模块 自动引用 Polyfills"></a>不再为 Node.js 模块 自动引用 Polyfills</h4><blockquote>
@@ -311,9 +311,9 @@
 <p>如果你的代码中有引用这些 <code>Node.js</code> 的模块，要升级到 <code>webpack 5</code>, 将尽量使用前端的模块，或者自行手动添加适合的 <code>Polyfills</code>。</p>
 <p>而针对那些类库的开发者，请在 <code>package.json</code> 中定义 <code>browser</code> 字段，使类库在前端能适用。</p>
 <h3 id="关于迁移"><a href="#关于迁移" class="headerlink" title="关于迁移"></a>关于迁移</h3><blockquote>
-<p>webpack迁移文档：<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">https://webpack.js.org/migrate/5/</a></p>
-<p>angular11文档：<a href="https://indepth.dev/posts/1388/angular-11-towards-type-safety" target="_blank" rel="noopener">https://indepth.dev/posts/1388/angular-11-towards-type-safety</a></p>
-<p>升级angular11文档：<a href="https://update.angular.io/?v=9.1-11.0" target="_blank" rel="noopener">https://update.angular.io/?v=9.1-11.0</a></p>
+<p>webpack迁移文档：<a target="_blank" rel="noopener" href="https://webpack.js.org/migrate/5/">https://webpack.js.org/migrate/5/</a></p>
+<p>angular11文档：<a target="_blank" rel="noopener" href="https://indepth.dev/posts/1388/angular-11-towards-type-safety">https://indepth.dev/posts/1388/angular-11-towards-type-safety</a></p>
+<p>升级angular11文档：<a target="_blank" rel="noopener" href="https://update.angular.io/?v=9.1-11.0">https://update.angular.io/?v=9.1-11.0</a></p>
 </blockquote>
 <p>webpack 5的最低node.js版本为10.13.0</p>
 <p>现状：</p>
@@ -326,11 +326,11 @@
 <p>升级到 weback = 5.0.0</p>
 <p>![image-20201214175449325](/Users/rickie/Library/Application Support/typora-user-images/image-20201214175449325.png)</p>
 <p>解决：</p>
-<p>yarn add <a href="mailto:rxjs-tslint@0.1.5">rxjs-tslint@0.1.5</a> -D</p>
+<p>yarn add <a href="mailto:&#x72;&#120;&#106;&#115;&#45;&#x74;&#115;&#108;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#x2e;&#53;">&#x72;&#120;&#106;&#115;&#45;&#x74;&#115;&#108;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#x2e;&#53;</a> -D</p>
 <p>需要指定版本。。且需要降版本到0.1.5</p>
 <p>then</p>
 <p>![image-20201214181031819](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181031819.png)</p>
-<p>By : <a href="https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs" target="_blank" rel="noopener">https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs</a></p>
+<p>By : <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs">https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs</a></p>
 <p>![image-20201214181204709](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181204709.png)</p>
 <p>finally</p>
 <p>直播项目引入了jszip，这里用了stream</p>
@@ -366,8 +366,8 @@
       <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="Angular-去除组件标签的解决方案">
-      Angular-去除组件标签的解决方案 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

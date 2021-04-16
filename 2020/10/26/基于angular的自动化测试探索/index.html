@@ -22,7 +22,7 @@
 
   <meta name="description" content="基于angular的自动化测试探索框架选择—— Jest vs Karma https:&#x2F;&#x2F;charith-rhettiarachchi.medium.com&#x2F;why-use-jest-over-karma-for-angular-testing-b56ffa82f8  JSET建立在Jasmine之上。 Jasmine是BDD的测试开发框架。零依赖且不需要DOM Jest是基于Jasmine构建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于angular的自动化测试探索">
+<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:url" content="http://rickiewoo.github.io/2020/10/26/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:description" content="基于angular的自动化测试探索框架选择—— Jest vs Karma https:&#x2F;&#x2F;charith-rhettiarachchi.medium.com&#x2F;why-use-jest-over-karma-for-angular-testing-b56ffa82f8  JSET建立在Jasmine之上。 Jasmine是BDD的测试开发框架。零依赖且不需要DOM Jest是基于Jasmine构建">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>基于angular的自动化测试探索 | Rickie Woo's Wonder Land</title>
+  <title> | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基于angular的自动化测试探索<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -221,7 +221,7 @@
 
       
         <h3 id="基于angular的自动化测试探索"><a href="#基于angular的自动化测试探索" class="headerlink" title="基于angular的自动化测试探索"></a>基于angular的自动化测试探索</h3><h5 id="框架选择——-Jest-vs-Karma"><a href="#框架选择——-Jest-vs-Karma" class="headerlink" title="框架选择—— Jest vs Karma"></a>框架选择—— Jest vs Karma</h5><blockquote>
-<p><a href="https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8" target="_blank" rel="noopener">https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8</a></p>
+<p><a target="_blank" rel="noopener" href="https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8">https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8</a></p>
 </blockquote>
 <p>JSET建立在Jasmine之上。</p>
 <p>Jasmine是BDD的测试开发框架。零依赖且不需要DOM</p>
@@ -230,7 +230,7 @@
 <ul>
 <li>Jest比Karma测试快2到3倍</li>
 <li>Jest拥有快照测试<ul>
-<li>首次运行测试时，可以将<strong>.toMatchSnapshot（）</strong>添加到组件中。</li>
+<li>首次运行测试时，可以将**.toMatchSnapshot（）**添加到组件中。</li>
 </ul>
 </li>
 <li>更好的持续集成<ul>
@@ -239,13 +239,13 @@
 </ul>
 </li>
 <li>更少的配置<ul>
-<li>Jest的哲学之一是提供集成的“零配置”体验</li>
+<li> Jest的哲学之一是提供集成的“零配置”体验</li>
 </ul>
 </li>
 </ul>
 <h4 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h4><h5 id="TestBed"><a href="#TestBed" class="headerlink" title="TestBed"></a>TestBed</h5><p>这是 angular测试模块的基本构件块，它实际上创建了一个模拟<code>NgModule</code>的动态构建的测试模块，输入<code>TestBed.configureTestingModule()</code>的元数据也跟<code>NgModule</code>中的很相似。</p>
 <p>实际上TestBed创建了一个动态测试模块，而beforeEach() 则是在每个case运行前调用的。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'AppComponent'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> appComponent: AppComponent;</span><br><span class="line">	</span><br><span class="line">  beforeEach(<span class="keyword">async</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    TestBed.configureTestingModule(&#123;</span><br><span class="line">      imports: [</span><br><span class="line">        RouterTestingModule</span><br><span class="line">      ],</span><br><span class="line">      declarations: [</span><br><span class="line">        AppComponent</span><br><span class="line">      ],</span><br><span class="line">      schemas: [ NO_ERRORS_SCHEMA ]</span><br><span class="line">    &#125;).compileComponents();</span><br><span class="line">  &#125;));</span><br><span class="line">  </span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> fixture = TestBed.createComponent(AppComponent);</span><br><span class="line">    appComponent = fixture.debugElement.componentInstance;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should create the app'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    expect(appComponent).toBeTruthy();</span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&#x27;AppComponent&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> appComponent: AppComponent;</span><br><span class="line">	</span><br><span class="line">  beforeEach(<span class="keyword">async</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    TestBed.configureTestingModule(&#123;</span><br><span class="line">      imports: [</span><br><span class="line">        RouterTestingModule</span><br><span class="line">      ],</span><br><span class="line">      declarations: [</span><br><span class="line">        AppComponent</span><br><span class="line">      ],</span><br><span class="line">      schemas: [ NO_ERRORS_SCHEMA ]</span><br><span class="line">    &#125;).compileComponents();</span><br><span class="line">  &#125;));</span><br><span class="line">  </span><br><span class="line">  beforeEach(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> fixture = TestBed.createComponent(AppComponent);</span><br><span class="line">    appComponent = fixture.debugElement.componentInstance;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">&#x27;should create the app&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    expect(appComponent).toBeTruthy();</span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h5 id="compileComponents"><a href="#compileComponents" class="headerlink" title="compileComponents()"></a>compileComponents()</h5><p>如果要使用外部文件创建组件，例如styleUrls、templateUrl，则需要在创建组件之前从文件系统读取这些文件，这是异步操作，因此整个配置都放在异步函数中。</p>
 <p>实际上，compileComponents是异步的从文件系统读取外部文件并编译相应的组件，如果我们使用angular cli运行测试则无需执行此操作，因为cli在测试前会编译所有的代码。</p>
@@ -257,7 +257,7 @@
 <li>当测试组件有service依赖时，使用mock service</li>
 <li>访问DOM使用<strong>debugElement</strong>而不是<strong>nativeElement</strong>。因为<strong>debugElement</strong>提供了抽象基础运行环境。</li>
 <li>使用<strong>By.css</strong>而不是<strong>querySelector</strong>，因为querySelector只在浏览器中有效，当应用在服务上运行时会失败</li>
-<li>使用<strong>fixture.detectChanges()</strong>而不是<strong>ComponentFixtureAutoDetect</strong>，<strong>ComponentFixtureAutoDetect</strong>无法检测到同步更新</li>
+<li>使用<strong>fixture.detectChanges()<strong>而不是</strong>ComponentFixtureAutoDetect</strong>，<strong>ComponentFixtureAutoDetect</strong>无法检测到同步更新</li>
 <li>不要过度使用NO_ERRORS_SCHEMA，它会忽略所有的属性和无法识别的标签</li>
 </ul>
 <h4 id="RxJS-弹珠测试"><a href="#RxJS-弹珠测试" class="headerlink" title="RxJS 弹珠测试"></a>RxJS 弹珠测试</h4><h5 id="TestScheduler-amp-RunHelpers"><a href="#TestScheduler-amp-RunHelpers" class="headerlink" title="TestScheduler &amp; RunHelpers"></a>TestScheduler &amp; RunHelpers</h5><p>TestScheduler有一个名为run的回调函数，接受一个RunHelpers类型的参数，该参数提供了弹珠测试所需的所有辅助方法。</p>
@@ -284,8 +284,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/08/17/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6/" rel="prev" title="RxJs -操作符">
-      <i class="fa fa-chevron-left"></i> RxJs -操作符
+    <a href="/2020/08/17/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/11/20/Q&A%20with%20yaogangqiang/" rel="next" title="">
