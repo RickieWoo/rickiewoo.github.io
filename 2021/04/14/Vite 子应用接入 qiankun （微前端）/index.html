@@ -22,14 +22,18 @@
 
   <meta name="description" content="Vite 子应用接入 qiankun （微前端）Vite 暂时没有作为微应用接入 QIANKUN 的官方教程，因此在这里给出 Vite 与 webpack 配置的不同之处 官网配置react微应用地址： https:&#x2F;&#x2F;qiankun.umijs.org&#x2F;zh&#x2F;guide&#x2F;tutorial#react-%E5%BE%AE%E5%BA%94%E7%94%A8  第一步：不需要   在 src 目录新">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:title" content="Vite 子应用接入 qiankun （微前端）">
 <meta property="og:url" content="http://rickiewoo.github.io/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:description" content="Vite 子应用接入 qiankun （微前端）Vite 暂时没有作为微应用接入 QIANKUN 的官方教程，因此在这里给出 Vite 与 webpack 配置的不同之处 官网配置react微应用地址： https:&#x2F;&#x2F;qiankun.umijs.org&#x2F;zh&#x2F;guide&#x2F;tutorial#react-%E5%BE%AE%E5%BA%94%E7%94%A8  第一步：不需要   在 src 目录新">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-14T10:38:58.714Z">
-<meta property="article:modified_time" content="2021-04-15T10:32:01.654Z">
+<meta property="article:modified_time" content="2021-04-16T08:19:30.203Z">
 <meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Vite">
+<meta property="article:tag" content="QIANKUN">
+<meta property="article:tag" content="微前端">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://rickiewoo.github.io/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/">
@@ -45,7 +49,7 @@
   };
 </script>
 
-  <title> | Rickie Woo's Wonder Land</title>
+  <title>Vite 子应用接入 qiankun （微前端） | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +193,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          Vite 子应用接入 qiankun （微前端）<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -206,8 +210,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:32:01" itemprop="dateModified" datetime="2021-04-15T18:32:01+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-16 16:19:30" itemprop="dateModified" datetime="2021-04-16T16:19:30+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Trick/" itemprop="url" rel="index"><span itemprop="name">Trick</span></a>
+                </span>
+            </span>
 
           
 
@@ -263,7 +276,7 @@
 <p>![image-20210415112126424](/Users/rickie/Library/Application Support/typora-user-images/image-20210415112126424.png)</p>
 <p>而vite之所以是vite，最大的特点就是生产环境使用ESM，但是显然QIANKUN尚不支持，因此做了一个妥协方案：在打包的时候选择打包为lib，并将格式指定为umd。</p>
 <p><em>注意：此处名称需要与主应用中 entry name 保持一致，而非官网中的 ${name}-[name]。否则会报错：生命周期的钩子函数没有暴露出来</em></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  lib: &#123;</span><br><span class="line">    name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>, </span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>), <span class="comment">// 这里 entry 是暴露出生命周期钩子的文件，本文中为main.tsx</span></span><br><span class="line">    formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  lib: &#123;</span><br><span class="line">    name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>), <span class="comment">// 这里 entry 是暴露出生命周期钩子的文件，本文中为main.tsx</span></span><br><span class="line">    formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配置完成后，build一下，如果出现报错： UMD and IIFE output formats are not supported for code-splitting builds.</p>
 <p>则需将<code>rollup</code>的*<code>inlineDynamicImports</code>*打开</p>
@@ -314,6 +327,12 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/Vite/" rel="tag"># Vite</a>
+              <a href="/tags/QIANKUN/" rel="tag"># QIANKUN</a>
+              <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag"># 微前端</a>
+          </div>
 
         
 
@@ -321,8 +340,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/" rel="prev" title="状态管理">
+      <i class="fa fa-chevron-left"></i> 状态管理
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -412,7 +431,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

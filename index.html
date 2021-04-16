@@ -187,7 +187,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" class="post-title-link" itemprop="url">Vite 子应用接入 qiankun （微前端）</a>
         </h2>
 
         <div class="post-meta">
@@ -204,8 +204,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:32:01" itemprop="dateModified" datetime="2021-04-15T18:32:01+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-16 16:19:30" itemprop="dateModified" datetime="2021-04-16T16:19:30+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Trick/" itemprop="url" rel="index"><span itemprop="name">Trick</span></a>
+                </span>
+            </span>
 
           
 
@@ -261,7 +270,7 @@
 <p>![image-20210415112126424](/Users/rickie/Library/Application Support/typora-user-images/image-20210415112126424.png)</p>
 <p>而vite之所以是vite，最大的特点就是生产环境使用ESM，但是显然QIANKUN尚不支持，因此做了一个妥协方案：在打包的时候选择打包为lib，并将格式指定为umd。</p>
 <p><em>注意：此处名称需要与主应用中 entry name 保持一致，而非官网中的 ${name}-[name]。否则会报错：生命周期的钩子函数没有暴露出来</em></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  lib: &#123;</span><br><span class="line">    name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>, </span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>), <span class="comment">// 这里 entry 是暴露出生命周期钩子的文件，本文中为main.tsx</span></span><br><span class="line">    formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  lib: &#123;</span><br><span class="line">    name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>), <span class="comment">// 这里 entry 是暴露出生命周期钩子的文件，本文中为main.tsx</span></span><br><span class="line">    formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配置完成后，build一下，如果出现报错： UMD and IIFE output formats are not supported for code-splitting builds.</p>
 <p>则需将<code>rollup</code>的*<code>inlineDynamicImports</code>*打开</p>
@@ -337,7 +346,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/" class="post-title-link" itemprop="url">状态管理</a>
         </h2>
 
         <div class="post-meta">
@@ -354,8 +363,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-14 18:34:58" itemprop="dateModified" datetime="2021-04-14T18:34:58+08:00">2021-04-14</time>
+                <time title="Modified: 2021-04-16 16:12:23" itemprop="dateModified" datetime="2021-04-16T16:12:23+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -482,7 +500,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/29/Flux/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/03/29/Flux/" class="post-title-link" itemprop="url">Flux学习笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -491,9 +509,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-03-29 10:39:57 / Modified: 19:57:53" itemprop="dateCreated datePublished" datetime="2021-03-29T10:39:57+08:00">2021-03-29</time>
+              <time title="Created: 2021-03-29 10:39:57" itemprop="dateCreated datePublished" datetime="2021-03-29T10:39:57+08:00">2021-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:18:25" itemprop="dateModified" datetime="2021-04-16T16:18:25+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
             </span>
 
           
@@ -526,7 +559,7 @@
 <p>DataManagers只应该被store调用。</p>
 <p>TODO</p>
 <ul>
-<li>flux的缺点    <ul>
+<li>flux的缺点<ul>
 <li>多个store有什么优缺点</li>
 </ul>
 </li>
@@ -564,7 +597,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/26/Redux/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/03/26/Redux/" class="post-title-link" itemprop="url">Redux 学习笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -581,8 +614,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:58:01" itemprop="dateModified" datetime="2021-04-15T18:58:01+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-16 16:17:03" itemprop="dateModified" datetime="2021-04-16T16:17:03+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -673,7 +715,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/19/TemplateRef/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/03/19/TemplateRef/" class="post-title-link" itemprop="url">TemplateRef 学习</a>
         </h2>
 
         <div class="post-meta">
@@ -690,8 +732,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:36:50" itemprop="dateModified" datetime="2021-04-15T18:36:50+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-16 16:19:12" itemprop="dateModified" datetime="2021-04-16T16:19:12+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -816,7 +867,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/15/React%20hook/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/03/15/React%20hook/" class="post-title-link" itemprop="url">React hook</a>
         </h2>
 
         <div class="post-meta">
@@ -833,8 +884,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-16 14:35:32" itemprop="dateModified" datetime="2021-03-16T14:35:32+08:00">2021-03-16</time>
+                <time title="Modified: 2021-04-16 16:16:46" itemprop="dateModified" datetime="2021-04-16T16:16:46+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -870,7 +930,7 @@
 <li>返回值：返回一个函数指定如何清除副作用</li>
 </ul>
 </li>
-<li>一个数组：如果这个数组中所有元素与上一次相等，则会跳过这次effect，性能优化点 </li>
+<li>一个数组：如果这个数组中所有元素与上一次相等，则会跳过这次effect，性能优化点</li>
 </ul>
 </li>
 <li></li>
@@ -934,7 +994,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/20/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/02/20/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/" class="post-title-link" itemprop="url">异步流 async 时，得到 null 的bug</a>
         </h2>
 
         <div class="post-meta">
@@ -943,9 +1003,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-20 11:45:13 / Modified: 11:46:16" itemprop="dateCreated datePublished" datetime="2021-02-20T11:45:13+08:00">2021-02-20</time>
+              <time title="Created: 2021-02-20 11:45:13" itemprop="dateCreated datePublished" datetime="2021-02-20T11:45:13+08:00">2021-02-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:12:31" itemprop="dateModified" datetime="2021-04-16T16:12:31+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
+                </span>
             </span>
 
           
@@ -1000,7 +1075,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">Angular-去除组件标签的解决方案</a>
         </h2>
 
         <div class="post-meta">
@@ -1017,8 +1092,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-17 19:13:29" itemprop="dateModified" datetime="2021-03-17T19:13:29+08:00">2021-03-17</time>
+                <time title="Modified: 2021-04-16 16:12:19" itemprop="dateModified" datetime="2021-04-16T16:12:19+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
+                </span>
+            </span>
 
           
 
@@ -1039,7 +1123,7 @@
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- table-header.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-template</span> #<span class="attr">tableHeader</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">th</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of data&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* style.css */</span></span><br><span class="line"><span class="comment">/* 删除 app-table-header 标签 */</span></span><br><span class="line">app-<span class="selector-tag">table</span>-<span class="selector-tag">header</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: non</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* style.css */</span></span><br><span class="line"><span class="comment">/* 删除 app-table-header 标签 */</span></span><br><span class="line">app-<span class="selector-tag">table</span>-<span class="selector-tag">header</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: non</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1073,7 +1157,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">webpack 5 简介</a>
         </h2>
 
         <div class="post-meta">
@@ -1090,8 +1174,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-15 13:32:36" itemprop="dateModified" datetime="2020-12-15T13:32:36+08:00">2020-12-15</time>
+                <time title="Modified: 2021-04-16 16:12:55" itemprop="dateModified" datetime="2021-04-16T16:12:55+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -1210,7 +1303,7 @@
 <p>升级到 weback = 5.0.0</p>
 <p>![image-20201214175449325](/Users/rickie/Library/Application Support/typora-user-images/image-20201214175449325.png)</p>
 <p>解决：</p>
-<p>yarn add <a href="mailto:&#x72;&#120;&#106;&#115;&#45;&#x74;&#115;&#108;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#x2e;&#53;">&#x72;&#120;&#106;&#115;&#45;&#x74;&#115;&#108;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#x2e;&#53;</a> -D</p>
+<p>yarn add <a href="mailto:&#x72;&#x78;&#106;&#x73;&#45;&#x74;&#115;&#108;&#x69;&#110;&#x74;&#x40;&#48;&#x2e;&#49;&#x2e;&#53;">&#x72;&#x78;&#106;&#x73;&#45;&#x74;&#115;&#108;&#x69;&#110;&#x74;&#x40;&#48;&#x2e;&#49;&#x2e;&#53;</a> -D</p>
 <p>需要指定版本。。且需要降版本到0.1.5</p>
 <p>then</p>
 <p>![image-20201214181031819](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181031819.png)</p>
@@ -1264,7 +1357,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/20/Q&A%20with%20yaogangqiang/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2020/11/20/Q&A%20with%20yaogangqiang/" class="post-title-link" itemprop="url">记一次ONE-ONE</a>
         </h2>
 
         <div class="post-meta">
@@ -1281,8 +1374,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:52:31" itemprop="dateModified" datetime="2021-04-15T18:52:31+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-16 16:18:54" itemprop="dateModified" datetime="2021-04-16T16:18:54+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
+                </span>
+            </span>
 
           
 
@@ -1494,7 +1596,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

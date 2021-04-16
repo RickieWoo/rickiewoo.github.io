@@ -22,14 +22,15 @@
 
   <meta name="description" content="状态管理https:&#x2F;&#x2F;daveceddia.com&#x2F;react-state-management&#x2F; Redux通常与React捆绑在一起，但是其核心是独立的，因此可以与任何UI库或框架一起使用。  缺点： 陡峭的学习曲线 冗长的 action 到 reducer  的过程（严重依赖不变性）   优点 最大的社区和生态系统 官方Redux Toolkit库减少了样板代码 size Time tra">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:title" content="状态管理">
 <meta property="og:url" content="http://rickiewoo.github.io/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/index.html">
 <meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
 <meta property="og:description" content="状态管理https:&#x2F;&#x2F;daveceddia.com&#x2F;react-state-management&#x2F; Redux通常与React捆绑在一起，但是其核心是独立的，因此可以与任何UI库或框架一起使用。  缺点： 陡峭的学习曲线 冗长的 action 到 reducer  的过程（严重依赖不变性）   优点 最大的社区和生态系统 官方Redux Toolkit库减少了样板代码 size Time tra">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-13T03:03:26.134Z">
-<meta property="article:modified_time" content="2021-04-14T10:34:58.110Z">
+<meta property="article:modified_time" content="2021-04-16T08:12:23.756Z">
 <meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://rickiewoo.github.io/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/">
@@ -45,7 +46,7 @@
   };
 </script>
 
-  <title> | Rickie Woo's Wonder Land</title>
+  <title>状态管理 | Rickie Woo's Wonder Land</title>
   
 
 
@@ -189,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          <a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          状态管理<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -206,8 +207,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-14 18:34:58" itemprop="dateModified" datetime="2021-04-14T18:34:58+08:00">2021-04-14</time>
+                <time title="Modified: 2021-04-16 16:12:23" itemprop="dateModified" datetime="2021-04-16T16:12:23+08:00">2021-04-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
 
           
 
@@ -309,6 +319,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+          </div>
 
         
 
@@ -316,12 +329,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/03/29/Flux/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2021/03/29/Flux/" rel="prev" title="Flux学习笔记">
+      <i class="fa fa-chevron-left"></i> Flux学习笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
+    <a href="/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" rel="next" title="Vite 子应用接入 qiankun （微前端）">
+      Vite 子应用接入 qiankun （微前端） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -410,7 +423,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
