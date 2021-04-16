@@ -581,7 +581,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-15 18:45:51" itemprop="dateModified" datetime="2021-04-15T18:45:51+08:00">2021-04-15</time>
+                <time title="Modified: 2021-04-15 18:58:01" itemprop="dateModified" datetime="2021-04-15T18:58:01+08:00">2021-04-15</time>
               </span>
 
           
@@ -622,8 +622,9 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif" alt="Redux data flow diagram"></p>
-<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. plain object</span></span><br><span class="line"><span class="comment">// 2. has a type</span></span><br><span class="line"><span class="comment">// 3. whatever else you want</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">&quot;USER_LOGGED_IN&quot;</span>,</span><br><span class="line">  username: <span class="string">&quot;dave&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- ![Redux data flow diagram](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif) -->
+
+<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. plain object</span></span><br><span class="line"><span class="comment">// 2. has a type</span></span><br><span class="line"><span class="comment">// 3. whatever else you want</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">&quot;USER_LOGGED_IN&quot;</span>,</span><br><span class="line">  username: <span class="string">&quot;rickieWoo&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>action是具有type属性的普通对象</p>
 <h3 id="action-creators"><a href="#action-creators" class="headerlink" title="action creators"></a>action creators</h3><p>而且，由于总是手动编写这些对象会很烦人（更不用说容易出错），因此Redux具有“action creators”的概念，可以将这些内容淘汰掉</p>
