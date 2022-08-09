@@ -1083,103 +1083,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/05/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/" class="post-title-link" itemprop="url">软件设计的哲学</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2021-05-03T18:24:57+08:00">2021-05-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 22:27:55" itemprop="dateModified" datetime="2022-08-09T22:27:55+08:00">2022-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="软件设计的哲学"><a href="#软件设计的哲学" class="headerlink" title="软件设计的哲学"></a>软件设计的哲学</h1><p>学习这本书的目的</p>
-<ol>
-<li>认识什么是复杂性，为什么很重要，如何识别一个程序具有不必要的复杂性？</li>
-<li>如何最小化复杂性</li>
-</ol>
-<h2 id="什么是复杂性？"><a href="#什么是复杂性？" class="headerlink" title="什么是复杂性？"></a>什么是复杂性？</h2><h3 id="复杂性的定义"><a href="#复杂性的定义" class="headerlink" title="复杂性的定义"></a>复杂性的定义</h3><p>从实际角度出发，复杂性是与软件系统结构有关的<em>任何东西</em>，它使系统变得难以理解和修改。</p>
-<p>从成本和收益的角度出发，在一个复杂的系统中，即使是很小的改进也需要很大的工作量实现，而在一个简单系统中，一个很大的改进可以用更少的努力实现。</p>
-<p><em>TODO：如何衡量很小的改进与很大的工作量所谓的大小？</em></p>
-<p>复杂性的描述：</p>
-<p><img src="../post-images/image-20210607161815785.png" alt="image-20210607161815785"></p>
-<p>一个系统的总体复杂度(C)是由每个部分p (cp)的复杂度决定的，而每个部分p (cp)的复杂度是由开发人员在该部分(tp)上花费的时间所占的比例决定的。</p>
-<h3 id="复杂性的症状"><a href="#复杂性的症状" class="headerlink" title="复杂性的症状"></a>复杂性的症状</h3><h4 id="变更放大"><a href="#变更放大" class="headerlink" title="变更放大"></a>变更放大</h4><p>很小的改进，需要很大的改动</p>
-<h4 id="认知负荷"><a href="#认知负荷" class="headerlink" title="认知负荷"></a>认知负荷</h4><p>开发人员为了完成一项任务需要知道多少</p>
-<h4 id="未知的未知"><a href="#未知的未知" class="headerlink" title="未知的未知"></a>未知的未知</h4><p>最可怕。必须修改哪些代码才能完成任务，或者开发人员必须获得哪些信息才能成功地执行任务，这些都是不明显的。简单说就是，改一个功能的时候不知道也应该改另一个地方。</p>
-<h3 id="复杂性的原因"><a href="#复杂性的原因" class="headerlink" title="复杂性的原因"></a>复杂性的原因</h3><p><strong>依赖会导致变化放大和高认知负荷。晦涩（模糊）创造了未知的未知，也增加了认知负荷。如果我们能找到最小化依赖和模糊的设计技术，那么我们就能降低软件的复杂性。</strong></p>
-<h4 id="依赖性"><a href="#依赖性" class="headerlink" title="依赖性"></a>依赖性</h4><p><strong>软件设计的目标之一是减少依赖项的数量，并使依赖项尽可能简单和明显。</strong></p>
-<h4 id="模糊性"><a href="#模糊性" class="headerlink" title="模糊性"></a>模糊性</h4><p>当重要的信息不明显时，就会发生模糊。</p>
-<p>减少模糊的最佳方法是简化系统设计。</p>
-<h3 id="复杂性是递增的"><a href="#复杂性是递增的" class="headerlink" title="复杂性是递增的"></a>复杂性是递增的</h3><p>就像上面复杂性的定义一样，是众多复杂的小模块累计的。需要每个模块的编写都注意，才能更好的整体降低复杂性。</p>
-<h2 id="编程的战术和策略"><a href="#编程的战术和策略" class="headerlink" title="编程的战术和策略"></a>编程的战术和策略</h2><p>战术编程：只关注于当前功能，不花太多时间精力放在规划上；当快速的feature上线不久后，复杂问题产生了，此时可以重构/打补丁，但是重构会降低当前任务的进度，而补丁是快速的。但是长久下去……系统就越来越复杂。</p>
-<h3 id="战略规划"><a href="#战略规划" class="headerlink" title="战略规划"></a>战略规划</h3><p>更考虑未来，战略性设计自己当前的系统。前瞻性。</p>
-<p><em>如何做到？建议？</em></p>
-<p>一笔巨大的前期投资，比如试图设计整个系统，是不会有效的。这就是瀑布法，我们知道它行不通。随着对系统的经验的积累，理想的设计往往会零零碎碎地出现。因此，<strong>最好的方法是在连续的基础上进行大量的小额投资。</strong></p>
-<p> 建议：将总开发时间的 10-20%用于投资。这个量足够小，不会对日程安排产生重大影响，但是足够大，随着时间的推移会产生显著的好处。因此，最初的项目将比纯战术方法多花费 10-20%的时间。这些额外的时间将导致更好的软件设计，并且将在几个月内开始体验这些好处。用不了多久，你的开发速度就会比战术编程至少快 10-20%。在这一点上，你的投资是免费的:从你过去的投资中获得的收益将节省足够的时间来弥补未来投资的成本。你将很快收回最初投资的成本。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/05/03/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1316,6 +1219,103 @@
 <h3 id="结合Redux"><a href="#结合Redux" class="headerlink" title="结合Redux"></a>结合Redux</h3><p><strong>您可以同时使用Redux和Context，并且可以<code>useReducer</code>一起使用！</strong> 我们特别鼓励<a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-2-app-structure#component-state-and-forms">在Redux中放置“全局状态”，在React组件中放置“本地状态”</a>，并<a target="_blank" rel="noopener" href="https://redux.js.org/style-guide/style-guide#evaluate-where-each-piece-of-state-should-live">仔细决定每个状态应该处于Redux还是组件状态</a>。因此，您可以<code>useReducer</code>在同一应用程序中同时将Redux用于全局的某些状态，将+ Context用于更局部的状态，将Context本身用于某些半静态值。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.isquaredsoftware.com/2021/01/context-redux-differences/">了解Context与Redux的不同之处</a></p>
 <h2 id="Dova-。。。"><a href="#Dova-。。。" class="headerlink" title="Dova 。。。"></a>Dova 。。。</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/05/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/" class="post-title-link" itemprop="url">软件设计的哲学</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2021-05-03T18:24:57+08:00">2021-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:27:55" itemprop="dateModified" datetime="2022-08-09T22:27:55+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="软件设计的哲学"><a href="#软件设计的哲学" class="headerlink" title="软件设计的哲学"></a>软件设计的哲学</h1><p>学习这本书的目的</p>
+<ol>
+<li>认识什么是复杂性，为什么很重要，如何识别一个程序具有不必要的复杂性？</li>
+<li>如何最小化复杂性</li>
+</ol>
+<h2 id="什么是复杂性？"><a href="#什么是复杂性？" class="headerlink" title="什么是复杂性？"></a>什么是复杂性？</h2><h3 id="复杂性的定义"><a href="#复杂性的定义" class="headerlink" title="复杂性的定义"></a>复杂性的定义</h3><p>从实际角度出发，复杂性是与软件系统结构有关的<em>任何东西</em>，它使系统变得难以理解和修改。</p>
+<p>从成本和收益的角度出发，在一个复杂的系统中，即使是很小的改进也需要很大的工作量实现，而在一个简单系统中，一个很大的改进可以用更少的努力实现。</p>
+<p><em>TODO：如何衡量很小的改进与很大的工作量所谓的大小？</em></p>
+<p>复杂性的描述：</p>
+<p><img src="../post-images/image-20210607161815785.png" alt="image-20210607161815785"></p>
+<p>一个系统的总体复杂度(C)是由每个部分p (cp)的复杂度决定的，而每个部分p (cp)的复杂度是由开发人员在该部分(tp)上花费的时间所占的比例决定的。</p>
+<h3 id="复杂性的症状"><a href="#复杂性的症状" class="headerlink" title="复杂性的症状"></a>复杂性的症状</h3><h4 id="变更放大"><a href="#变更放大" class="headerlink" title="变更放大"></a>变更放大</h4><p>很小的改进，需要很大的改动</p>
+<h4 id="认知负荷"><a href="#认知负荷" class="headerlink" title="认知负荷"></a>认知负荷</h4><p>开发人员为了完成一项任务需要知道多少</p>
+<h4 id="未知的未知"><a href="#未知的未知" class="headerlink" title="未知的未知"></a>未知的未知</h4><p>最可怕。必须修改哪些代码才能完成任务，或者开发人员必须获得哪些信息才能成功地执行任务，这些都是不明显的。简单说就是，改一个功能的时候不知道也应该改另一个地方。</p>
+<h3 id="复杂性的原因"><a href="#复杂性的原因" class="headerlink" title="复杂性的原因"></a>复杂性的原因</h3><p><strong>依赖会导致变化放大和高认知负荷。晦涩（模糊）创造了未知的未知，也增加了认知负荷。如果我们能找到最小化依赖和模糊的设计技术，那么我们就能降低软件的复杂性。</strong></p>
+<h4 id="依赖性"><a href="#依赖性" class="headerlink" title="依赖性"></a>依赖性</h4><p><strong>软件设计的目标之一是减少依赖项的数量，并使依赖项尽可能简单和明显。</strong></p>
+<h4 id="模糊性"><a href="#模糊性" class="headerlink" title="模糊性"></a>模糊性</h4><p>当重要的信息不明显时，就会发生模糊。</p>
+<p>减少模糊的最佳方法是简化系统设计。</p>
+<h3 id="复杂性是递增的"><a href="#复杂性是递增的" class="headerlink" title="复杂性是递增的"></a>复杂性是递增的</h3><p>就像上面复杂性的定义一样，是众多复杂的小模块累计的。需要每个模块的编写都注意，才能更好的整体降低复杂性。</p>
+<h2 id="编程的战术和策略"><a href="#编程的战术和策略" class="headerlink" title="编程的战术和策略"></a>编程的战术和策略</h2><p>战术编程：只关注于当前功能，不花太多时间精力放在规划上；当快速的feature上线不久后，复杂问题产生了，此时可以重构/打补丁，但是重构会降低当前任务的进度，而补丁是快速的。但是长久下去……系统就越来越复杂。</p>
+<h3 id="战略规划"><a href="#战略规划" class="headerlink" title="战略规划"></a>战略规划</h3><p>更考虑未来，战略性设计自己当前的系统。前瞻性。</p>
+<p><em>如何做到？建议？</em></p>
+<p>一笔巨大的前期投资，比如试图设计整个系统，是不会有效的。这就是瀑布法，我们知道它行不通。随着对系统的经验的积累，理想的设计往往会零零碎碎地出现。因此，<strong>最好的方法是在连续的基础上进行大量的小额投资。</strong></p>
+<p> 建议：将总开发时间的 10-20%用于投资。这个量足够小，不会对日程安排产生重大影响，但是足够大，随着时间的推移会产生显著的好处。因此，最初的项目将比纯战术方法多花费 10-20%的时间。这些额外的时间将导致更好的软件设计，并且将在几个月内开始体验这些好处。用不了多久，你的开发速度就会比战术编程至少快 10-20%。在这一点上，你的投资是免费的:从你过去的投资中获得的收益将节省足够的时间来弥补未来投资的成本。你将很快收回最初投资的成本。</p>
+
       
     </div>
 
