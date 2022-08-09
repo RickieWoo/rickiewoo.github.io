@@ -624,6 +624,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">函数传参到底是值传递</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2018-05-03T18:24:57+08:00">2018-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>结论：</p>
+<p>红宝书上说都是值传递</p>
+<p>传递对象的时候也是值传递，本来传递的东西就是该对象的引用，所以全是值传递！</p>
+<p>内部机制：</p>
+<p>其实函数接受参数之前，会先在函数作用域内创建一个局部变量，并把传入的参数赋予创建的局部变量，如果值类型传递，就是重新开辟一块内存存储传入变量的值，并把新创建的变量指向此内存地址，因此对此变量的修改并不会影响到外部变量的值；</p>
+<p>如果传入的不是值类型，则仅仅是对变量进行引用赋值操作，只是把新创建的局部变量指向外部变量的地址，因此对局部变量的修改就相当于对外部变量的修改。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -746,7 +825,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
@@ -760,7 +839,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">函数传参到底是值传递</a>
+            <a href="/2018/05/03/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">微前端菜单迁移解决方案</a>
         </h2>
 
         <div class="post-meta">
@@ -777,7 +856,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+                <time title="Modified: 2022-08-09 22:27:22" itemprop="dateModified" datetime="2022-08-09T22:27:22+08:00">2022-08-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -785,7 +864,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
                 </span>
             </span>
 
@@ -800,93 +879,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>结论：</p>
-<p>红宝书上说都是值传递</p>
-<p>传递对象的时候也是值传递，本来传递的东西就是该对象的引用，所以全是值传递！</p>
-<p>内部机制：</p>
-<p>其实函数接受参数之前，会先在函数作用域内创建一个局部变量，并把传入的参数赋予创建的局部变量，如果值类型传递，就是重新开辟一块内存存储传入变量的值，并把新创建的变量指向此内存地址，因此对此变量的修改并不会影响到外部变量的值；</p>
-<p>如果传入的不是值类型，则仅仅是对变量进行引用赋值操作，只是把新创建的局部变量指向外部变量的地址，因此对局部变量的修改就相当于对外部变量的修改。</p>
+          <h1 id="微前端菜单迁移解决方案"><a href="#微前端菜单迁移解决方案" class="headerlink" title="微前端菜单迁移解决方案"></a>微前端菜单迁移解决方案</h1><p>web compoent 编写约定：componentName 需与文件名一致(<code>zts-$&#123;fileName&#125;</code>)</p>
+<p>[TOC]</p>
+<h2 id="zts-web"><a href="#zts-web" class="headerlink" title="zts-web"></a>zts-web</h2><h4 id="样式隔离"><a href="#样式隔离" class="headerlink" title="样式隔离"></a>样式隔离</h4><p>在webComponentLoader中，将script和style都append到shadow DOM节点中，可以有效的样式隔离。但是由于popover、modal等弹出层会唤起 cdk-overlay ，在shadowDOM外面，因此此处antd的样式会被ng-zorro影响，导致样式混乱。随着进一步的迁移，未来web component应用到angular站的场景可能会增多，因此考虑将zts项目中打包的web component统一修改antd样式的prefix。具体的修改如下：</p>
+<h4 id="webpack-webcomponentify-config"><a href="#webpack-webcomponentify-config" class="headerlink" title="webpack.webcomponentify.config"></a>webpack.webcomponentify.config</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 此处 style 要从 css 改为 true，默认使用less才能使用 modifyVars 修改 prefix</span></span><br><span class="line"><span class="string">&quot;plugins&quot;</span>: [</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&quot;import&quot;</span>, &#123;</span><br><span class="line">      <span class="string">&quot;libraryName&quot;</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="string">&quot;style&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改less loader 中，变量 ant-prefix 的值</span></span><br><span class="line">&#123;</span><br><span class="line">  test: <span class="regexp">/\.(css|less)?$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">      MiniCssExtractPlugin.loader,</span><br><span class="line">      <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="built_in">require</span>.resolve(<span class="string">&#x27;less-loader&#x27;</span>),</span><br><span class="line">        options: &#123;</span><br><span class="line">          lessOptions: &#123;</span><br><span class="line">            javascriptEnabled: <span class="literal">true</span>,</span><br><span class="line">            modifyVars: &#123;</span><br><span class="line">              <span class="string">&#x27;ant-prefix&#x27;</span>: <span class="string">&#x27;zts-ant&#x27;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h4 id="webComponent"><a href="#webComponent" class="headerlink" title="webComponent/*"></a>webComponent/*</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; container.tsx</span><br><span class="line">&#x2F;&#x2F; 给外层的configProvider传入prefixCls属性，与config中保持一致</span><br><span class="line">const WrapperComponent: FC&lt;props&gt; &#x3D; (props) &#x3D;&gt; &#123;</span><br><span class="line">    const containerRef &#x3D; useRef&lt;HTMLDivElement&gt;(null);</span><br><span class="line">    return (</span><br><span class="line">        &lt;ConfigProvider prefixCls&#x3D;&quot;zts-ant&quot; locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">        		&lt;WechatMessageTaskNotificationWithAuth &#123;...props&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default WrapperComponent;</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<h5 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h5><p>将上面的包含prefixCls的wrapper封成了一个hoc: <code>withZtsCSSPrefix</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export function withZtsCSSPrefix&lt;T, P &#x3D; any&gt;(WrapperComponent: FC&lt;T&gt;) &#123;</span><br><span class="line">    return forwardRef&lt;P, PropsWithChildren&lt;T&gt;&gt;((props, ref) &#x3D;&gt; &#123; return (</span><br><span class="line">        &lt;ConfigProvider locale&#x3D;&#123;zhCN&#125; prefixCls&#x3D;&quot;zts-ant&quot;&gt;</span><br><span class="line">            &lt;WrapperComponent &#123;...props&#125; ref&#x3D;&#123;ref&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    ); &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/">
+<h4 id="css"><a href="#css" class="headerlink" title="*/*.css"></a>*/*.css</h4><p>修改：将所有的.ant样式前缀修改为.zts-ant</p>
+<h2 id="cat-web"><a href="#cat-web" class="headerlink" title="cat-web"></a>cat-web</h2><h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><p>为了方便web component的开发和日常使用，当环境变量<code>NODE_ENV=react</code>时，使用proxy将<code> /conan-zts-web/web-component/*</code>转发到<code>localhost:9000/*</code>，否则会使用<code>peace-test</code>的url前缀（见proxy/conf.js）。</p>
+<p>配置参考： <a target="_blank" rel="noopener" href="https://angular.cn/guide/build#proxy-multiple-entries">Angular - 构建并运行 Angular 应用</a></p>
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...,</span><br><span class="line">  &quot;dev:react&quot;: &quot;NODE_ENV=react npm run dev-jit&quot;,</span><br><span class="line">  &quot;dev:local:react&quot;: &quot;NODE_ENV=react npm run dev:local&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
+<h4 id="angular-json"><a href="#angular-json" class="headerlink" title="angular.json"></a>angular.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span>: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dev:local&quot;: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/03/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/" class="post-title-link" itemprop="url">异步流 async 时，得到 null 的bug</a>
-        </h2>
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>由于菜单是需要预先加载的资源，因此 index.html 中，使用preload 将 navigator和vendor的资源提前加载。其中vendor.css 除 preload外还将直接应用到全局（提供给在上文提到的样式隔离中，popover等弹出层的样式用）。</p>
+<p>最终的index.html和local-dev/index.html的修改如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2018-05-03T18:24:57+08:00">2018-05-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 22:27:17" itemprop="dateModified" datetime="2022-08-09T22:27:17+08:00">2022-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>假设模版代码中使用了asyncPipe：</p>
-<p>  obs$ | async</p>
-<p>如果obs$是一个异步得到的值，例如请求、delay等<br>那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- *.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-component</span> [<span class="attr">input</span>]=<span class="string">&quot;asyncObservable$ | async&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// *.ts</span></span><br><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title">input</span>(<span class="params">input: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="comment">// 如果不加判断，则在得到正确的值前，会先有 this.input$.next(null)</span></span><br><span class="line">  <span class="keyword">if</span> (input !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">this</span>.input$.next(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">input$ = <span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="关于asyncPipe"><a href="#关于asyncPipe" class="headerlink" title="关于asyncPipe"></a>关于asyncPipe</h2><p>asyncPipe源码解析：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianxiaox/p/13750539.html">https://www.cnblogs.com/qianxiaox/p/13750539.html</a></p>
+<h3 id="Web-component-loader-优化"><a href="#Web-component-loader-优化" class="headerlink" title="Web-component-loader 优化"></a>Web-component-loader 优化</h3><p>input更加简单，保留了webComponentProps，并新增了componentName属性，与zts-web中对应组件的componentName一致。</p>
+<h4 id="下一步工作"><a href="#下一步工作" class="headerlink" title="下一步工作"></a>下一步工作</h4><p>目前的痛点：</p>
+<ol>
+<li>cat 中 componentName = zts 中 componentName =  zts-web 中的组件路径（文件夹名称），否则无法正常使用组件。其中组件路径的影响最难被感知。</li>
+<li>目前 zts-web中的url没有设置内容hash，无法控制版本，每一次zts-web的上线会直接影响cat中相应组件的使用。</li>
+</ol>
+<p>解决方案：</p>
+<p>在webpack中配置，将文件名设置为内容hash（css + js），使用 recordsPath 将打包文件记录导出。在cat中preload资源名称，获取records.json中记录的文件名，在 load 组件时获取对应的url。通过这种方法，组件路径不会影响组件的正常使用，且url中添加hash缓存会保证用户某场景下使用的组件版本一致。</p>
 
       
     </div>
