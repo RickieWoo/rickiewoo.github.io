@@ -624,85 +624,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">函数传参到底是值传递</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2018-05-03T18:24:57+08:00">2018-05-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>结论：</p>
-<p>红宝书上说都是值传递</p>
-<p>传递对象的时候也是值传递，本来传递的东西就是该对象的引用，所以全是值传递！</p>
-<p>内部机制：</p>
-<p>其实函数接受参数之前，会先在函数作用域内创建一个局部变量，并把传入的参数赋予创建的局部变量，如果值类型传递，就是重新开辟一块内存存储传入变量的值，并把新创建的变量指向此内存地址，因此对此变量的修改并不会影响到外部变量的值；</p>
-<p>如果传入的不是值类型，则仅仅是对变量进行引用赋值操作，只是把新创建的局部变量指向外部变量的地址，因此对局部变量的修改就相当于对外部变量的修改。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -887,6 +808,85 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// *.ts</span></span><br><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title">input</span>(<span class="params">input: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="comment">// 如果不加判断，则在得到正确的值前，会先有 this.input$.next(null)</span></span><br><span class="line">  <span class="keyword">if</span> (input !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">this</span>.input$.next(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">input$ = <span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
 <h2 id="关于asyncPipe"><a href="#关于asyncPipe" class="headerlink" title="关于asyncPipe"></a>关于asyncPipe</h2><p>asyncPipe源码解析：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianxiaox/p/13750539.html">https://www.cnblogs.com/qianxiaox/p/13750539.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/03/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%B0%E5%BA%95%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">函数传参到底是值传递</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2018-05-03T18:24:57+08:00">2018-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>结论：</p>
+<p>红宝书上说都是值传递</p>
+<p>传递对象的时候也是值传递，本来传递的东西就是该对象的引用，所以全是值传递！</p>
+<p>内部机制：</p>
+<p>其实函数接受参数之前，会先在函数作用域内创建一个局部变量，并把传入的参数赋予创建的局部变量，如果值类型传递，就是重新开辟一块内存存储传入变量的值，并把新创建的变量指向此内存地址，因此对此变量的修改并不会影响到外部变量的值；</p>
+<p>如果传入的不是值类型，则仅仅是对变量进行引用赋值操作，只是把新创建的局部变量指向外部变量的地址，因此对局部变量的修改就相当于对外部变量的修改。</p>
 
       
     </div>
