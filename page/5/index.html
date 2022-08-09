@@ -173,7 +173,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/03/%E6%96%B9%E6%B3%95%E4%B8%8E%E5%B1%9E%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
@@ -187,7 +187,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/05/03/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/" class="post-title-link" itemprop="url">基于angular的自动化测试探索</a>
+            <a href="/2018/05/03/%E6%96%B9%E6%B3%95%E4%B8%8E%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">方法与属性</a>
         </h2>
 
         <div class="post-meta">
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 22:27:07" itemprop="dateModified" datetime="2022-08-09T22:27:07+08:00">2022-08-09</time>
+                <time title="Modified: 2022-08-09 22:27:28" itemprop="dateModified" datetime="2022-08-09T22:27:28+08:00">2022-08-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,55 +227,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="基于angular的自动化测试探索"><a href="#基于angular的自动化测试探索" class="headerlink" title="基于angular的自动化测试探索"></a>基于angular的自动化测试探索</h3><h5 id="框架选择——-Jest-vs-Karma"><a href="#框架选择——-Jest-vs-Karma" class="headerlink" title="框架选择—— Jest vs Karma"></a>框架选择—— Jest vs Karma</h5><blockquote>
-<p><a target="_blank" rel="noopener" href="https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8">https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8</a></p>
-</blockquote>
-<p>JSET建立在Jasmine之上。</p>
-<p>Jasmine是BDD的测试开发框架。零依赖且不需要DOM</p>
-<p>Jest是基于Jasmine构建的，拥有Jasmine所有开箱即用的功能，以及KARMA的功能。另外由于Jest是Facebook创建的，因此Facebook所有的JavaScipt库和框架，包括React。</p>
-<p>Karma是angular团队构建的测试运行程序，在自己的浏览器环境中运行，也就是打开浏览器以运行测试。</p>
-<ul>
-<li>Jest比Karma测试快2到3倍</li>
-<li>Jest拥有快照测试<ul>
-<li>首次运行测试时，可以将**.toMatchSnapshot（）**添加到组件中。</li>
-</ul>
-</li>
-<li>更好的持续集成<ul>
-<li>运行JsDOM测试，测试环境中不需要安装浏览器（由于Jest不在真正的浏览器上运行（使用jsdom）</li>
-<li>因此存在jsdom与目标浏览器不同的潜在风险*</li>
-</ul>
-</li>
-<li>更少的配置<ul>
-<li> Jest的哲学之一是提供集成的“零配置”体验</li>
-</ul>
-</li>
-</ul>
-<h4 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h4><h5 id="TestBed"><a href="#TestBed" class="headerlink" title="TestBed"></a>TestBed</h5><p>这是 angular测试模块的基本构件块，它实际上创建了一个模拟<code>NgModule</code>的动态构建的测试模块，输入<code>TestBed.configureTestingModule()</code>的元数据也跟<code>NgModule</code>中的很相似。</p>
-<p>实际上TestBed创建了一个动态测试模块，而beforeEach() 则是在每个case运行前调用的。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&#x27;AppComponent&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> appComponent: AppComponent;</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="keyword">async</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    TestBed.configureTestingModule(&#123;</span><br><span class="line">      imports: [</span><br><span class="line">        RouterTestingModule</span><br><span class="line">      ],</span><br><span class="line">      declarations: [</span><br><span class="line">        AppComponent</span><br><span class="line">      ],</span><br><span class="line">      schemas: [ NO_ERRORS_SCHEMA ]</span><br><span class="line">    &#125;).compileComponents();</span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> fixture = TestBed.createComponent(AppComponent);</span><br><span class="line">    appComponent = fixture.debugElement.componentInstance;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">&#x27;should create the app&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    expect(appComponent).toBeTruthy();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h5 id="compileComponents"><a href="#compileComponents" class="headerlink" title="compileComponents()"></a>compileComponents()</h5><p>如果要使用外部文件创建组件，例如styleUrls、templateUrl，则需要在创建组件之前从文件系统读取这些文件，这是异步操作，因此整个配置都放在异步函数中。</p>
-<p>实际上，compileComponents是异步的从文件系统读取外部文件并编译相应的组件，如果我们使用angular cli运行测试则无需执行此操作，因为cli在测试前会编译所有的代码。</p>
-<h6 id="为什么需要有两个beforeEach方法？"><a href="#为什么需要有两个beforeEach方法？" class="headerlink" title="为什么需要有两个beforeEach方法？"></a>为什么需要有两个beforeEach方法？</h6><p>上文提到，compileComponents 是异步函数，所以我们希望在创建用于访问组件实例的装置（fixture）前，确保组件已经编译成功。</p>
-<h6 id="NO-ERRORS-SCHEMA"><a href="#NO-ERRORS-SCHEMA" class="headerlink" title="NO_ERRORS_SCHEMA"></a>NO_ERRORS_SCHEMA</h6><p>在测试<code>app.component</code>时忽略所有无法识别的标签，例如page.component中的<page-list>标签。如果不使用<code>NO_ERRORS_SCHEMA</code>    ，则需要在<code>declarations</code>中声明所有用到的组件。</p>
-<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><ul>
-<li>保证单元测试在沙盒环境中运行</li>
-<li>订阅一个observable时，提供成功和失败的callback</li>
-<li>当测试组件有service依赖时，使用mock service</li>
-<li>访问DOM使用<strong>debugElement</strong>而不是<strong>nativeElement</strong>。因为<strong>debugElement</strong>提供了抽象基础运行环境。</li>
-<li>使用<strong>By.css</strong>而不是<strong>querySelector</strong>，因为querySelector只在浏览器中有效，当应用在服务上运行时会失败</li>
-<li>使用<strong>fixture.detectChanges()<strong>而不是</strong>ComponentFixtureAutoDetect</strong>，<strong>ComponentFixtureAutoDetect</strong>无法检测到同步更新</li>
-<li>不要过度使用NO_ERRORS_SCHEMA，它会忽略所有的属性和无法识别的标签</li>
-</ul>
-<h4 id="RxJS-弹珠测试"><a href="#RxJS-弹珠测试" class="headerlink" title="RxJS 弹珠测试"></a>RxJS 弹珠测试</h4><h5 id="TestScheduler-amp-RunHelpers"><a href="#TestScheduler-amp-RunHelpers" class="headerlink" title="TestScheduler &amp; RunHelpers"></a>TestScheduler &amp; RunHelpers</h5><p>TestScheduler有一个名为run的回调函数，接受一个RunHelpers类型的参数，该参数提供了弹珠测试所需的所有辅助方法。</p>
-<ul>
-<li><strong>cold/hot</strong> ：根据给定的弹珠图创建冷/热Observable。接受一个弹珠图作为第一参数，<code>values</code>和<code>errors</code>作为附加可选参数。如果我们创建一个热的Observable，<code>^</code>则可将其用于指示“零帧”。</li>
-<li><strong>flush</strong>：开始一个虚拟时间。仅当在<code>run</code>回调之外使用帮助程序和RxJs测试工具时，或者想<code>flush</code>多次使用时，才需要调用。</li>
-<li><strong>ExpectObservable：</strong>用于断言Observable符合弹珠图。</li>
-<li><strong>ExpectSubscriptions：</strong>用于断言Observable具有预期的订阅。</li>
-</ul>
-<p><img src="../post-images/image-20201027110847414.png" alt="image-20201027110847414"></p>
-<p><img src="../post-images/image-20201027110908063.png" alt="image-20201027110908063"></p>
+          <h1 id="方法与属性"><a href="#方法与属性" class="headerlink" title="方法与属性"></a>方法与属性</h1><h2 id="闭包的正确使用"><a href="#闭包的正确使用" class="headerlink" title="闭包的正确使用"></a>闭包的正确使用</h2><p>在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。原因是这将导致每次构造器被调用时，方法都会被重新赋值一次（也就是说，对于每个对象的创建，方法都会被重新赋值）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad: 没有用到闭包的好处</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span>(<span class="params">name, message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name.toString();</span><br><span class="line">  <span class="built_in">this</span>.message = message.toString();</span><br><span class="line">  <span class="built_in">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.message;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span>(<span class="params">name, message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name.toString();</span><br><span class="line">  <span class="built_in">this</span>.message = message.toString();</span><br><span class="line">&#125;</span><br><span class="line">MyObject.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line">MyObject.prototype.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.message;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -743,4 +696,263 @@
       <footer class="post-footer">
         <div class="post-eof"></div>
       </footer>
-  <
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2017/06/08/%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/08/%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">权限设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-06-08 18:10:35" itemprop="dateCreated datePublished" datetime="2017-06-08T18:10:35+08:00">2017-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-08 18:32:43" itemprop="dateModified" datetime="2020-06-08T18:32:43+08:00">2020-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>权限设计<br>分为 resource/action<br>阶段1: getkeys和nodes的方法 失败，google el-tree 的问题，找到修改源码的解决方案<br>阶段2: 新需求，以及自己想更好的方案，就考虑在给树的keys赋值为想要的值，亦可满足多级遍历，对于<em>号的要求，在源码中发现生成顺序是深度遍历，而且keys是被全选状态的数组，那么就考虑字符串的包含问题，如果前者包含后者，则可以改为前者+/</em>的操作，如果没有就直接显示。<br>反思： 对于keys的返回为全选状态的问题没有看清楚，导致第二个问题的思考也花了较长时间</p>
+<p>看看源码 实现原理</p>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Author"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Author</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
