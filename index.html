@@ -173,11 +173,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E6%96%B9%E6%B3%95%E4%B8%8E%E5%B1%9E%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -187,7 +187,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/14/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" class="post-title-link" itemprop="url">Vite 子应用接入 qiankun （微前端）</a>
+            <a href="/2022/08/09/%E6%96%B9%E6%B3%95%E4%B8%8E%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">方法与属性</a>
         </h2>
 
         <div class="post-meta">
@@ -197,22 +197,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-04-14 18:38:58" itemprop="dateCreated datePublished" datetime="2021-04-14T18:38:58+08:00">2021-04-14</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:19:30" itemprop="dateModified" datetime="2021-04-16T16:19:30+08:00">2021-04-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Trick/" itemprop="url" rel="index"><span itemprop="name">Trick</span></a>
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
                 </span>
             </span>
 
@@ -227,92 +220,305 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Vite-子应用接入-qiankun-（微前端）"><a href="#Vite-子应用接入-qiankun-（微前端）" class="headerlink" title="Vite 子应用接入 qiankun （微前端）"></a>Vite 子应用接入 qiankun （微前端）</h1><p><strong>Vite 暂时没有作为微应用接入 QIANKUN 的官方教程，因此在这里给出 Vite 与 webpack 配置的不同之处</strong></p>
-<p>官网配置<code>react</code>微应用地址： <a target="_blank" rel="noopener" href="https://qiankun.umijs.org/zh/guide/tutorial#react-%E5%BE%AE%E5%BA%94%E7%94%A8">https://qiankun.umijs.org/zh/guide/tutorial#react-%E5%BE%AE%E5%BA%94%E7%94%A8</a></p>
+          <h1 id="方法与属性"><a href="#方法与属性" class="headerlink" title="方法与属性"></a>方法与属性</h1><h2 id="闭包的正确使用"><a href="#闭包的正确使用" class="headerlink" title="闭包的正确使用"></a>闭包的正确使用</h2><p>在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。原因是这将导致每次构造器被调用时，方法都会被重新赋值一次（也就是说，对于每个对象的创建，方法都会被重新赋值）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad: 没有用到闭包的好处</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span>(<span class="params">name, message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name.toString();</span><br><span class="line">  <span class="built_in">this</span>.message = message.toString();</span><br><span class="line">  <span class="built_in">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.message;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span>(<span class="params">name, message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name.toString();</span><br><span class="line">  <span class="built_in">this</span>.message = message.toString();</span><br><span class="line">&#125;</span><br><span class="line">MyObject.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line">MyObject.prototype.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.message;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E6%9C%80%E8%BF%91%E5%BE%88%E5%A5%87%E6%80%AA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/09/%E6%9C%80%E8%BF%91%E5%BE%88%E5%A5%87%E6%80%AA/" class="post-title-link" itemprop="url">最近很奇怪</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-08-09 22:09:02 / Modified: 22:11:40" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/motion/" itemprop="url" rel="index"><span itemprop="name">motion</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="关于疫情"><a href="#关于疫情" class="headerlink" title="关于疫情"></a>关于疫情</h2><p> 距离2020年初已经过去两年多了，疫情是在变好吗，还是在变坏呢，我也不知道，现在大家的情绪都很奇怪了。</p>
+<p> 不聊大家，我自己情绪就很奇怪，某一天觉得世界末日要来了，因为疫情、战争、一些其他的灾难新闻，就觉得世界末日不远了。后来的后来，变得有些期待，期待世界末日，期待世界毁灭的一天，然后我就能珍惜剩下的时间，并且因为没有未来，所以不用考虑未来，不用考虑别人的期待。现在为止，我还是这么想的，可能我是在逃避一些事吧，逃避一些思考，因为我看不到未来吧，不知道为什么，虽然活在当下了，但是却忍不住思考并确信「没有未来」这件事。</p>
+<p> 甚至祈祷了很久，睡前祈祷，我睡过去之后，就不要醒来了，不想看到明天的太阳。其实我挺喜欢雨天的，雨天呆在家里睡觉很舒服啊，所以周末这么祈祷也没问题吧。I’m only happy when it’s rain.</p>
+<h2 id="关于感情"><a href="#关于感情" class="headerlink" title="关于感情"></a>关于感情</h2><p> 我发现人对不喜欢的人真的太残酷了，可能是我残忍吧，认识了一些人，一些不喜欢的人，我真的是根据心情来自由对待别人的真诚的，我要是被那么对待会很难过吧。我真是一个很冷漠的人，人对不喜欢的人都是这么冷漠吗，那喜欢一个人的代价真的好大.</p>
+<p>感觉我的精力只够放在喜欢一个人上吧，这样挺好的，但是恋爱脑不好啊，每次觉得跟其他人相处都是浪费时间，我因此在谈恋爱的时候，都不爱跟好朋友讲话和玩了，但是明明我分手的时候，还是只有他们陪我，我怎么能这样呢，但是是不是很多人都这样，蛤蟆先生能告诉我吗，我该怎么消除一点恋爱脑，怎么不把所有精力投入到一个人身上。</p>
+<h2 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h2><p>最近好像弥漫着开摆文化，并且我本人深受其害了哈哈。没什么好说的，我觉得跟不同信念的人一起工作不舒服的话，也是可以选择的吧。最近主要是要好好吃饭吧，体重一直上不去，目标是86，但是不管怎么吃，也一直81上下浮动，挺难过的，最近经常点奶茶，喝可乐，晚上吃东西，但是可能吃的不够多吧，现在吃多了就会恶心，恶心到完全吃不下去，太诡异了。</p>
+<p>买了一个滑板，学了一天，感觉还不错啊，很简单，然后一起学习的人还不少，感觉挺好的，要么今天也去滑吧。</p>
+<p>最近在家里练习了jazz的基本动作？就是跟着b站的，但是可能运动量不大，没有强身健体的感觉，也就学了一次，也就是心血来潮吧，感觉我对跳舞也没那么感兴趣了，但是还是可以试一试的。</p>
+<p>好消息是，我虽然还是沉迷打游戏，但是没有那么沉迷了，而且我最近睡觉时间基本提前到11-12点了，偶尔玩手机会到12点，可能也是老了吧，不想熬夜了，之前熬夜的时候老觉得心脏？还是哪里会很奇怪，以前没有这种感受的，就是老了。</p>
+<p>还有，最近很喜欢买甜酷风的衣服，就chuu那个店，我已经消费很多钱了，买了很多吊带，裤子，可能我被各种韩流毒了，不过确实，刷到的都是韩国女团，但是确实挺好看的呀。</p>
+<p>嘟嘟真的是我的精神慰藉，我每天晚上辗转反侧的时候，会把他抓到我枕头旁边，我的额头抵在他身上，不知不觉就困了，听他引擎发动真的可以安抚我的情绪，美中不足的就是他每次都会想方设法的逃跑，可能是不舒服吧，加上夏天到了，它会觉得热，这点我倒是发现了，但是我也不想空调开的太低，嘟嘟要是人的话因该会因为空调温度跟我大打出手吧。嘟嘟要是人的话也挺不错的，嘟嘟什么时候变成人呢。</p>
+<h2 id="关于自由"><a href="#关于自由" class="headerlink" title="关于自由"></a>关于自由</h2><p>生命诚可贵，爱情价更高，原为自由故，二者皆可抛。</p>
+<p>这里的顺序真的跟我一模一样啊。</p>
+<p>是什么时候开始感叹自由的重要性呢，高中？然后就越来越觉得很重要</p>
+<p>其实就会想起：莱格拉斯是自由的小精灵🧚‍♀️</p>
+<p>我也想当自由的小精灵🧚‍♀️</p>
+<p>上次小王跟我说他朋友圈里有一个多金大款，想说我们可以认识，老实讲，我从来没有考虑过这种。他还挺认真的一直问我要不要见一下，见一下不吃亏，然后我就认真发言了，我这么努力的学习，就是为了能有自由，有选择的自由，有追求爱情的自由。然后他就get了，再也不提这件事了，并且说我在他心中的形象变得更加光辉亮丽了。</p>
+<p>自由，人永远不可能绝对自由，只可能相对自由吧。</p>
+<p>这句话是不是罗翔老师说过啊？他对哲学的思考蛮深的，我也应该多看看这方面的书，最近🐻也在看各种零碎小文章，可能能帮助人沉下心吧。</p>
+<p>我还是不够努力，书看的不够多，一直在瞎想，一直在内耗，这是最近新学的词</p>
+<p>🐻告诉我要接受摆烂的自己，这样可能可以少一点内耗。</p>
+<p>哈哈哈哈哈哈我接受了一些，但还是不能完全接受。</p>
+<p>我还是会想未来，虽然我并不想思考，因为看不到任何可能性。</p>
+<p>我的状态太糟糕了。同桌送了一本蛤蟆先生的书，我要不要看看呢。</p>
+<p>最近高频出现的一本书，被讨厌的勇气，很多人都在看，我要不要看看呢。</p>
+<p>话说我能感觉那个人挺喜欢我的，要是他没有那方面的困扰的话还挺好看的，算了，我去看看蛤蟆先生吧～希望我能精神自由，虽然我甚至是刚刚相出的这个词语组合。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E7%9C%8B%E5%AE%8C%E4%BA%86%E8%9B%A4%E8%9F%86%E5%85%88%E7%94%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/09/%E7%9C%8B%E5%AE%8C%E4%BA%86%E8%9B%A4%E8%9F%86%E5%85%88%E7%94%9F/" class="post-title-link" itemprop="url">看完了蛤蟆先生</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/motion/" itemprop="url" rel="index"><span itemprop="name">motion</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="关于蛤蟆先生"><a href="#关于蛤蟆先生" class="headerlink" title="关于蛤蟆先生"></a>关于蛤蟆先生</h2><p> 其实这个故事，大概就是阐述了一个人去心理咨询并从中获得有效治疗甚至救赎的过程。大概就是让大家不要畏惧心理咨询，了解一定的心理常识吧，真的像他说的，是启蒙书了，但是我总是羡慕来羡慕去，甚至书里的任何一个人，我都很羡慕，可能我只能看到别人的闪光点，看不到别人的难处吧。我真的太容易羡慕别人了，看到谁都很羡慕。。。我这样也是病吧。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p> 今天下雨啦，但是我不知道为什么没有胃口吃饭。看了鬼灭更新的一集，为他们的遭遇流眼泪。现在给我打电话的基本都是外卖/快递，真的朋友可能都不知道我的电话号码了，话说其实也不一定非要知道啊，反倒是最近有一些快递员会用手机号加微信骚扰我，很痛苦，我要不要把这个功能关了呢。</p>
+<p> 昨天去滑滑板了，说实话，我觉得没那么好玩了，昨天玩的很没劲，我是不是一个很没劲的人啊，但是今天还要去玩，我可能觉得跟任务一样，我并不是真的想要玩，但是如果不玩的话，在家里浪费时间会让我更痛苦。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E7%A1%AC%E4%BB%B6%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1+%E8%AF%84%E4%BC%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/09/%E7%A1%AC%E4%BB%B6%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1+%E8%AF%84%E4%BC%B0/" class="post-title-link" itemprop="url">硬件插件系统方案设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="硬件插件系统方案设计-评估"><a href="#硬件插件系统方案设计-评估" class="headerlink" title="硬件插件系统方案设计+评估"></a>硬件插件系统方案设计+评估</h1><h2 id="架构风格"><a href="#架构风格" class="headerlink" title="架构风格"></a>架构风格</h2><ul>
+<li>以消息的方式与硬件交互（在线）</li>
+<li>将积木转换为python代码，烧录到硬件中（上传）</li>
+</ul>
+<h2 id="以消息的方式与硬件交互"><a href="#以消息的方式与硬件交互" class="headerlink" title="以消息的方式与硬件交互"></a>以消息的方式与硬件交互</h2><p>简单来讲，为了配合Scratch接入硬件的能力，我们可以实现一个<strong>匿名的发布/订阅系统</strong>。</p>
+<p>自上而下看。</p>
 <ol>
-<li>第一步：<em>不需要</em></li>
-</ol>
-<blockquote>
-<p>在 <code>src</code> 目录新增 <code>public-path.js</code>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.__POWERED_BY_QIANKUN__) &#123;</span><br><span class="line">  __webpack_public_path__ = <span class="built_in">window</span>.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<ol start="2">
-<li>第二步：相同，根据主应用中的配置写路由，在我们的项目中使用的是<code>hash</code>路由，路径为<code>react</code></li>
-</ol>
-<blockquote>
-<p>设置 <code>history</code> 模式路由的 <code>base</code>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">BrowserRouter</span> <span class="attr">basename</span>=<span class="string">&#123;window.__POWERED_BY_QIANKUN__</span> ? &#x27;/<span class="attr">app-react</span>&#x27; <span class="attr">:</span> &#x27;/&#x27;&#125;&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 此处 Router 为 HashRouter</span><br><span class="line">&lt;Router basename&#x3D;&#123;window.__POWERED_BY_QIANKUN__ ? &#39;&#x2F;react&#39; : &#39;&#x2F;&#39;&#125;&gt;...&lt;&#x2F;Router&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>第三步：<em>少量不同</em></p>
+<li><p>首先看Scratch3.0部分：需要写一个插件负责与外部沟通，可以参考官方实现的 scratch3_wedo2。主要的工作：</p>
 <ol>
-<li>我们的入口文件为 main.tsx，所以需要解决一些类型报错</li>
-</ol>
-<blockquote>
-<p>入口文件 <code>index.js</code> 修改，为了避免根 id <code>#root</code> 与其他的 DOM 冲突，需要限制查找范围。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare global &#123;</span><br><span class="line">  interface Window &#123;</span><br><span class="line">    __POWERED_BY_QIANKUN__?: string;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">interface IRenderProps &#123;</span><br><span class="line">  container?: Element;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>其余配置跟官网一样</li>
+<li>定义积木块的样式</li>
+<li>定义出opcode(语义)及其具体实现（业务逻辑）</li>
+<li>通过 websocket(socketio) 与 proxy 交互</li>
 </ol>
 </li>
-<li><p>第四步：<strong>完全不同，且看下面的配置</strong></p>
+<li><p>我们的插件系统可能需要额外加一层APP/PC端的适配，<em>此处不确定app是否可以提供websocket的能力及内部运行插件系统</em>。</p>
+</li>
+<li><p>再看插件系统：</p>
+<ol>
+<li>websocket server：用来与vm进行双向通行， 采用 zeromq？ 来subscribe/publish消息。</li>
+<li>proxy：调用相应的SDK</li>
+</ol>
+<p><img src="../post-images/wecom-temp-fc6d15e2623e027ea8ca794fe4a4cce4.png" alt="wecom-temp-fc6d15e2623e027ea8ca794fe4a4cce4"></p>
 </li>
 </ol>
-<h2 id="如何配置-vite-config"><a href="#如何配置-vite-config" class="headerlink" title="如何配置 vite.config"></a>如何配置 vite.config</h2><h3 id="增加buildOption"><a href="#增加buildOption" class="headerlink" title="增加buildOption"></a>增加buildOption</h3><p><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2020/08/07/vite-and-esmodules-snowpack/">Vite 怎麼能那麼快？從 ES modules 開始談起</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.huli.tw/2020/01/21/webpack-newbie-tutorial/">webpack 新手教學之淺談模組化與 snowpack</a></p>
-<p>目前<code>QIANKUN</code>不支持<code>vite</code>的主要原因是<code> QIANKUN</code>目前还不支持 <code>type=module</code>（<a target="_blank" rel="noopener" href="https://github.com/umijs/qiankun/issues/1257">https://github.com/umijs/qiankun/issues/1257</a></p>
-<p>）</p>
-<p>如果启动主应用和微应用，会看到<code>QIANKUN</code>报错，报错的地方就是<code>type=module</code>的地方。</p>
-<p>![image-20210415112126424](/Users/rickie/Library/Application Support/typora-user-images/image-20210415112126424.png)</p>
-<p>而vite之所以是vite，最大的特点就是生产环境使用ESM，但是显然QIANKUN尚不支持，因此做了一个妥协方案：在打包的时候选择打包为lib，并将格式指定为umd。</p>
-<p><em>注意：此处名称需要与主应用中 entry name 保持一致，而非官网中的 ${name}-[name]。否则会报错：生命周期的钩子函数没有暴露出来</em></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  lib: &#123;</span><br><span class="line">    name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>), <span class="comment">// 这里 entry 是暴露出生命周期钩子的文件，本文中为main.tsx</span></span><br><span class="line">    formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置完成后，build一下，如果出现报错： UMD and IIFE output formats are not supported for code-splitting builds.</p>
-<p>则需将<code>rollup</code>的*<code>inlineDynamicImports</code>*打开</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rollupOptions: &#123;</span><br><span class="line">  output: &#123;</span><br><span class="line">    inlineDynamicImports: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>运行build之后，发现dist/中有两个文件 <code>style.css</code>,<code>*.umd.js</code>，但是没有<code>index.html</code></p>
-<p>因此我们需要额外的工作——生成<code>index.html</code></p>
-<h3 id="额外生成-index-html"><a href="#额外生成-index-html" class="headerlink" title="额外生成 index.html"></a>额外生成 index.html</h3><p>在我们的<code>src/index.html</code>中，可以看见</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">src</span>=<span class="string">&quot;/src/main.tsx&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>而在<code>dist/</code>文件中，我们希望</p>
-<ul>
-<li><p><code>script</code>改为生成的<code>umd.js</code>，并且<code>type=“text/javascript”</code></p>
-</li>
-<li><p>在<code>html</code>中引入生成的<code>style.css</code></p>
-</li>
-</ul>
-<p>生成目标<code>index.html</code>的方式有很多种，在这里，我选择了使用<code>@rollup/plugin-html</code>插件来生成<code>html</code>。</p>
-<p>考虑到希望生产环境的html出错的概率更小，所以把 <code>src/index.html</code> 修改为目标<code>index.html</code>，把修改<code>index</code>的操作放到开发环境中。</p>
-<p>Index.html 修改如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">href</span>=<span class="string">&quot;style.css&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- build 出的 index.html 用这个 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">src</span>=<span class="string">&quot;$&#123;dist中js文件名称&#125;.umd.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">		...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>最终<code>vite.config.ts</code>配置如下</p>
-<h2 id="vite-config-最终配置"><a href="#vite-config-最终配置" class="headerlink" title="vite.config 最终配置"></a>vite.config 最终配置</h2><h3 id="vite-config-ts"><a href="#vite-config-ts" class="headerlink" title="vite.config.ts"></a>vite.config.ts</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable @typescript-eslint/restrict-template-expressions */</span></span><br><span class="line"><span class="comment">/* eslint-disable @typescript-eslint/no-require-imports */</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> reactRefresh <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react-refresh&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; buildHtmlPlugin, serveHtmlPlugin &#125; <span class="keyword">from</span> <span class="string">&#x27;./html-plugin&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; name &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./package.json&#x27;</span>);</span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  base: <span class="string">&#x27;./&#x27;</span>,</span><br><span class="line">  <span class="comment">// HACK for qiankun: 为 lib 生成 html</span></span><br><span class="line">  plugins: [reactRefresh(), buildHtmlPlugin(), serveHtmlPlugin()],</span><br><span class="line">  build: &#123;</span><br><span class="line">    target: <span class="string">&#x27;esnext&#x27;</span>,</span><br><span class="line">    lib: &#123;</span><br><span class="line">      name: <span class="string">`<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">      entry: path.resolve(__dirname, <span class="string">&#x27;src/main.tsx&#x27;</span>),</span><br><span class="line">      formats: [<span class="string">&#x27;umd&#x27;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">    rollupOptions: &#123;</span><br><span class="line">      output: &#123;</span><br><span class="line">        inlineDynamicImports: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="html-plugin-ts"><a href="#html-plugin-ts" class="headerlink" title="html-plugin.ts"></a>html-plugin.ts</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> html = <span class="built_in">require</span>(<span class="string">&#x27;@rollup/plugin-html&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> indexHtmlContent = fs?.readFileSync(<span class="string">&#x27;./index.html&#x27;</span>)?.toString();</span><br><span class="line"><span class="built_in">enum</span> applyType &#123;</span><br><span class="line">  <span class="string">&#x27;serve&#x27;</span> = <span class="string">&#x27;serve&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;build&#x27;</span> = <span class="string">&#x27;build&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> serveHtmlPlugin = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name: <span class="string">&#x27;generate html for developer&#x27;</span>,</span><br><span class="line">    apply: applyType.serve,</span><br><span class="line">    <span class="function"><span class="title">transformIndexHtml</span>(<span class="params">indexHtml: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">      <span class="comment">// 将 index.html 中的 script 换成 main.tsx，同时不使用 style.css 的样式（因为dev环境下没有生成）</span></span><br><span class="line">      <span class="keyword">return</span> indexHtml</span><br><span class="line">        .replace(<span class="string">`type=&quot;text/javascript&quot;`</span>, <span class="string">`type=&quot;module&quot;`</span>)</span><br><span class="line">        .replace(<span class="string">`src=&quot;<span class="subst">$&#123;dist中js文件名称&#125;</span>.umd.js&quot;`</span>, <span class="string">`src=&quot;/src/main.tsx&quot;&quot;`</span>)</span><br><span class="line">        .replace(<span class="string">`href=&quot;style.css&quot;`</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> buildHtmlPlugin = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ...html(&#123;</span><br><span class="line">      template: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!indexHtmlContent?.length) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;没有找到 index.html 文件&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> indexHtmlContent;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">    name: <span class="string">&#x27;generate html for production&#x27;</span>,</span><br><span class="line">    apply: applyType.build,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p> 加了两个npm脚本</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;qiankun:preview&quot;: &quot;cd dist/ &amp;&amp; http-server -p=8080 --cors&quot;,</span><br><span class="line">&quot;qiankun:rebuild&quot;: &quot;npm run build:test &amp;&amp; npm run qiankun:preview&quot;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>需要运行</p>
-<ul>
-<li>（未打包）npm run qiankun:rebuild</li>
-<li>（已打包）npm run qiankun:preview</li>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>技术选型</th>
+<th>参考</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>websocket server</td>
+<td><a target="_blank" rel="noopener" href="https://socket.io/docs/v4/">Introduction | Socket.IO</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MessageQueue</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/zeromq/zeromq.js">zeromq/zeromq.js: Node.js bindings to the ØMQ library (github.com)</a></td>
+<td></td>
+</tr>
+<tr>
+<td>插件交互（scratch插件与proxy）</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/CodeLabClub/scratch3_eim/blob/v3/codelab_adapter_base.js">scratch3_eim/codelab_adapter_base.js at v3 · CodeLabClub/scratch3_eim (github.com)</a></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="可能的风险"><a href="#可能的风险" class="headerlink" title="可能的风险"></a>可能的风险</h2><ul>
+<li>客户端是否可以提供websocket及内部运行插件系统的能力</li>
+<li>对于mblocks的设备，可能要考虑以下问题：<ul>
+<li>非4.x版本蓝牙：不支持直接连接，需要蓝牙适配器 <a target="_blank" rel="noopener" href="https://www.yuque.com/makeblock-help-center-zh/mblock-5/bluetooth-dongle-quick-start">蓝牙适配器快速使用指南 · 语雀 (yuque.com)</a></li>
+<li>4.x版本：可以直接连接，仅支持在线，不支持上传到设备</li>
 </ul>
 </li>
-<li><p>启动 微前端主应用，保证主应用中 local 模式下<code>entry</code>端口号与上面一致</p>
-</li>
-<li><p>访问对应的地址（如 <a target="_blank" rel="noopener" href="http://localhost:8427/#/react%EF%BC%89%EF%BC%8C%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA">http://localhost:8427/#/react），查看是否能正常显示</a></p>
-</li>
+<li>Scratch-Link官方仅支持蓝牙4.0</li>
 </ul>
+<h2 id="参考目录"><a href="#参考目录" class="headerlink" title="参考目录"></a>参考目录</h2><p>插件系统：</p>
+<p><a target="_blank" rel="noopener" href="http://wwj718.github.io/post/%E5%B0%91%E5%84%BF%E7%BC%96%E7%A8%8B/scratch3-plugin-1/">为Scratch3.0设计的插件系统(上篇) - 夜行人 (wwj718.github.io)</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LLK/scratch-link">LLK/scratch-link: Device interoperability layer for Windows and MacOS (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CodePlayerBox/scratch-link-node">CodePlayerBox/scratch-link-node: 用Node.js实现的Scratch Link，运行在树莓派上。 (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://adapter.codelab.club/dev_guide/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E4%B9%8Btello%E6%8F%92%E4%BB%B6/">最佳实践之tello插件 - CodeLab Adapter</a></p>
+<p>Mblocks设备相关：</p>
+<p> <a target="_blank" rel="noopener" href="https://www.yuque.com/makeblock-help-center-zh/mblock-5/connect-device">连接设备 · 语雀 (yuque.com)</a></p>
+<p> <a target="_blank" rel="noopener" href="https://www.yuque.com/makeblock-help-center-zh/mblock-5/live-and-upload-mode">切换在线模式和上传模式 · 语雀 (yuque.com)</a></p>
 
       
     </div>
@@ -332,11 +538,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -346,7 +552,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/13/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/" class="post-title-link" itemprop="url">状态管理</a>
+            <a href="/2022/08/09/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/" class="post-title-link" itemprop="url">软件设计的哲学</a>
         </h2>
 
         <div class="post-meta">
@@ -356,15 +562,8 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-04-13 11:03:26" itemprop="dateCreated datePublished" datetime="2021-04-13T11:03:26+08:00">2021-04-13</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:12:23" itemprop="dateModified" datetime="2021-04-16T16:12:23+08:00">2021-04-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -386,184 +585,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h1><p><a target="_blank" rel="noopener" href="https://daveceddia.com/react-state-management/">https://daveceddia.com/react-state-management/</a></p>
-<h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>通常与React捆绑在一起，但是其核心是<strong>独立的</strong>，因此可以与任何UI库或框架一起使用。</p>
-<ul>
-<li>缺点：<ul>
-<li>陡峭的学习曲线</li>
-<li>冗长的 action 到 reducer  的过程（严重依赖不变性）</li>
-</ul>
-</li>
-<li>优点<ul>
-<li>最大的社区和生态系统</li>
-<li>官方<a target="_blank" rel="noopener" href="https://redux-toolkit.js.org/">Redux Toolkit</a>库减少了样板代码</li>
-<li>size</li>
-<li>Time travel debugging</li>
-<li>拥有自己的库生态系统，可用于执行与本地存储同步，管理API请求等操作</li>
-<li>出色的devtools使调试变得简单</li>
-</ul>
-</li>
-</ul>
-<h2 id="MobX"><a href="#MobX" class="headerlink" title="MobX"></a>MobX</h2><p><strong>MobX</strong>是一个非常流行的，<strong>包含电池？的</strong>状态管理库，主要（但非专门）用于React。</p>
-<p>MobX无疑是 <a target="_blank" rel="noopener" href="https://bundlephobia.com/result?p=mobx">不小的 lib</a>，但是与Redux相比，有些人可能会发现它的API和<strong>可观察的方法</strong>更令人愉悦。这种库仍然有一个明显的学习曲线，但是在那之后，它确实比传统的Redux感觉更好并且<strong>没有重复性</strong>。</p>
-<p>MobX的API很好，并且可以生成一些非常漂亮和干净的代码，但是深层来说，它是一个沉重的库，很难完全掌握。最重要的是，它会带来一个明显更小的社区和生态系统。</p>
-<hr>
-<p>MobX基于观察者/可观察模式。创建一个可观察的数据模型，将组件标记为该数据的“观察者”，MobX将自动跟踪它们访问的数据，并在更改时重新呈现它们。</p>
-<p>使用者可以随意定义自己认为合适的数据模型，并提供监视模型变化、并对这些变化做出反应的工具。</p>
-<p>MobX的背后是使用ES6代理来检测更改，因此更新可观察数据就像使用普通的旧赋值运算符<code>=</code>一样容易。</p>
-<ul>
-<li><p>优点</p>
-<ul>
-<li>以一种真正的“反应式”方式管理状态，以便在您修改值时，使用该值的所有组件都将自动重新呈现</li>
-<li>无需进行任何操作或减速器，只需修改您的状态，应用程序便会反映出来。</li>
-<li>神奇的反应性意味着更少的代码编写。</li>
-<li>您可以编写常规的可变代码。无需特殊的设置器功能或不变性。</li>
-</ul>
-</li>
-<li><p>缺点</p>
-<ul>
-<li>由于没有Redux广泛使用，因此社区支持（教程等）较少，但是受到用户的喜爱</li>
-<li>神奇的反应性意味着不太明确的代码。（根据您对自动更新“魔术”的感觉，这可能是赞成也可能是反对）</li>
-<li>对ES6代理的要求意味着不支持IE11及以下版本。（如果您的应用程序要求支持IE，则较旧版本的MobX无需代理即可工作）</li>
-</ul>
-</li>
-</ul>
-<h2 id="Recoil"><a href="#Recoil" class="headerlink" title="Recoil"></a>Recoil</h2><p><a target="_blank" rel="noopener" href="https://www.recoiljs.cn/docs/introduction/getting-started">https://www.recoiljs.cn/docs/introduction/getting-started</a></p>
-<blockquote>
-<p><strong>Recoil</strong>作为<em>“ Facebook实验”</em>，它在今年年初处于<strong>不稳定阶段</strong>“启动”时获得了很大的吸引力。</p>
-<p>现代<strong>的基于原子的</strong>状态管理方法和<strong>以钩子为中心的</strong>流畅<strong>API</strong>确实使它颇具吸引力。</p>
-<p>但是，由于Recoil的试验阶段，现在建议不要在生产级项目中使用它。</p>
-</blockquote>
-<p>API就像是React的useState和Context API的组合，因此感觉与React非常相似。</p>
-<p>要使用它，您可以将组件树包装为<code>RecoilRoot</code>（类似于使用自己的Context Provider的方式）。然后在顶层创建状态的“atom”，每个原子都有一个唯一的键。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> currentLanguage = atom(&#123;</span><br><span class="line">  key: <span class="string">&#x27;currentLanguage&#x27;</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">&#x27;en&#x27;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>然后，组件可以使用<code>useRecoilState</code>钩子访问此状态，该钩子的工作方式非常类似于<code>useState</code>：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LanguageSelector</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [language, setLanguage] = useRecoilState(currentLanguage);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;Languauge is &#123;language&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button onClick=&#123;<span class="function">() =&gt;</span> setLanguage(<span class="string">&#x27;es&#x27;</span>)&#125;&gt;</span><br><span class="line">      Switch to Español</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>还有一个“selectors”的概念，可让您创建一个原子视图：想到<em>派生</em>状态，例如“将TODO列表过滤为已完成的状态”。</p>
-<p>通过跟踪对的调用<code>useRecoilState</code>，Recoil可以跟踪哪些组件使用哪些原子。这样，它可以<em>仅</em>在数据更改时<em>仅</em>重新呈现“订阅”到数据的组件，因此该方法应在性能方面很好地扩展。</p>
-<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ul>
-<li>与React非常相似的简单API</li>
-<li>Facebook在其一些内部工具中使用了它</li>
-<li>专为性能而设计</li>
-<li>在有或没有React Suspense的情况下均可使用（虽然仍处于试验阶段）</li>
-</ul>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
-<li>只有几个月的历史，因此社区资源和最佳实践还不如其他库强大。</li>
-</ul>
-<h2 id="Akita？"><a href="#Akita？" class="headerlink" title="Akita？"></a>Akita？</h2><p>基于类的组件比较合适</p>
-<p>是面向对象的API</p>
-<h2 id="HookStat"><a href="#HookStat" class="headerlink" title="HookStat"></a>HookStat</h2><p>它体积小，最小，干净，可扩展，并且具有一个漂亮<strong>的基于钩子的API</strong>。</p>
-<p>它不仅可以用于全局状态，还可以通过附加功能增强本地<code>useState（）</code>，在不影响性能的情况下处理<strong>嵌套状态</strong>，并轻松处理<strong>异步数据</strong>！</p>
-<h3 id="useStat什么时候not-enough"><a href="#useStat什么时候not-enough" class="headerlink" title="useStat什么时候not enough"></a>useStat什么时候not enough</h3><p>该<a target="_blank" rel="noopener" href="https://daveceddia.com/usestate-hook-examples/">useState钩</a>非常适合少量llocal组件状态。每个<code>useState</code>调用可以包含一个值，虽然您<em>可以</em>使一个值成为包含许多其他值的对象，但是最好将它们拆分。</p>
-<p>一旦您<code>useState</code>在一个组件中遇到3-5次调用，事情就可能变得难以跟踪。<em>尤其是</em>那些状态位彼此依赖时。对于复杂的相互依赖关系，适当的<a target="_blank" rel="noopener" href="https://daveceddia.com/react-confirmation-modal-state-machine/">状态机</a>可能是更好的选择。</p>
-<h3 id="next，-useReducer：-中度复杂的React组件状态管理"><a href="#next，-useReducer：-中度复杂的React组件状态管理" class="headerlink" title="next， useReducer： 中度复杂的React组件状态管理"></a>next， useReducer： 中度复杂的React组件状态管理</h3><p>useState的下一步“向上”是<code>useReducer</code>。reducer提供了一个集中的位置，可以拦截“action”并相应地更新状态。像这样的调用<code>useState</code>只能保存一个值，但是更为普遍的是使用<code>useReducer</code>处理一个包含多个值的对象。</p>
-<h3 id="useContext-将值传递给子组件而不用层层钻"><a href="#useContext-将值传递给子组件而不用层层钻" class="headerlink" title="useContext : 将值传递给子组件而不用层层钻"></a>useContext : 将值传递给子组件而不用层层钻</h3><p>除了<code>useState</code>和<code>useReducer</code>，另一个痛点是：当您拥有一个拥有某种状态的组件，然后需要向下访问5个子组件的状态时，您必须手动钻取每个级别的子组件。</p>
-<p>这里最简单的解决方案是Context API。它内置在React中。</p>
-<p>尽管它很简单，但是Context有一个重要的缺点，那就是性能，因此要小心使用。</p>
-<p>原因是<code>useContext</code>当提供者的<code>value</code>属性更改时，调用的每个组件都会重新呈现。设想如果该值是一个对象，该对象包含整个应用程序中使用的50个不同的状态位，将会发生什么。而且它们经常且独立地变化。这些值<em>之一</em>每次更改时，使用其中<em>任何</em>一个的每个组件都会重新呈现。</p>
-<p><strong>为了避免这种陷阱，请在每个上下文中存储一小部分相关数据，然后将数据拆分到多个上下文中（您可以根据需要拥有尽可能多的数据）。或者，考虑使用第三方库。</strong></p>
-<p>另一个要避免的性能陷阱是<code>value</code>，每次都将一个新的对象传递给提供程序的对象。 比如 <code>value = &#123; aProp &#125;</code>,每次渲染都会重新创建包裹<code>aProp</code>的对象。</p>
-<h3 id="结合Redux"><a href="#结合Redux" class="headerlink" title="结合Redux"></a>结合Redux</h3><p><strong>您可以同时使用Redux和Context，并且可以<code>useReducer</code>一起使用！</strong> 我们特别鼓励<a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-2-app-structure#component-state-and-forms">在Redux中放置“全局状态”，在React组件中放置“本地状态”</a>，并<a target="_blank" rel="noopener" href="https://redux.js.org/style-guide/style-guide#evaluate-where-each-piece-of-state-should-live">仔细决定每个状态应该处于Redux还是组件状态</a>。因此，您可以<code>useReducer</code>在同一应用程序中同时将Redux用于全局的某些状态，将+ Context用于更局部的状态，将Context本身用于某些半静态值。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.isquaredsoftware.com/2021/01/context-redux-differences/">了解Context与Redux的不同之处</a></p>
-<h2 id="Dova-。。。"><a href="#Dova-。。。" class="headerlink" title="Dova 。。。"></a>Dova 。。。</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/03/29/Flux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/Flux/" class="post-title-link" itemprop="url">Flux学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-29 10:39:57" itemprop="dateCreated datePublished" datetime="2021-03-29T10:39:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:18:25" itemprop="dateModified" datetime="2021-04-16T16:18:25+08:00">2021-04-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flux"><a href="#Flux" class="headerlink" title="Flux"></a>Flux</h1><p>##concepts</p>
-<p><img src="https://github.com/facebook/flux/raw/master/examples/flux-concepts/flux-simple-f8-diagram-with-client-action-1300w.png" alt="Data flow within Flux application"></p>
-<p>Flux是一种管理应用中数据流的模式。最重要的观点是单向数据流。</p>
-<p>Flux由Dispatcher、store、view、action构成</p>
-<h3 id="Dispatcher"><a href="#Dispatcher" class="headerlink" title="Dispatcher"></a>Dispatcher</h3><p><code>dispatcher</code>接收<code>action</code>并把它们派发给已经在<code>disipatcher</code>中注册过的<code>store</code>。**每一个<code>store</code>都会收到所有<code>action</code>**。在每一个应用中应该只有一个单例<code>dispatcher</code>.</p>
-<h3 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h3><p><code>store</code>存储了一个应用的数据。<code>store</code>通过注册到应用程序的<code>dispatcher</code>上接受<code>action</code>。一个<code>store</code>中的所有数据都只能因为响应行为发生变化。在一个<code>store</code>中只能有<code>getter</code>，不能有任何<code>public setter</code>，<code>store</code>决定了他们要响应什么<code>action</code>，每次一个<code>store</code>的数据变化必须<code>emit</code>一个<code>change event</code>。在一个应用程序中会有多个<code>store</code></p>
-<h3 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h3><p>Actions 定义了应用程序内部的API，他们捕获应用程序内所有的交互，他们是简单的包含type字段和一些数据的对象</p>
-<p>Actions应该是语义化的，描述所发生的action，但是不应该描述该action的实现细节。使用“删除用户”而不是将其分解为“删除用户ID”，“清除用户数据”，“刷新凭证”（或者该过程有效）。请记住，所有存储都将收到该操作，并且可以知道它们需要通过处理相同的“删除用户”操作来清除数据或刷新凭据。</p>
-<h3 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h3><p>store中的数据会被称现在view追踪，views可以使用任何框架，例如react。当一个view使用了来自某个store的数据，他必须订阅来自那个store的change事件。然后当store出发一个change事件时，view可以得到新的数据并重新渲染。如果一个组件使用了一个store，但是并没有订阅，很可能会有细微的错误。当用户与应用程序界面的各个部分进行交互时，通常会从视图view中调度action。</p>
-<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><ol>
-<li>view发送action到dsipatcher</li>
-<li>dispatcher发送action到每一个store</li>
-<li>store发送数据到view</li>
+          <h1 id="软件设计的哲学"><a href="#软件设计的哲学" class="headerlink" title="软件设计的哲学"></a>软件设计的哲学</h1><p>学习这本书的目的</p>
+<ol>
+<li>认识什么是复杂性，为什么很重要，如何识别一个程序具有不必要的复杂性？</li>
+<li>如何最小化复杂性</li>
 </ol>
-<p>（是store主动发送数据到view，而不是view从store获取数据）</p>
-<h2 id="flux-async"><a href="#flux-async" class="headerlink" title="flux-async"></a>flux-async</h2><h3 id="DataManager"><a href="#DataManager" class="headerlink" title="DataManager"></a>DataManager</h3><p>DataManagers是flex中服务器痛心的方法，DataManagers将入参转化为action，作为结果的action应始终被异步调度，这样可以在调度该action的之前留出API请求的时间。</p>
-<p>DataManagers只应该被store调用。</p>
-<p>TODO</p>
-<ul>
-<li>flux的缺点<ul>
-<li>多个store有什么优缺点</li>
-</ul>
-</li>
-</ul>
+<h2 id="什么是复杂性？"><a href="#什么是复杂性？" class="headerlink" title="什么是复杂性？"></a>什么是复杂性？</h2><h3 id="复杂性的定义"><a href="#复杂性的定义" class="headerlink" title="复杂性的定义"></a>复杂性的定义</h3><p>从实际角度出发，复杂性是与软件系统结构有关的<em>任何东西</em>，它使系统变得难以理解和修改。</p>
+<p>从成本和收益的角度出发，在一个复杂的系统中，即使是很小的改进也需要很大的工作量实现，而在一个简单系统中，一个很大的改进可以用更少的努力实现。</p>
+<p><em>TODO：如何衡量很小的改进与很大的工作量所谓的大小？</em></p>
+<p>复杂性的描述：</p>
+<p><img src="../post-images/image-20210607161815785.png" alt="image-20210607161815785"></p>
+<p>一个系统的总体复杂度(C)是由每个部分p (cp)的复杂度决定的，而每个部分p (cp)的复杂度是由开发人员在该部分(tp)上花费的时间所占的比例决定的。</p>
+<h3 id="复杂性的症状"><a href="#复杂性的症状" class="headerlink" title="复杂性的症状"></a>复杂性的症状</h3><h4 id="变更放大"><a href="#变更放大" class="headerlink" title="变更放大"></a>变更放大</h4><p>很小的改进，需要很大的改动</p>
+<h4 id="认知负荷"><a href="#认知负荷" class="headerlink" title="认知负荷"></a>认知负荷</h4><p>开发人员为了完成一项任务需要知道多少</p>
+<h4 id="未知的未知"><a href="#未知的未知" class="headerlink" title="未知的未知"></a>未知的未知</h4><p>最可怕。必须修改哪些代码才能完成任务，或者开发人员必须获得哪些信息才能成功地执行任务，这些都是不明显的。简单说就是，改一个功能的时候不知道也应该改另一个地方。</p>
+<h3 id="复杂性的原因"><a href="#复杂性的原因" class="headerlink" title="复杂性的原因"></a>复杂性的原因</h3><p><strong>依赖会导致变化放大和高认知负荷。晦涩（模糊）创造了未知的未知，也增加了认知负荷。如果我们能找到最小化依赖和模糊的设计技术，那么我们就能降低软件的复杂性。</strong></p>
+<h4 id="依赖性"><a href="#依赖性" class="headerlink" title="依赖性"></a>依赖性</h4><p><strong>软件设计的目标之一是减少依赖项的数量，并使依赖项尽可能简单和明显。</strong></p>
+<h4 id="模糊性"><a href="#模糊性" class="headerlink" title="模糊性"></a>模糊性</h4><p>当重要的信息不明显时，就会发生模糊。</p>
+<p>减少模糊的最佳方法是简化系统设计。</p>
+<h3 id="复杂性是递增的"><a href="#复杂性是递增的" class="headerlink" title="复杂性是递增的"></a>复杂性是递增的</h3><p>就像上面复杂性的定义一样，是众多复杂的小模块累计的。需要每个模块的编写都注意，才能更好的整体降低复杂性。</p>
+<h2 id="编程的战术和策略"><a href="#编程的战术和策略" class="headerlink" title="编程的战术和策略"></a>编程的战术和策略</h2><p>战术编程：只关注于当前功能，不花太多时间精力放在规划上；当快速的feature上线不久后，复杂问题产生了，此时可以重构/打补丁，但是重构会降低当前任务的进度，而补丁是快速的。但是长久下去……系统就越来越复杂。</p>
+<h3 id="战略规划"><a href="#战略规划" class="headerlink" title="战略规划"></a>战略规划</h3><p>更考虑未来，战略性设计自己当前的系统。前瞻性。</p>
+<p><em>如何做到？建议？</em></p>
+<p>一笔巨大的前期投资，比如试图设计整个系统，是不会有效的。这就是瀑布法，我们知道它行不通。随着对系统的经验的积累，理想的设计往往会零零碎碎地出现。因此，<strong>最好的方法是在连续的基础上进行大量的小额投资。</strong></p>
+<p> 建议：将总开发时间的 10-20%用于投资。这个量足够小，不会对日程安排产生重大影响，但是足够大，随着时间的推移会产生显著的好处。因此，最初的项目将比纯战术方法多花费 10-20%的时间。这些额外的时间将导致更好的软件设计，并且将在几个月内开始体验这些好处。用不了多久，你的开发速度就会比战术编程至少快 10-20%。在这一点上，你的投资是免费的:从你过去的投资中获得的收益将节省足够的时间来弥补未来投资的成本。你将很快收回最初投资的成本。</p>
 
       
     </div>
@@ -583,11 +628,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/03/26/Redux/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -597,7 +642,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/26/Redux/" class="post-title-link" itemprop="url">Redux 学习笔记</a>
+            <a href="/2022/08/09/%E5%9F%BA%E4%BA%8Eangular%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8E%A2%E7%B4%A2/" class="post-title-link" itemprop="url">Untitled</a>
         </h2>
 
         <div class="post-meta">
@@ -607,22 +652,121 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-03-26 16:22:51" itemprop="dateCreated datePublished" datetime="2021-03-26T16:22:51+08:00">2021-03-26</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:17:03" itemprop="dateModified" datetime="2021-04-16T16:17:03+08:00">2021-04-16</time>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="基于angular的自动化测试探索"><a href="#基于angular的自动化测试探索" class="headerlink" title="基于angular的自动化测试探索"></a>基于angular的自动化测试探索</h3><h5 id="框架选择——-Jest-vs-Karma"><a href="#框架选择——-Jest-vs-Karma" class="headerlink" title="框架选择—— Jest vs Karma"></a>框架选择—— Jest vs Karma</h5><blockquote>
+<p><a target="_blank" rel="noopener" href="https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8">https://charith-rhettiarachchi.medium.com/why-use-jest-over-karma-for-angular-testing-b56ffa82f8</a></p>
+</blockquote>
+<p>JSET建立在Jasmine之上。</p>
+<p>Jasmine是BDD的测试开发框架。零依赖且不需要DOM</p>
+<p>Jest是基于Jasmine构建的，拥有Jasmine所有开箱即用的功能，以及KARMA的功能。另外由于Jest是Facebook创建的，因此Facebook所有的JavaScipt库和框架，包括React。</p>
+<p>Karma是angular团队构建的测试运行程序，在自己的浏览器环境中运行，也就是打开浏览器以运行测试。</p>
+<ul>
+<li>Jest比Karma测试快2到3倍</li>
+<li>Jest拥有快照测试<ul>
+<li>首次运行测试时，可以将**.toMatchSnapshot（）**添加到组件中。</li>
+</ul>
+</li>
+<li>更好的持续集成<ul>
+<li>运行JsDOM测试，测试环境中不需要安装浏览器（由于Jest不在真正的浏览器上运行（使用jsdom）</li>
+<li>因此存在jsdom与目标浏览器不同的潜在风险*</li>
+</ul>
+</li>
+<li>更少的配置<ul>
+<li> Jest的哲学之一是提供集成的“零配置”体验</li>
+</ul>
+</li>
+</ul>
+<h4 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h4><h5 id="TestBed"><a href="#TestBed" class="headerlink" title="TestBed"></a>TestBed</h5><p>这是 angular测试模块的基本构件块，它实际上创建了一个模拟<code>NgModule</code>的动态构建的测试模块，输入<code>TestBed.configureTestingModule()</code>的元数据也跟<code>NgModule</code>中的很相似。</p>
+<p>实际上TestBed创建了一个动态测试模块，而beforeEach() 则是在每个case运行前调用的。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&#x27;AppComponent&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> appComponent: AppComponent;</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="keyword">async</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    TestBed.configureTestingModule(&#123;</span><br><span class="line">      imports: [</span><br><span class="line">        RouterTestingModule</span><br><span class="line">      ],</span><br><span class="line">      declarations: [</span><br><span class="line">        AppComponent</span><br><span class="line">      ],</span><br><span class="line">      schemas: [ NO_ERRORS_SCHEMA ]</span><br><span class="line">    &#125;).compileComponents();</span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> fixture = TestBed.createComponent(AppComponent);</span><br><span class="line">    appComponent = fixture.debugElement.componentInstance;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">&#x27;should create the app&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    expect(appComponent).toBeTruthy();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="compileComponents"><a href="#compileComponents" class="headerlink" title="compileComponents()"></a>compileComponents()</h5><p>如果要使用外部文件创建组件，例如styleUrls、templateUrl，则需要在创建组件之前从文件系统读取这些文件，这是异步操作，因此整个配置都放在异步函数中。</p>
+<p>实际上，compileComponents是异步的从文件系统读取外部文件并编译相应的组件，如果我们使用angular cli运行测试则无需执行此操作，因为cli在测试前会编译所有的代码。</p>
+<h6 id="为什么需要有两个beforeEach方法？"><a href="#为什么需要有两个beforeEach方法？" class="headerlink" title="为什么需要有两个beforeEach方法？"></a>为什么需要有两个beforeEach方法？</h6><p>上文提到，compileComponents 是异步函数，所以我们希望在创建用于访问组件实例的装置（fixture）前，确保组件已经编译成功。</p>
+<h6 id="NO-ERRORS-SCHEMA"><a href="#NO-ERRORS-SCHEMA" class="headerlink" title="NO_ERRORS_SCHEMA"></a>NO_ERRORS_SCHEMA</h6><p>在测试<code>app.component</code>时忽略所有无法识别的标签，例如page.component中的<page-list>标签。如果不使用<code>NO_ERRORS_SCHEMA</code>    ，则需要在<code>declarations</code>中声明所有用到的组件。</p>
+<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><ul>
+<li>保证单元测试在沙盒环境中运行</li>
+<li>订阅一个observable时，提供成功和失败的callback</li>
+<li>当测试组件有service依赖时，使用mock service</li>
+<li>访问DOM使用<strong>debugElement</strong>而不是<strong>nativeElement</strong>。因为<strong>debugElement</strong>提供了抽象基础运行环境。</li>
+<li>使用<strong>By.css</strong>而不是<strong>querySelector</strong>，因为querySelector只在浏览器中有效，当应用在服务上运行时会失败</li>
+<li>使用<strong>fixture.detectChanges()<strong>而不是</strong>ComponentFixtureAutoDetect</strong>，<strong>ComponentFixtureAutoDetect</strong>无法检测到同步更新</li>
+<li>不要过度使用NO_ERRORS_SCHEMA，它会忽略所有的属性和无法识别的标签</li>
+</ul>
+<h4 id="RxJS-弹珠测试"><a href="#RxJS-弹珠测试" class="headerlink" title="RxJS 弹珠测试"></a>RxJS 弹珠测试</h4><h5 id="TestScheduler-amp-RunHelpers"><a href="#TestScheduler-amp-RunHelpers" class="headerlink" title="TestScheduler &amp; RunHelpers"></a>TestScheduler &amp; RunHelpers</h5><p>TestScheduler有一个名为run的回调函数，接受一个RunHelpers类型的参数，该参数提供了弹珠测试所需的所有辅助方法。</p>
+<ul>
+<li><strong>cold/hot</strong> ：根据给定的弹珠图创建冷/热Observable。接受一个弹珠图作为第一参数，<code>values</code>和<code>errors</code>作为附加可选参数。如果我们创建一个热的Observable，<code>^</code>则可将其用于指示“零帧”。</li>
+<li><strong>flush</strong>：开始一个虚拟时间。仅当在<code>run</code>回调之外使用帮助程序和RxJs测试工具时，或者想<code>flush</code>多次使用时，才需要调用。</li>
+<li><strong>ExpectObservable：</strong>用于断言Observable符合弹珠图。</li>
+<li><strong>ExpectSubscriptions：</strong>用于断言Observable具有预期的订阅。</li>
+</ul>
+<p><img src="../post-images/image-20201027110847414.png" alt="image-20201027110847414"></p>
+<p><img src="../post-images/image-20201027110908063.png" alt="image-20201027110908063"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/09/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" class="post-title-link" itemprop="url">内存泄露 + Deteched Element Tools</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
               </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
                 </span>
             </span>
 
@@ -637,51 +781,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h1><p>redux is powerful：redux可以追踪每一个变化背后的行为。</p>
-<p><img src="https://miro.medium.com/max/825/1*N62EZSeQNHtwVumCQOdU-Q.png" alt="img"></p>
-<h2 id="Redux与Flux"><a href="#Redux与Flux" class="headerlink" title="Redux与Flux"></a>Redux与Flux</h2><p><img src="https://user-gold-cdn.xitu.io/2019/3/24/169ad99f6092e26b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="123"></p>
-<p>Redux受到了Flux架构的启发，但在实现上有一些不同：</p>
-<ul>
-<li>Redux并没有 dispatcher。它依赖纯函数来替代事件处理器，也不需要额外的实体来管理它们。Flux尝尝被表述为：<code>(state, action) =&gt; state</code>，而纯函数也是实现了这一思想。</li>
-<li>Redux为不可变数据集。在每次Action请求触发以后，Redux都会生成一个新的对象来更新State，而不是在当前状态上进行更改。</li>
-<li>Redux有且只有一个Store对象。它的Store储存了整个应用程序的State。</li>
-</ul>
-<h2 id="术语及概念"><a href="#术语及概念" class="headerlink" title="术语及概念"></a>术语及概念</h2><h3 id="不变性"><a href="#不变性" class="headerlink" title="不变性"></a>不变性</h3><p>redux期望所有值的更新都是不变的，也就是说对于引用类型，我们需要复制deep原变量并在此基础上做更改。</p>
-<h3 id="redux中的数据流"><a href="#redux中的数据流" class="headerlink" title="redux中的数据流"></a>redux中的数据流</h3><ul>
-<li>init<ul>
-<li>使用root reducer函数创建一个store</li>
-<li>store调用一次reducer，并保存它的返回值作为自己的初始state</li>
-<li>当UI初次渲染时，UI组件会访问store中当前的state，并使用里面的数据决定渲染什么。他们也会订阅store中任何未来的的更改来知道state是否发生了变化。</li>
-</ul>
+          <h1 id="内存泄露-Deteched-Element-Tools"><a href="#内存泄露-Deteched-Element-Tools" class="headerlink" title="内存泄露 + Deteched Element Tools"></a>内存泄露 + Deteched Element Tools</h1><p>ref：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/memory-problems/dom-leaks">使用分离的元素工具调试 DOM 内存泄漏 - Microsoft Edge Development | Microsoft Docs</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/memory-problems/heap-snapshots">使用内存工具记录堆快照 - Microsoft Edge Development | Microsoft Docs</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903812595974157">React: 内存泄露常见问题解决方案 - 掘金 (juejin.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="https://web.dev/detached-window-memory-leaks/">分离的窗口内存泄漏 (web.dev)</a></p>
+<p>使用 Deteched Element Tools 的时候，需要注意：</p>
+<ol>
+<li>及时触发垃圾回收，否则很难分辨是否内存泄露</li>
+<li>【业务相关】React-modal 可能因为redux导致一直有实例存在</li>
+<li>查看memory allocate的时候，框架很难看出问题代码的位置，可以采取注释部分代码排查（目前摸出的笨办法），但是要注意可能需要重启DET<ol>
+<li>xxx in Window，以为是 window 对象本身泄露，实际并不是</li>
+</ol>
 </li>
-<li>updates<ul>
-<li>一些事件发生，比如用户点击一个按钮</li>
-<li>app代码派发一个行为到store，比如<code>dispatch(&#123;type: &#39;counter/increment&#39;&#125;)</code></li>
-<li>store再次运行reducer的function，使用上一个state和当前action，并保存返回值作为新的state</li>
-<li>store通知所有订阅store的UI：store已经更新了</li>
-<li>每一个从store中获取数据的UI组件检查他们需要的这部分数据是否发生变化</li>
-<li>每个看到其数据已更改的组件都会强制使用新数据重新渲染，因此它可以更新屏幕上显示的内容</li>
-</ul>
-</li>
-</ul>
-<!-- ![Redux data flow diagram](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif) -->
-
-<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. plain object</span></span><br><span class="line"><span class="comment">// 2. has a type</span></span><br><span class="line"><span class="comment">// 3. whatever else you want</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">&quot;USER_LOGGED_IN&quot;</span>,</span><br><span class="line">  username: <span class="string">&quot;rickieWoo&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>action是具有type属性的普通对象</p>
-<h3 id="action-creators"><a href="#action-creators" class="headerlink" title="action creators"></a>action creators</h3><p>而且，由于总是手动编写这些对象会很烦人（更不用说容易出错），因此Redux具有“action creators”的概念，可以将这些内容淘汰掉</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">userLoggedIn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="keyword">type</span>: <span class="string">&#x27;USER_LOGGED_IN&#x27;</span>,</span><br><span class="line">    username: <span class="string">&#x27;dave&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Redux-toolKit"><a href="#Redux-toolKit" class="headerlink" title="Redux toolKit"></a>Redux toolKit</h2><p>Immer library？</p>
-<p>将变更检测存为草稿状态（draft state）并基于这些变更产生一个全新的不可变状态</p>
-<p>⬆️在RTK中，reduder中的state是草稿state</p>
-<h3 id="Thunk"><a href="#Thunk" class="headerlink" title="Thunk"></a>Thunk</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://daveceddia.com/what-is-a-thunk/">https://daveceddia.com/what-is-a-thunk/</a></p>
-</blockquote>
-<p>thunk是function的另一种说法，不过thunk特指返回一个function的function。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wrapper_function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// this one is a &quot;thunk&quot; because it defers work for later:</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">thunk</span>(<span class="params"></span>) </span>&#123;   <span class="comment">// it can be named, or anonymous</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;do stuff now&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>内存泄露大头一般是一些第三方API的未销毁问题</li>
+</ol>
 
       
     </div>
@@ -701,11 +815,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/03/19/TemplateRef/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -715,7 +829,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/19/TemplateRef/" class="post-title-link" itemprop="url">TemplateRef 学习</a>
+            <a href="/2022/08/09/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">微前端菜单迁移解决方案</a>
         </h2>
 
         <div class="post-meta">
@@ -725,22 +839,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-03-19 15:14:39" itemprop="dateCreated datePublished" datetime="2021-03-19T15:14:39+08:00">2021-03-19</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:19:12" itemprop="dateModified" datetime="2021-04-16T16:19:12+08:00">2021-04-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
                 </span>
             </span>
 
@@ -755,85 +862,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="TemplateRef"><a href="#TemplateRef" class="headerlink" title="TemplateRef"></a>TemplateRef</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/TemplateRef">https://angular.cn/api/core/TemplateRef</a></p>
-</blockquote>
-<p>定义：表示一个内嵌模板，它可用于实例化内嵌的视图。</p>
-<p>说明：通过把一个指令放在ng-template上，或一个带*前缀的指令，可以访问TemplatRef实例。</p>
-<p>内嵌视图的TemplateRef实例会以TemplateRef作为token，注入到该指令的构造函数中。</p>
-<p>属性：abstract elementRef: ElementRef</p>
-<ul>
-<li>当前内嵌视图在父视图的锚点元素</li>
-<li>对于从这个 <code>TemplateRef</code> 创建的内嵌视图，其数据绑定和依赖注入的上下文是从<strong>当前位置</strong>的上下文中继承而来的。</li>
-<li>通常，新的内嵌视图会被附加到当前位置的视图容器中，<strong>但是在一些高级用例中，该视图可能被附加到别的容器中， 同时还保留原位置的数据绑定和依赖注入上下文</strong>。</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li><p>createEmbeddedView()</p>
-<ul>
-<li>创建一个视图对象，并把它附着到父视图的视图容器上。</li>
-<li>![WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763](/Users/rickie/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application Support/WXWork/Temp/ScreenCapture/WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763.png)</li>
-<li>![image-20210322153553829](/Users/rickie/Library/Application Support/typora-user-images/image-20210322153553829.png)</li>
-</ul>
-<p>以下模板分别为两个单独的TemplateRef实例，一个外部实例和一个内部实例</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let  item of items&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="微前端菜单迁移解决方案"><a href="#微前端菜单迁移解决方案" class="headerlink" title="微前端菜单迁移解决方案"></a>微前端菜单迁移解决方案</h1><p>web compoent 编写约定：componentName 需与文件名一致(<code>zts-$&#123;fileName&#125;</code>)</p>
+<p>[TOC]</p>
+<h2 id="zts-web"><a href="#zts-web" class="headerlink" title="zts-web"></a>zts-web</h2><h4 id="样式隔离"><a href="#样式隔离" class="headerlink" title="样式隔离"></a>样式隔离</h4><p>在webComponentLoader中，将script和style都append到shadow DOM节点中，可以有效的样式隔离。但是由于popover、modal等弹出层会唤起 cdk-overlay ，在shadowDOM外面，因此此处antd的样式会被ng-zorro影响，导致样式混乱。随着进一步的迁移，未来web component应用到angular站的场景可能会增多，因此考虑将zts项目中打包的web component统一修改antd样式的prefix。具体的修改如下：</p>
+<h4 id="webpack-webcomponentify-config"><a href="#webpack-webcomponentify-config" class="headerlink" title="webpack.webcomponentify.config"></a>webpack.webcomponentify.config</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 此处 style 要从 css 改为 true，默认使用less才能使用 modifyVars 修改 prefix</span></span><br><span class="line"><span class="string">&quot;plugins&quot;</span>: [</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&quot;import&quot;</span>, &#123;</span><br><span class="line">      <span class="string">&quot;libraryName&quot;</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="string">&quot;style&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改less loader 中，变量 ant-prefix 的值</span></span><br><span class="line">&#123;</span><br><span class="line">  test: <span class="regexp">/\.(css|less)?$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">      MiniCssExtractPlugin.loader,</span><br><span class="line">      <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="built_in">require</span>.resolve(<span class="string">&#x27;less-loader&#x27;</span>),</span><br><span class="line">        options: &#123;</span><br><span class="line">          lessOptions: &#123;</span><br><span class="line">            javascriptEnabled: <span class="literal">true</span>,</span><br><span class="line">            modifyVars: &#123;</span><br><span class="line">              <span class="string">&#x27;ant-prefix&#x27;</span>: <span class="string">&#x27;zts-ant&#x27;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--外部 TemplatRef--&gt;</span></span><br><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-item</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;items&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="webComponent"><a href="#webComponent" class="headerlink" title="webComponent/*"></a>webComponent/*</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; container.tsx</span><br><span class="line">&#x2F;&#x2F; 给外层的configProvider传入prefixCls属性，与config中保持一致</span><br><span class="line">const WrapperComponent: FC&lt;props&gt; &#x3D; (props) &#x3D;&gt; &#123;</span><br><span class="line">    const containerRef &#x3D; useRef&lt;HTMLDivElement&gt;(null);</span><br><span class="line">    return (</span><br><span class="line">        &lt;ConfigProvider prefixCls&#x3D;&quot;zts-ant&quot; locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">        		&lt;WechatMessageTaskNotificationWithAuth &#123;...props&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default WrapperComponent;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--内部 TemplatRef--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h5><p>将上面的包含prefixCls的wrapper封成了一个hoc: <code>withZtsCSSPrefix</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export function withZtsCSSPrefix&lt;T, P &#x3D; any&gt;(WrapperComponent: FC&lt;T&gt;) &#123;</span><br><span class="line">    return forwardRef&lt;P, PropsWithChildren&lt;T&gt;&gt;((props, ref) &#x3D;&gt; &#123; return (</span><br><span class="line">        &lt;ConfigProvider locale&#x3D;&#123;zhCN&#125; prefixCls&#x3D;&quot;zts-ant&quot;&gt;</span><br><span class="line">            &lt;WrapperComponent &#123;...props&#125; ref&#x3D;&#123;ref&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    ); &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 外部和内部 TemplateRef 实例按如下方式组装到视图中 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ViewRef: outer-0 --&gt;</span></span><br><span class="line">Count: 2</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">view-container-ref</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-1 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-1 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-2 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /ViewRef: outer-0 --&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="template"><a href="#template" class="headerlink" title="template"></a>template</h4><!-- ![preview](https://segmentfault.com/img/bVKyfR?w=680&h=389/view) -->
+<h4 id="css"><a href="#css" class="headerlink" title="*/*.css"></a>*/*.css</h4><p>修改：将所有的.ant样式前缀修改为.zts-ant</p>
+<h2 id="cat-web"><a href="#cat-web" class="headerlink" title="cat-web"></a>cat-web</h2><h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><p>为了方便web component的开发和日常使用，当环境变量<code>NODE_ENV=react</code>时，使用proxy将<code> /conan-zts-web/web-component/*</code>转发到<code>localhost:9000/*</code>，否则会使用<code>peace-test</code>的url前缀（见proxy/conf.js）。</p>
+<p>配置参考： <a target="_blank" rel="noopener" href="https://angular.cn/guide/build#proxy-multiple-entries">Angular - 构建并运行 Angular 应用</a></p>
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...,</span><br><span class="line">  &quot;dev:react&quot;: &quot;NODE_ENV=react npm run dev-jit&quot;,</span><br><span class="line">  &quot;dev:local:react&quot;: &quot;NODE_ENV=react npm run dev:local&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h4 id="angular-json"><a href="#angular-json" class="headerlink" title="angular.json"></a>angular.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span>: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dev:local&quot;: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>由于菜单是需要预先加载的资源，因此 index.html 中，使用preload 将 navigator和vendor的资源提前加载。其中vendor.css 除 preload外还将直接应用到全局（提供给在上文提到的样式隔离中，popover等弹出层的样式用）。</p>
+<p>最终的index.html和local-dev/index.html的修改如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>从上图中，我们发现 <template> 模板元素，渲染后被替换成 comment 元素，那么如何展示的呢？</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Component, TemplateRef, ViewChild, AfterViewInit&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h1&gt;Welcome to Angular World&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    &lt;template #tpl&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;I am span in template&lt;/span&gt;</span></span><br><span class="line"><span class="string">    &lt;/template&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">  name: <span class="built_in">string</span> = <span class="string">&#x27;Semlinker&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="string">&#x27;tpl&#x27;</span>)</span><br><span class="line">  tpl: TemplateRef&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngAfterViewInit</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> embeddedView = <span class="built_in">this</span>.tpl.createEmbeddedView(<span class="literal">null</span>);</span><br><span class="line">    <span class="built_in">console</span>.dir(embeddedView);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://segmentfault.com/img/bVKyfW?w=469&h=201" alt="图片描述"></p>
-<p>从图中我们可以知道，当调用 createEmbeddedView 方法后返回了 ViewRef_ 视图对象。该视图对象的 rootNodes 属性包含了 <template> 模板中的内容。在上面的例子中，我们知道了 TemplateRef 实例对象中的 elementRef 属性封装了我们的 comment 元素，那么我们可以通过 insertBefore 方法来创建我们模板中定义的内容。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, TemplateRef, ViewChild, AfterViewInit &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#39;my-app&#39;,</span><br><span class="line">  template: &#96;</span><br><span class="line">    &lt;h1&gt;Welcome to Angular World&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;template #tpl&gt;</span><br><span class="line">      &lt;span&gt;I am span in template &#123;&#123;name&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">  &#96;,</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;</span><br><span class="line">  name: string &#x3D; &#39;Semlinker&#39;;</span><br><span class="line"></span><br><span class="line">  @ViewChild(&#39;tpl&#39;)</span><br><span class="line">  tpl: TemplateRef&lt;any&gt;;</span><br><span class="line"></span><br><span class="line">  ngAfterViewInit() &#123;</span><br><span class="line">    &#x2F;&#x2F; 页面中的&lt;!--template bindings&#x3D;&#123;&#125;--&gt;元素</span><br><span class="line">    let commentElement &#x3D; this.tpl.elementRef.nativeElement;</span><br><span class="line">    &#x2F;&#x2F; 创建内嵌视图</span><br><span class="line">    let embeddedView &#x3D; this.tpl.createEmbeddedView(null);</span><br><span class="line">    &#x2F;&#x2F; 动态添加子节点</span><br><span class="line">    embeddedView.rootNodes.forEach((node) &#x3D;&gt; &#123;</span><br><span class="line">        commentElement.parentNode</span><br><span class="line">          .insertBefore(node, commentElement.nextSibling);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>创建内嵌视图(embedded view)</li>
-<li>遍历内嵌视图中的 rootNodes，动态的插入 node</li>
-</ul>
-<h3 id="ViewContainerRef"><a href="#ViewContainerRef" class="headerlink" title="ViewContainerRef"></a>ViewContainerRef</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/ViewContainerRef">https://angular.cn/api/core/ViewContainerRef</a></p>
-</blockquote>
-<p>表示可以将一个或多个视图附着到组件中的容器。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @angular/core/src/linker/view_container_ref.d.ts</span></span><br><span class="line"><span class="comment">// 用于表示一个视图容器，可添加一个或多个视图</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewContainerRef_</span> <span class="title">implements</span> <span class="title">ViewContainerRef</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    length: <span class="built_in">number</span>; <span class="comment">// 返回视图容器中已存在的视图个数</span></span><br><span class="line">    element: ElementRef;</span><br><span class="line">    injector: Injector;</span><br><span class="line">    parentInjector: Injector;</span><br><span class="line">      <span class="comment">// 基于TemplateRef创建内嵌视图，并自动添加到视图容器中，可通过index设置</span></span><br><span class="line">    <span class="comment">// 视图添加的位置</span></span><br><span class="line">    createEmbeddedView&lt;C&gt;(templateRef: TemplateRef&lt;C&gt;, context?: C,</span><br><span class="line">      index?: <span class="built_in">number</span>): EmbeddedViewRef&lt;C&gt;;</span><br><span class="line">    <span class="comment">// 基 ComponentFactory创建组件视图</span></span><br><span class="line">    createComponent&lt;C&gt;(componentFactory: ComponentFactory&lt;C&gt;,</span><br><span class="line">      index?: <span class="built_in">number</span>, injector?: Injector, projectableNodes?: <span class="built_in">any</span>[][]): ComponentRef&lt;C&gt;;</span><br><span class="line">    insert(viewRef: ViewRef, index?: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    move(viewRef: ViewRef, <span class="attr">currentIndex</span>: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    indexOf(viewRef: ViewRef): <span class="built_in">number</span>;</span><br><span class="line">    remove(index?: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br><span class="line">    detach(index?: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    clear(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>TemplateRef：用于表示内嵌的 template 模板元素，通过 TemplateRef 实例，我们可以方便创建内嵌视图(Embedded Views)，且可以轻松地访问到通过 ElementRef 封装后的 nativeElement。需要注意的是组件视图中的 template 模板元素，经过渲染后会被替换成 comment 元素。</p>
-<p>ViewContainerRef：用于表示一个视图容器，可添加一个或多个视图。通过 ViewContainer<br>Ref 实例，我们可以基于 TemplateRef 实例创建内嵌视图，并能指定内嵌视图的插入位置，也可以方便对视图容器中已有的视图进行管理。简而言之，ViewContainerRef 的主要作用是创建和管理内嵌视图或组件视图。</p>
-<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view">https://angular.cn/guide/glossary#view</a></p>
-</blockquote>
-<p>视图是可显示元素的最小分组单位，它们会被同时创建和销毁。 Angular 在一个或多个<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#directive">指令 (directive)</a> 的控制下渲染视图。</p>
-<p>具体实现上，视图由一个与该组件相关的 <code>ViewRef</code> 实例表示。 直属于某个组件的视图叫做<em>宿主视图</em>。 通常会把视图组织成一些<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view-tree">视图树（view hierarchies）</a>。</p>
-<h3 id="EmbeddedViewRef"><a href="#EmbeddedViewRef" class="headerlink" title="EmbeddedViewRef"></a>EmbeddedViewRef</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/EmbeddedViewRef">https://angular.cn/api/core/EmbeddedViewRef</a></p>
-</blockquote>
-<p>表示视图容器中的 Angular <a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view">视图</a>。<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view-tree">嵌入视图</a>可以从在模板中定义它的宿主组件之外的组件中引用，也可以由 <code>TemplateRef</code> 进行独立定义。</p>
-<h3 id="ContentChild"><a href="#ContentChild" class="headerlink" title="ContentChild"></a>ContentChild</h3><p>用于配置内容查询的参数修饰器。</p>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>用于从内容 DOM 获取与此选择器匹配的第一个元素或指令。如果内容 DOM 发生了更改，并且有一个新的子项与选择器匹配，则该属性将被更新。</p>
-<p>在调用 <code>ngAfterContentInit</code> 之前设置的内容查询。</p>
-<p>不检索其他组件模板中的元素或指令，因为组件模板对其祖先来说始终是黑匣子。</p>
-<p><strong>元数据属性</strong>：</p>
-<ul>
-<li><strong>selector</strong> - 要查询的指令类型或名称。</li>
-<li><strong>read</strong> - 用于从查询到的元素读取不同的令牌。</li>
-<li><strong>static</strong> - 如果为 true，则在变更检测运行之前解析查询结果，如果为 false，则在变更检测之后解析。默认为 false。</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Component, ContentChild, Directive, Input&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;<span class="attr">selector</span>: <span class="string">&#x27;pane&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Pane</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Input</span>() id!: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;tab&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;pane: &#123;&#123;pane?.id&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Tab</span> </span>&#123;</span><br><span class="line">  <span class="meta">@ContentChild</span>(Pane) pane!: Pane;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;example-app&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;tab&gt;</span></span><br><span class="line"><span class="string">      &lt;pane id=&quot;1&quot; *ngIf=&quot;shouldShow&quot;&gt;&lt;/pane&gt;</span></span><br><span class="line"><span class="string">      &lt;pane id=&quot;2&quot; *ngIf=&quot;!shouldShow&quot;&gt;&lt;/pane&gt;</span></span><br><span class="line"><span class="string">    &lt;/tab&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;button (click)=&quot;toggle()&quot;&gt;Toggle&lt;/button&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentChildComp</span> </span>&#123;</span><br><span class="line">  shouldShow = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">toggle</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.shouldShow = !<span class="built_in">this</span>.shouldShow;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/ElementRef">https://angular.cn/api/core/ElementRef</a></p>
-</blockquote>
-<p>对视图中某个原生元素的包装器。它的背后是一个可渲染的具体元素，例如浏览器中通常为DOM元素。</p>
-<p>![image-20210322170031878](/Users/rickie/Library/Application Support/typora-user-images/image-20210322170031878.png)</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="deepclone"><a href="#deepclone" class="headerlink" title="deepclone"></a>deepclone</h3><p>lodash的深拷贝方法是相对完善和严谨的，对于特殊的数据类型，环，兼容性等等都考虑到了。但是对于function类型，依然是引用。并且，也没有深拷贝在原型链上的属性。实现的方式主要是以Object.prototype.toString.call得到tag，再分类处理，环由stack解决，symbol由Object.getOwnPropertySymbols方法解决。</p>
+<h3 id="Web-component-loader-优化"><a href="#Web-component-loader-优化" class="headerlink" title="Web-component-loader 优化"></a>Web-component-loader 优化</h3><p>input更加简单，保留了webComponentProps，并新增了componentName属性，与zts-web中对应组件的componentName一致。</p>
+<h4 id="下一步工作"><a href="#下一步工作" class="headerlink" title="下一步工作"></a>下一步工作</h4><p>目前的痛点：</p>
+<ol>
+<li>cat 中 componentName = zts 中 componentName =  zts-web 中的组件路径（文件夹名称），否则无法正常使用组件。其中组件路径的影响最难被感知。</li>
+<li>目前 zts-web中的url没有设置内容hash，无法控制版本，每一次zts-web的上线会直接影响cat中相应组件的使用。</li>
+</ol>
+<p>解决方案：</p>
+<p>在webpack中配置，将文件名设置为内容hash（css + js），使用 recordsPath 将打包文件记录导出。在cat中preload资源名称，获取records.json中记录的文件名，在 load 组件时获取对应的url。通过这种方法，组件路径不会影响组件的正常使用，且url中添加hash缓存会保证用户某场景下使用的组件版本一致。</p>
 
       
     </div>
@@ -853,11 +910,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/03/15/React%20hook/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/webpack%205%20%E7%AE%80%E4%BB%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -867,7 +924,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/15/React%20hook/" class="post-title-link" itemprop="url">React hook</a>
+            <a href="/2022/08/09/webpack%205%20%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">webpack 5 简介</a>
         </h2>
 
         <div class="post-meta">
@@ -877,305 +934,8 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-03-15 17:46:03" itemprop="dateCreated datePublished" datetime="2021-03-15T17:46:03+08:00">2021-03-15</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:16:46" itemprop="dateModified" datetime="2021-04-16T16:16:46+08:00">2021-04-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="React-hook"><a href="#React-hook" class="headerlink" title="React hook"></a>React hook</h1><p>##Hook的优点</p>
-<p>随时可用:<strong>Hook 使你在无需修改组件结构的情况下复用状态逻辑</strong></p>
-<p><strong>Hook 将组件中相互关联的部分拆分成更小的函数（比如设置订阅或请求数据）</strong></p>
-<p>向后兼容 且 没有Breaking-change</p>
-<p>拥抱函数，在非class的情况下使用更多react特性</p>
-<p>##什么是Hook</p>
-<p>Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。Hook **不能在 class 组件中使用 **—— 这使得你不使用 class 也能使用 React。其实就是js函数</p>
-<h2 id="Hook-使用规则"><a href="#Hook-使用规则" class="headerlink" title="Hook 使用规则"></a>Hook 使用规则</h2><ul>
-<li>只能在<strong>函数最外层</strong>调用 Hook。不要在循环、条件判断或者子函数中调用。</li>
-<li>只能在 <strong>React 的函数组件或自定义的 Hook 中</strong>中调用 Hook。</li>
-<li>Hook 是一种复用<em>状态逻辑</em>的方式，它不复用 state 本身。事实上 Hook 的每次<em>调用</em>都有一个完全独立的 state —— 因此你可以在单个组件中多次调用同一个自定义 Hook。</li>
-</ul>
-<p>常用hook</p>
-<ul>
-<li>useState</li>
-<li>useEffect<ul>
-<li>跟 class 组件中的 <code>componentDidMount</code>、<code>componentDidUpdate</code> 和 <code>componentWillUnmount</code> 具有相同的用途</li>
-<li>默认情况下，React 会在每次渲染后调用副作用函数 —— <strong>包括</strong>第一次渲染的时候</li>
-<li>参数<ul>
-<li>一个副作用的funtion<ul>
-<li>返回值：返回一个函数指定如何清除副作用</li>
-</ul>
-</li>
-<li>一个数组：如果这个数组中所有元素与上一次相等，则会跳过这次effect，性能优化点</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</li>
-<li>useContext<ul>
-<li>接受一个context对象，并返回他的value</li>
-</ul>
-</li>
-<li>useReducer<ul>
-<li><a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate"><code>useState</code></a> 的替代方案</li>
-</ul>
-</li>
-<li>useCallback</li>
-<li>useMemo</li>
-<li>userRef</li>
-</ul>
-<p>#React Context</p>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p><em>很多</em>不同层级的组件需要访问同样一些的数据</p>
-<p>共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="createContext"><a href="#createContext" class="headerlink" title="createContext"></a><code>createContext</code></h3><p>找离自身最近的provider并读取当前的值</p>
-<p>参数defaultValue，注意defaultValue的生效时机</p>
-<ul>
-<li><p>没有匹配到provider时才生效</p>
-</li>
-<li><p>设置为undefined时不生效</p>
-</li>
-</ul>
-<h3 id="Class-contextType"><a href="#Class-contextType" class="headerlink" title="Class.contextType"></a><code>Class.contextType</code></h3><p>会被重新赋值为Context对象，然后用this.context的时候会消费最近<code>context</code>上?的值 // TODO</p>
-<h3 id="Context-Consumer"><a href="#Context-Consumer" class="headerlink" title="Context.Consumer"></a><code>Context.Consumer</code></h3><p>在<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/components-and-props.html#function-and-class-components">函数式组件</a>中可以订阅 context，检测变更</p>
-<h3 id="Context-displayName"><a href="#Context-displayName" class="headerlink" title="Context.displayName"></a><code>Context.displayName</code></h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/02/20/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/20/%E5%BC%82%E6%AD%A5%E6%B5%81%20async%20%E6%97%B6%EF%BC%8C%E5%BE%97%E5%88%B0%20null%20%E7%9A%84bug/" class="post-title-link" itemprop="url">异步流 async 时，得到 null 的bug</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-20 11:45:13" itemprop="dateCreated datePublished" datetime="2021-02-20T11:45:13+08:00">2021-02-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:12:31" itemprop="dateModified" datetime="2021-04-16T16:12:31+08:00">2021-04-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>假设模版代码中使用了asyncPipe：</p>
-<p>  obs$ | async</p>
-<p>如果obs$是一个异步得到的值，例如请求、delay等<br>那么obs$ | async得到的值为 null，等请求返回、或者到达指定时间时才会返回订阅结果</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- *.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-component</span> [<span class="attr">input</span>]=<span class="string">&quot;asyncObservable$ | async&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// *.ts</span></span><br><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title">input</span>(<span class="params">input: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="comment">// 如果不加判断，则在得到正确的值前，会先有 this.input$.next(null)</span></span><br><span class="line">  <span class="keyword">if</span> (input !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="built_in">this</span>.input$.next(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">input$ = <span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="关于asyncPipe"><a href="#关于asyncPipe" class="headerlink" title="关于asyncPipe"></a>关于asyncPipe</h2><p>asyncPipe源码解析：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianxiaox/p/13750539.html">https://www.cnblogs.com/qianxiaox/p/13750539.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/20/Angular-%E5%8E%BB%E9%99%A4%E7%BB%84%E4%BB%B6%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">Angular-去除组件标签的解决方案</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-20 11:44:35" itemprop="dateCreated datePublished" datetime="2021-02-20T11:44:35+08:00">2021-02-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:12:19" itemprop="dateModified" datetime="2021-04-16T16:12:19+08:00">2021-04-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>做老师带多科需求的时候，需要更改各个列表的table header的filter，改动基本一致。</p>
-<p>之前每个table的<th>都是写在各自组件的，因为写在组件中，最外层会有个<app-xxx>的标签，会打乱<tr>中的样式。而现在我们不得不将一部分<th>组件抽出来。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>参见 conan-cat-web 中的 <table-header> 组件</p>
-<p>createEmbeddedView + style=”display: none”</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// table-header.ts</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;tableHeader&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;) tableHeaderTpl!: TemplateRef&lt;unknown&gt;;</span><br><span class="line"></span><br><span class="line"><span class="title">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> viewContainerRef: ViewContainerRef,</span></span><br><span class="line"><span class="params">  </span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">ngOnInit</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.viewContainerRef.createEmbeddedView(<span class="built_in">this</span>.tableHeaderTpl);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- table-header.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-template</span> #<span class="attr">tableHeader</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">th</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of data&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* style.css */</span></span><br><span class="line"><span class="comment">/* 删除 app-table-header 标签 */</span></span><br><span class="line">app-<span class="selector-tag">table</span>-<span class="selector-tag">header</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: non</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/12/webpack%205%20%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">webpack 5 简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-12-12 11:21:31" itemprop="dateCreated datePublished" datetime="2020-12-12T11:21:31+08:00">2020-12-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:12:55" itemprop="dateModified" datetime="2021-04-16T16:12:55+08:00">2021-04-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1294,36 +1054,36 @@
 </blockquote>
 <p>webpack 5的最低node.js版本为10.13.0</p>
 <p>现状：</p>
-<p>![WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa](/Users/rickie/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application Support/WXWork/Temp/ScreenCapture/WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa.png)</p>
-<p>![WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296](/Users/rickie/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application Support/WXWork/Temp/ScreenCapture/WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296.png)</p>
+<p><img src="../post-images/WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa.png" alt="WeChatWorkScreenshot_4c8cb24d-eef6-4790-9a74-42d87aa318fa"></p>
+<p><img src="../post-images/WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296.png" alt="WeChatWorkScreenshot_24eab8ca-1433-41cb-9686-ba56b4cdc296"></p>
 <p>升级Angular = 11</p>
-<p>![image-20201214173622039](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173622039.png)</p>
-<p>![image-20201214173649535](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173649535.png)</p>
-<p>![image-20201214173717556](/Users/rickie/Library/Application Support/typora-user-images/image-20201214173717556.png)</p>
+<p><img src="../post-images/image-20201214173622039.png" alt="image-20201214173622039"></p>
+<p><img src="../post-images/image-20201214173649535.png" alt="image-20201214173649535"></p>
+<p><img src="../post-images/image-20201214173717556.png" alt="image-20201214173717556"></p>
 <p>升级到 weback = 5.0.0</p>
-<p>![image-20201214175449325](/Users/rickie/Library/Application Support/typora-user-images/image-20201214175449325.png)</p>
+<p><img src="../post-images/image-20201214175449325.png" alt="image-20201214175449325"></p>
 <p>解决：</p>
-<p>yarn add <a href="mailto:&#x72;&#x78;&#106;&#x73;&#45;&#x74;&#115;&#108;&#x69;&#110;&#x74;&#x40;&#48;&#x2e;&#49;&#x2e;&#53;">&#x72;&#x78;&#106;&#x73;&#45;&#x74;&#115;&#108;&#x69;&#110;&#x74;&#x40;&#48;&#x2e;&#49;&#x2e;&#53;</a> -D</p>
+<p>yarn add <a href="mailto:&#x72;&#120;&#106;&#x73;&#x2d;&#x74;&#115;&#x6c;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#46;&#x35;">&#x72;&#120;&#106;&#x73;&#x2d;&#x74;&#115;&#x6c;&#x69;&#110;&#116;&#64;&#48;&#x2e;&#x31;&#46;&#x35;</a> -D</p>
 <p>需要指定版本。。且需要降版本到0.1.5</p>
 <p>then</p>
-<p>![image-20201214181031819](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181031819.png)</p>
+<p><img src="../post-images/image-20201214181031819.png" alt="image-20201214181031819"></p>
 <p>By : <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs">https://stackoverflow.com/questions/64361940/webpack-error-configuration-node-has-an-unknown-property-fs</a></p>
-<p>![image-20201214181204709](/Users/rickie/Library/Application Support/typora-user-images/image-20201214181204709.png)</p>
+<p><img src="../post-images/image-20201214181204709.png" alt="image-20201214181204709"></p>
 <p>finally</p>
 <p>直播项目引入了jszip，这里用了stream</p>
-<p>![image-20201214182343009](/Users/rickie/Library/Application Support/typora-user-images/image-20201214182343009.png)</p>
-<p>![image-20201214184152985](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184152985.png)</p>
-<p>![image-20201214184227357](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184227357.png)</p>
-<p>![image-20201214184316771](/Users/rickie/Library/Application Support/typora-user-images/image-20201214184316771.png)</p>
+<p><img src="../post-images/image-20201214182343009.png" alt="image-20201214182343009"></p>
+<p><img src="../post-images/image-20201214184152985.png" alt="image-20201214184152985"></p>
+<p><img src="../post-images/image-20201214184227357.png" alt="image-20201214184227357"></p>
+<p><img src="../post-images/image-20201214184316771.png" alt="image-20201214184316771"></p>
 <hr>
 <p>在新站</p>
-<p>![image-20201214202259262](/Users/rickie/Library/Application Support/typora-user-images/image-20201214202259262.png)</p>
+<p><img src="../post-images/image-20201214202259262.png" alt="image-20201214202259262"></p>
 <p>recomplie</p>
-<p>![image-20201214202454418](/Users/rickie/Library/Application Support/typora-user-images/image-20201214202454418.png)</p>
+<p><img src="../post-images/image-20201214202454418.png" alt="image-20201214202454418"></p>
 <p>angular 11，antd不支持，mkd不支持</p>
-<p>![image-20201214211347225](/Users/rickie/Library/Application Support/typora-user-images/image-20201214211347225.png)</p>
-<p>![image-20201214211217405](/Users/rickie/Library/Application Support/typora-user-images/image-20201214211217405.png)</p>
-<p>![image-20201214212316268](/Users/rickie/Library/Application Support/typora-user-images/image-20201214212316268.png)</p>
+<p><img src="../post-images/image-20201214211347225.png" alt="image-20201214211347225"></p>
+<p><img src="../post-images/image-20201214211217405.png" alt="image-20201214211217405"></p>
+<p><img src="../post-images/image-20201214212316268.png" alt="image-20201214212316268"></p>
 
       
     </div>
@@ -1343,11 +1103,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/11/20/Q&A%20with%20yaogangqiang/">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/angular%E5%92%8Creact%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%8F%9C%E5%8D%95%E5%90%88%E5%B9%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -1357,7 +1117,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/20/Q&A%20with%20yaogangqiang/" class="post-title-link" itemprop="url">记一次ONE-ONE</a>
+            <a href="/2022/08/09/angular%E5%92%8Creact%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%8F%9C%E5%8D%95%E5%90%88%E5%B9%B6/" class="post-title-link" itemprop="url">angular和react项目的菜单合并解决方案</a>
         </h2>
 
         <div class="post-meta">
@@ -1367,22 +1127,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-11-20 14:15:57" itemprop="dateCreated datePublished" datetime="2020-11-20T14:15:57+08:00">2020-11-20</time>
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-16 16:18:54" itemprop="dateModified" datetime="2021-04-16T16:18:54+08:00">2021-04-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
                 </span>
             </span>
 
@@ -1397,106 +1150,197 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="记一次ONE-ONE"><a href="#记一次ONE-ONE" class="headerlink" title="记一次ONE-ONE"></a>记一次ONE-ONE</h1><h6 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h6><p>前端的职能，与后端的边界？</p>
+          <h1 id="angular和react项目的菜单合并解决方案"><a href="#angular和react项目的菜单合并解决方案" class="headerlink" title="angular和react项目的菜单合并解决方案"></a>angular和react项目的菜单合并解决方案</h1><h2 id="monorepo"><a href="#monorepo" class="headerlink" title="monorepo"></a>monorepo</h2><p><a target="_blank" rel="noopener" href="https://blog.bitsrc.io/11-tools-to-build-a-monorepo-in-2021-7ce904821cc2">11 Great Tools for a Monorepo in 2021 | Bits and Pieces (bitsrc.io)</a></p>
 <ul>
-<li><p>后端负责提供一个稳定的服务，前端在此之上做易变的功能</p>
-</li>
-<li><p>做项目的时候就要思考这个产品是不是未来会产生变化，有时候还挺难预见的，</p>
-</li>
-<li><ul>
-<li>比如peace的出现，刚开始做的时候可能大家都不知道未来会有一个新系统</li>
+<li>支持 vite</li>
+<li>可以统一构建</li>
+<li>支持公用组件和类型</li>
+<li>同一仓库</li>
+<li>❌ 需要一个新仓库，重新配置nginx，不好过渡，两个仓库的cdn也不同</li>
+<li>❌ ⬆️改动过大</li>
+<li>组件支持复用</li>
 </ul>
-</li>
-<li><p>前后端边界是什么</p>
-</li>
-<li><ul>
-<li>如何定义领域？谁来下这个定义</li>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>仅构建受影响的内容</th>
+<th>生态</th>
+<th>优势</th>
+<th>适用场景</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lerna</td>
+<td>❌</td>
+<td>用户群最大，文档简略</td>
+<td>1. 框架无关 2.</td>
+<td>处理具有多个包的开源项目</td>
+<td></td>
+</tr>
+<tr>
+<td>nx</td>
+<td>✔️</td>
+<td>文档详细</td>
+<td>1. 集成脚手架 2. 已支持react、angular 3. 文档详细</td>
+<td>处理具有多个包的复杂工作流</td>
+<td></td>
+</tr>
+<tr>
+<td>支持缓存</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="npm包"><a href="#npm包" class="headerlink" title="npm包"></a>npm包</h2><ul>
+<li>❌ 最麻烦，需要发布，新featrue的部署需要至少两次上线，且无法保证同步构建</li>
+<li>支持公用组件和类型</li>
+<li>两个仓库</li>
+<li>改动较小</li>
 </ul>
-</li>
-<li><p>@wzx说：直接后端提供一个rpc 接口，前端需要的逻辑拼装在node层做</p>
-</li>
+<h2 id="webcomponent"><a href="#webcomponent" class="headerlink" title="webcomponent"></a>webcomponent</h2><ul>
+<li>目前已支持，改动量最小</li>
+<li>可以最快接入，并解决菜单问题</li>
+<li>两个仓库，需要两次部署上线</li>
+<li>组件可复用</li>
+<li>❌ 两个webcomponent同时在一个页面使用不知道是否会引入两个react包</li>
+<li>❌ 无法解决共用类型的问题，相同的类型定义可能需要写两遍</li>
+<li>…配起来比较麻烦？</li>
 </ul>
-<h6 id="思考和讨论"><a href="#思考和讨论" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>领域的概念是随着业务的变化而变化的，比如在电商系统中有几个比较成熟的领域模型，如订单、运单、商品等，但是在我们的业务中，可能需要前后端共同讨论并达成一致。TODO</p>
-<p>bff层是一个概念，这个概念由谁来做是不确定的，要根据团队的能力、人员分配及其技术水平等来判断</p>
-<p>一个产品必然是不断变更迭代的，谁也说不清这个业务会发展成什么样，所以只能保证在设计系统的时候，该系统具有可延展的能力</p>
-<p>至于后端只提供rpc的稳定服务，其他都放在bff层拼装，首先在架构方面层级多并不是件好事，多了bff层反而会有一定风险，比如对bff层的稳定性要求极高，该层发布频率也会很高，会有频繁的变更。所以目前是在各个服务中做自己的领域内的事，这样一个服务出问题也不会影响到另外一个。</p>
-<h6 id="疑问-1"><a href="#疑问-1" class="headerlink" title="疑问"></a>疑问</h6><p>养成一个好习惯，那什么是好习惯？在哪些方面需要关注呢？</p>
+<h2 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h2><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">Git - 子模块 (git-scm.com)</a></p>
 <ul>
-<li><p>感觉目前只能在个人方面靠一些学习养成好习惯</p>
+<li>需要一个新的公共库，分别喂给 cat、zts 的 submodule<ul>
+<li>或者 需要在zts下新建一个新的公共库，喂给 cat的 submodule</li>
+</ul>
 </li>
-<li><p>在团队方面，习惯是跟着团队走的，那该怎么养成好习惯呢？</p>
+<li>注意：需要配置一些 git 操作相关的脚本/alias，解决以下问题<ul>
+<li>如果submodule有更新，默认在本地父项目里执行<code>git pull</code>是不会更新submodule的。</li>
+<li>每次 pull/commit 之前需要执行 <code>git submodule update </code>来更新包</li>
+</ul>
+</li>
+<li>无法直接在主模块修改子模块，需要进入子模块修改内容，然后在子模块改动后的版本信息提交到主模块<ul>
+<li>需要有stable和master至少两个版本，一个是线上用的版本，一个是开发用的，具体的工作流需要再商榷。</li>
+</ul>
+</li>
+<li>❌ git 工作流更为复杂，有一定学习成本</li>
+<li>❌ 需要在不同的仓库来回切，submodule中的修改不能热更新（因为需要手动更新+commit）</li>
+<li>支持放置类型定义等的代码</li>
+<li>组件不支持复用，需要有两种实现</li>
+<li>❓console是否支持？（是否可以直接通过saber解决？）</li>
+</ul>
+<h2 id="MPA"><a href="#MPA" class="headerlink" title="MPA"></a>MPA</h2><p>数据教研现有方案 <a target="_blank" rel="noopener" href="https://console.zhenguanyu.com/#/management/projects/conan-xross-web/pipelines">Console - 研发工作台 (zhenguanyu.com)</a></p>
 <ul>
-<li>因为团队已经有一种既定的运行模式了，自己作为系统中的一员，养成的习惯就是团队的习惯，但是团队的习惯一定是好习惯吗？怎么避免呢？</li>
-<li>比如昨天的会议，其实是从怎么做 -&gt; 老板解释一下为什么这么做。也就是说这是一种默认的稳定的方式，那一定是最好的方式吗？</li>
-<li>比如昨天的结论，对于前端来说大概就是一个更好的接口文档，但是这是本来就应该养成的习惯。。</li>
-<li>比如你说在知乎做的系统，毫秒级发布，回滚，但是在做这个修改之前系统一定还是一个稳定的状态，感觉大家都不愿意去改变一个稳定的东西，因为去改变是有风险的，需要一定的知识储备去说服他人做改变。又或者是到一个必须改变的场景才会去改变。</li>
-</ul>
+<li><p>支持放置类型定义等代码</p>
 </li>
-</ul>
-<h6 id="思考和讨论-1"><a href="#思考和讨论-1" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>团队方面可以做一些统一的风格和文档，如果个人习惯某一种，应该有所依据，可以跟大家拿出来讨论，哪种是最好最合适的</p>
+<li><p>实现成本较小，因为已经有范例</p>
+</li>
+<li><p>一个git仓库</p>
+</li>
+<li><p>组件不支持复用，需要有两种实现</p>
+</li>
+<li><p>改动量中等</p>
+</li>
+<li><p>一个console，一次上线，一个url</p>
+</li>
+<li><p>部署时间延长，build两个仓库的时间相加</p>
 <ul>
-<li>TODO：目前写的很多不是纯函数，不符合rxjs本身的函数式编程的理念，在写单测的时候也发现必须使用纯函数<ul>
-<li>该如何写好一个纯函数（最佳实践）？目前很多变量需要调用service方法，纯函数需要把方法也传入纯函数中，此时typescript要求该方法类型声明，这种声明看起来是一件很繁琐的事</li>
-<li>推动写纯函数的最佳实践</li>
-</ul>
+<li><p>install</p>
 </li>
-</ul>
-<p>勇敢表达自己的观点：关于某些值得讨论的点，在具有一定基础的情况下（比如表达的观点都有所依据）可以跟大家一起讨论，获得更多的知识和成长，然后根据大家的意见整理学习，得到更好的观点和解释，并得出讨论结果。</p>
-<h6 id="疑问-2"><a href="#疑问-2" class="headerlink" title="疑问"></a>疑问</h6><p>如何成为一个好前端？对于个人发展而言</p>
-<ul>
-<li>比如昨天阳哥说一个前端面试的时候不会说自己多么了解业务，而是更多关注提升用户体验等</li>
-<li>但是凯哥说不应该把个人发展拿出来说，脏活累活大家都要做，大家总是在做一些重复的东西</li>
-<li>那我的结论是，前端首先作为团队的一员，需要完成自己份内的事，再关注优化体验，到提升自己，但是感觉留下的时间就不那么多了</li>
-<li>以前以为写框架的前端最厉害，走在前列，但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
-<li>但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
-<li>现在做的一些跟业务有关的尝试，比如自动化测试是我最近找到的一个可以探索的方向，最近在往这个方向努力</li>
-<li>但是对于新东西，自己抽出其他时间探索的话，其实每天只有一点时间了，要成为那样厉害的人，就有一个非常漫长的路要走，</li>
-<li>可能就是自己目前知识储备量很少，所以每次听完大佬讲话都很焦虑，不知道自己该怎么成长，不知道怎么样算是一条正确的路</li>
-</ul>
-<h6 id="思考和讨论-2"><a href="#思考和讨论-2" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>长期有耐心：半年时间掌握一个核心知识模块，专攻某个领域</p>
-<ul>
-<li>TODO：分析有哪些核心模块，哪些不熟悉，哪些目前最重要</li>
-</ul>
-<p>养成良好思考习惯：</p>
-<p>思考方式：</p>
-<ul>
-<li>为什么<ul>
-<li>为什么要有这种方式/技术</li>
-<li>当时的背景是怎么样的，<ul>
-<li>有哪些条件促成这种技术的形成</li>
-<li>为什么选择这个方案？还有别的可选技术吗？优劣有哪些</li>
-</ul>
+<li><p>test/lint</p>
 </li>
-<li>为什么选择这种技术<ul>
-<li>现在的条件适用该技术吗，有哪些已经被替代/解决的原因呢</li>
-<li>考虑团队，目前的团队水平（技术、人力水平）可以适应该方案吗</li>
-</ul>
+<li><p>build</p>
 </li>
 </ul>
 </li>
-<li>是什么<ul>
-<li>这种方案是什么</li>
 </ul>
-</li>
-<li><h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2></li>
-</ul>
-<p>并不是说新技术就是最好的，首先掌握最基础最系统的知识体系</p>
-<p>做的探索一定是要跟业务挂钩，这样学到的知识有机会得到有效的利用和巩固以及实践</p>
-<h6 id="疑问-3"><a href="#疑问-3" class="headerlink" title="疑问"></a>疑问</h6><p>如何定义产出？目前更多是业务，需要数据说话，是不是需要埋点？</p>
-<h6 id="讨论和思考"><a href="#讨论和思考" class="headerlink" title="讨论和思考"></a>讨论和思考</h6><ul>
-<li>不要局限思维，除了分内之事以外，可以做一些事情推动团队的发展</li>
-<li>好的工程师，做事的时候可以超出预期，得到意外的收获和收益</li>
-<li>将一些好的收获和习惯总结下来，并不断迭代<ul>
-<li>一次好的意料之外的结果，形成是有原因的，思考这么做的方式并整理下来，以后按照这些点去做，并在工作学习中不断去更新这些点，长此以往，这个思路就会成为一个好的实践</li>
-</ul>
-</li>
-</ul>
-<p>额外思考</p>
-<ul>
-<li>不要求所有人都吸收接纳自己的思考，期望应该是：在所有的思考行为中自己得到了成长，并可能可以对他人有正面影响</li>
-<li>期待自己的变化，给自己定短期目标，短期的目标更容易实现</li>
-<li>思考问题要有一个清晰的逻辑链，起码在这个链路中自己逻辑自洽，很多东西都是想清楚的，再去跟大家讨论</li>
-</ul>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><table>
+<thead>
+<tr>
+<th>(N: 项目总数；T: 平均每个项目的部署时长；M:本次修改项目数 )</th>
+<th>MPA</th>
+<th>monorepo（nx）</th>
+<th>webcomponent</th>
+<th>git submodule</th>
+<th>npm包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现成本</td>
+<td>⭕️ 中等，因为已经有范例</td>
+<td>❌ 较大，文档比较全的，但是还是有些坑</td>
+<td>✅较小，目前已实现过</td>
+<td>✅较小</td>
+<td>✅较小</td>
+</tr>
+<tr>
+<td>改动量</td>
+<td>⭕️较大</td>
+<td>❌ 最大</td>
+<td>✅较小</td>
+<td>✅较小</td>
+<td>✅较小</td>
+</tr>
+<tr>
+<td>学习成本</td>
+<td>✅ 无，对其他研发透明</td>
+<td>✅ 无，对其他研发透明</td>
+<td>⭕️较小</td>
+<td>❌ 较大</td>
+<td>较小⭕️</td>
+</tr>
+<tr>
+<td>工作流使用成本</td>
+<td>无✅</td>
+<td>无✅</td>
+<td>较大，每个组件都要手动配置</td>
+<td>较大，git工作流变复杂了</td>
+<td>较小，比较繁琐但是没什么坑</td>
+</tr>
+<tr>
+<td>部署时长</td>
+<td>T*N</td>
+<td>T*M ✅</td>
+<td>T*N</td>
+<td>T*N</td>
+<td>T*N</td>
+</tr>
+<tr>
+<td>组件可复用</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>console是否支持</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Git 仓库数</td>
+<td>1</td>
+<td>1</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>公用组件同步成本</td>
+<td>✅ 直接同步</td>
+<td>✅ 直接同步</td>
+<td>需要二次上线</td>
+<td>需要二次上线</td>
+<td>需要二次上线</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -1515,7 +1359,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1573,9 +1417,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Rickie Woo"
+    <img class="site-author-image" itemprop="image" alt="Author"
       src="/images/sasuke.jpeg">
-  <p class="site-author-name" itemprop="name">Rickie Woo</p>
+  <p class="site-author-name" itemprop="name">Author</p>
   <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -1583,20 +1427,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1637,11 +1481,11 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Rickie Woo</span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
 </div>
 
         

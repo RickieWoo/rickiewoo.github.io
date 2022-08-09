@@ -173,11 +173,999 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/11/20/Q&A%20with%20yaogangqiang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/20/Q&A%20with%20yaogangqiang/" class="post-title-link" itemprop="url">记一次ONE-ONE</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-20 14:15:57" itemprop="dateCreated datePublished" datetime="2020-11-20T14:15:57+08:00">2020-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:18:54" itemprop="dateModified" datetime="2021-04-16T16:18:54+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="记一次ONE-ONE"><a href="#记一次ONE-ONE" class="headerlink" title="记一次ONE-ONE"></a>记一次ONE-ONE</h1><h6 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h6><p>前端的职能，与后端的边界？</p>
+<ul>
+<li><p>后端负责提供一个稳定的服务，前端在此之上做易变的功能</p>
+</li>
+<li><p>做项目的时候就要思考这个产品是不是未来会产生变化，有时候还挺难预见的，</p>
+</li>
+<li><ul>
+<li>比如peace的出现，刚开始做的时候可能大家都不知道未来会有一个新系统</li>
+</ul>
+</li>
+<li><p>前后端边界是什么</p>
+</li>
+<li><ul>
+<li>如何定义领域？谁来下这个定义</li>
+</ul>
+</li>
+<li><p>@wzx说：直接后端提供一个rpc 接口，前端需要的逻辑拼装在node层做</p>
+</li>
+</ul>
+<h6 id="思考和讨论"><a href="#思考和讨论" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>领域的概念是随着业务的变化而变化的，比如在电商系统中有几个比较成熟的领域模型，如订单、运单、商品等，但是在我们的业务中，可能需要前后端共同讨论并达成一致。TODO</p>
+<p>bff层是一个概念，这个概念由谁来做是不确定的，要根据团队的能力、人员分配及其技术水平等来判断</p>
+<p>一个产品必然是不断变更迭代的，谁也说不清这个业务会发展成什么样，所以只能保证在设计系统的时候，该系统具有可延展的能力</p>
+<p>至于后端只提供rpc的稳定服务，其他都放在bff层拼装，首先在架构方面层级多并不是件好事，多了bff层反而会有一定风险，比如对bff层的稳定性要求极高，该层发布频率也会很高，会有频繁的变更。所以目前是在各个服务中做自己的领域内的事，这样一个服务出问题也不会影响到另外一个。</p>
+<h6 id="疑问-1"><a href="#疑问-1" class="headerlink" title="疑问"></a>疑问</h6><p>养成一个好习惯，那什么是好习惯？在哪些方面需要关注呢？</p>
+<ul>
+<li><p>感觉目前只能在个人方面靠一些学习养成好习惯</p>
+</li>
+<li><p>在团队方面，习惯是跟着团队走的，那该怎么养成好习惯呢？</p>
+<ul>
+<li>因为团队已经有一种既定的运行模式了，自己作为系统中的一员，养成的习惯就是团队的习惯，但是团队的习惯一定是好习惯吗？怎么避免呢？</li>
+<li>比如昨天的会议，其实是从怎么做 -&gt; 老板解释一下为什么这么做。也就是说这是一种默认的稳定的方式，那一定是最好的方式吗？</li>
+<li>比如昨天的结论，对于前端来说大概就是一个更好的接口文档，但是这是本来就应该养成的习惯。。</li>
+<li>比如你说在知乎做的系统，毫秒级发布，回滚，但是在做这个修改之前系统一定还是一个稳定的状态，感觉大家都不愿意去改变一个稳定的东西，因为去改变是有风险的，需要一定的知识储备去说服他人做改变。又或者是到一个必须改变的场景才会去改变。</li>
+</ul>
+</li>
+</ul>
+<h6 id="思考和讨论-1"><a href="#思考和讨论-1" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>团队方面可以做一些统一的风格和文档，如果个人习惯某一种，应该有所依据，可以跟大家拿出来讨论，哪种是最好最合适的</p>
+<ul>
+<li>TODO：目前写的很多不是纯函数，不符合rxjs本身的函数式编程的理念，在写单测的时候也发现必须使用纯函数<ul>
+<li>该如何写好一个纯函数（最佳实践）？目前很多变量需要调用service方法，纯函数需要把方法也传入纯函数中，此时typescript要求该方法类型声明，这种声明看起来是一件很繁琐的事</li>
+<li>推动写纯函数的最佳实践</li>
+</ul>
+</li>
+</ul>
+<p>勇敢表达自己的观点：关于某些值得讨论的点，在具有一定基础的情况下（比如表达的观点都有所依据）可以跟大家一起讨论，获得更多的知识和成长，然后根据大家的意见整理学习，得到更好的观点和解释，并得出讨论结果。</p>
+<h6 id="疑问-2"><a href="#疑问-2" class="headerlink" title="疑问"></a>疑问</h6><p>如何成为一个好前端？对于个人发展而言</p>
+<ul>
+<li>比如昨天阳哥说一个前端面试的时候不会说自己多么了解业务，而是更多关注提升用户体验等</li>
+<li>但是凯哥说不应该把个人发展拿出来说，脏活累活大家都要做，大家总是在做一些重复的东西</li>
+<li>那我的结论是，前端首先作为团队的一员，需要完成自己份内的事，再关注优化体验，到提升自己，但是感觉留下的时间就不那么多了</li>
+<li>以前以为写框架的前端最厉害，走在前列，但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
+<li>但是后来发现工作中可能遇不到这种场景，很多新东西是基于场景的，比如微前端、serverless等等，如果一直在井底，感觉差的还蛮多的。</li>
+<li>现在做的一些跟业务有关的尝试，比如自动化测试是我最近找到的一个可以探索的方向，最近在往这个方向努力</li>
+<li>但是对于新东西，自己抽出其他时间探索的话，其实每天只有一点时间了，要成为那样厉害的人，就有一个非常漫长的路要走，</li>
+<li>可能就是自己目前知识储备量很少，所以每次听完大佬讲话都很焦虑，不知道自己该怎么成长，不知道怎么样算是一条正确的路</li>
+</ul>
+<h6 id="思考和讨论-2"><a href="#思考和讨论-2" class="headerlink" title="思考和讨论"></a>思考和讨论</h6><p>长期有耐心：半年时间掌握一个核心知识模块，专攻某个领域</p>
+<ul>
+<li>TODO：分析有哪些核心模块，哪些不熟悉，哪些目前最重要</li>
+</ul>
+<p>养成良好思考习惯：</p>
+<p>思考方式：</p>
+<ul>
+<li>为什么<ul>
+<li>为什么要有这种方式/技术</li>
+<li>当时的背景是怎么样的，<ul>
+<li>有哪些条件促成这种技术的形成</li>
+<li>为什么选择这个方案？还有别的可选技术吗？优劣有哪些</li>
+</ul>
+</li>
+<li>为什么选择这种技术<ul>
+<li>现在的条件适用该技术吗，有哪些已经被替代/解决的原因呢</li>
+<li>考虑团队，目前的团队水平（技术、人力水平）可以适应该方案吗</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>是什么<ul>
+<li>这种方案是什么</li>
+</ul>
+</li>
+<li><h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2></li>
+</ul>
+<p>并不是说新技术就是最好的，首先掌握最基础最系统的知识体系</p>
+<p>做的探索一定是要跟业务挂钩，这样学到的知识有机会得到有效的利用和巩固以及实践</p>
+<h6 id="疑问-3"><a href="#疑问-3" class="headerlink" title="疑问"></a>疑问</h6><p>如何定义产出？目前更多是业务，需要数据说话，是不是需要埋点？</p>
+<h6 id="讨论和思考"><a href="#讨论和思考" class="headerlink" title="讨论和思考"></a>讨论和思考</h6><ul>
+<li>不要局限思维，除了分内之事以外，可以做一些事情推动团队的发展</li>
+<li>好的工程师，做事的时候可以超出预期，得到意外的收获和收益</li>
+<li>将一些好的收获和习惯总结下来，并不断迭代<ul>
+<li>一次好的意料之外的结果，形成是有原因的，思考这么做的方式并整理下来，以后按照这些点去做，并在工作学习中不断去更新这些点，长此以往，这个思路就会成为一个好的实践</li>
+</ul>
+</li>
+</ul>
+<p>额外思考</p>
+<ul>
+<li>不要求所有人都吸收接纳自己的思考，期望应该是：在所有的思考行为中自己得到了成长，并可能可以对他人有正面影响</li>
+<li>期待自己的变化，给自己定短期目标，短期的目标更容易实现</li>
+<li>思考问题要有一个清晰的逻辑链，起码在这个链路中自己逻辑自洽，很多东西都是想清楚的，再去跟大家讨论</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/08/09/RxJS%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/09/RxJS%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">RxJS基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-09 16:54:12" itemprop="dateCreated datePublished" datetime="2020-08-09T16:54:12+08:00">2020-08-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:17:45" itemprop="dateModified" datetime="2021-04-16T16:17:45+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="RxJS基础"><a href="#RxJS基础" class="headerlink" title="RxJS基础"></a>RxJS基础</h3><ul>
+<li>命名：使用芬兰式命名法，流的变量以$结尾</li>
+<li>RxJS 应用了两种重要的编程思想<ul>
+<li>函数式</li>
+<li>响应式</li>
+</ul>
+</li>
+</ul>
+<h4 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h4><h5 id="函数式编程的要求"><a href="#函数式编程的要求" class="headerlink" title="函数式编程的要求"></a>函数式编程的要求</h5><ul>
+<li>声明式</li>
+<li>纯函数</li>
+<li>数据不可变性</li>
+</ul>
+<p>传统上讲，JS并不是一门纯粹的函数式编程语言，但是函数是JS的一等公民，因为函数是一个对象，可以作为参数被赋值给一个变量，也可以作为参数传递。因此可以应用函数式编程思想中的许多东西。</p>
+<h5 id="声明式编程-vs-命令式编程"><a href="#声明式编程-vs-命令式编程" class="headerlink" title="声明式编程 vs 命令式编程"></a>声明式编程 vs 命令式编程</h5><p>与声明式编程相对应的编程方式就是命令式编程。</p>
+<p>二者的主要区别是，声明式编程更关注What，而命令式更关注How，在命令式编程中可能存在一个很大的问题就是重复的代码，因为它更关注详细的过程。</p>
+<h5 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h5><p>纯函数的主要满足以下两个条件，满足纯函数的特性也叫做引用透明度（referential transparency）</p>
+<ol>
+<li>函数的执行过程完全由入参决定，不会受其他任何数据的影响。</li>
+<li>函数不会修改外部状态</li>
+</ol>
+<blockquote>
+<p>比如JS中的String.split()， 会返回一个新数组，但是不会修改原来的字符串，也不会影响其他变量，这就是个纯函数</p>
+<p>而Array.splice()会修改第一个入参，并返回该入参，就不是一个纯函数</p>
+</blockquote>
+<p>与纯函数相对的就是不纯函数，不纯函数包括但不仅限于以下几个特点</p>
+<ol>
+<li>网络输入、输出操作</li>
+<li>操作浏览器的DOM</li>
+<li>读取用户的输入</li>
+<li>抛出一个异常</li>
+<li>改变全局变量的值，改变输入参数引用的对象</li>
+</ol>
+<p>其中前四条是比较容易忽略的，实际上判断一个函数纯不纯的方法，就是看讲一个函数调用替换为一个预期返回的常数，看程序的运行结果是否一样（说明不依赖或改变外部参数）</p>
+<h5 id="数据的不可变性（Immutable）"><a href="#数据的不可变性（Immutable）" class="headerlink" title="数据的不可变性（Immutable）"></a>数据的不可变性（Immutable）</h5><p>当我们需要数据发生改变的时候，保持原有数据不变，产生一个新的数据来体现这种变化。</p>
+<p>注意：在JS中const关键字虽然有常数的意思，但其实只是规定一个变量引用的对象不能改变，没有规定这个对象本身不能改变，因此这个常量依然是变量</p>
+<h5 id="函数式编程与面向对象编程"><a href="#函数式编程与面向对象编程" class="headerlink" title="函数式编程与面向对象编程"></a>函数式编程与面向对象编程</h5><p>面向对象编程是将状态的改变封装起来以达到使代码更加简洁，并复用部分代码的目的。而函数式编程是尽量减少变化的部分，使代码逻辑更清晰。</p>
+<p>面向对象的思想是把数据封装在一个类的实例对象中，外部不能直接操作这些数据，只能通过类提供的一些实例方法读取和修改这些数据，这就限制了对数据的访问方式。这样就会有一个缺陷，就是数据的修改历史完全被隐藏了。</p>
+<p>当我们在代码中看到一个对象实例的时候，即使知道了对象当前的状态，也没法知道对象是如何一步步走到这状态的，这种不确定性导致代码的可维护性下降。</p>
+<p>在函数式白岸城中，倾向于数据与方法分开，函数可以处理数据，但是是作为纯函数产生新的数据，也就是不改变原有的数据（数据的不可变性）</p>
+<h5 id="函数响应式编程"><a href="#函数响应式编程" class="headerlink" title="函数响应式编程"></a>函数响应式编程</h5><p>优势： 不用关心数据是同步产生的还是异步产生的</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><h5 id="深链式导入相应模块"><a href="#深链式导入相应模块" class="headerlink" title="深链式导入相应模块"></a>深链式导入相应模块</h5><h6 id="Tree-Shaking"><a href="#Tree-Shaking" class="headerlink" title="Tree-Shaking"></a>Tree-Shaking</h6><p>在JS的打包工具中，有一个功能叫Tree-Shaking，指在打包过程中发现没有被引用过的函数，在最终的打包文件中就不会包含这些无用的函数代码。</p>
+<p>值得注意的是，Tree-Shaking只对import语句的导入产生作用，对于CommonJS的require函数导入方式不起作用。因为Tree-Shaking的工作方式是对代码进行静态分析，import只能出现在代码第一层，被导入的模块以字符串常量出现，因此满足静态分析的需要。而require还可以出现在条件分支语句中，参数也可以是动态产生的字符串，所以只有在动态执行的时候才知道require函数如何执行，因此Tree-Shaking不会分析到它。</p>
+<p>那么RxJS为什么要用深链式导入模块呢，Tree-Shaking为什么对它不起作用呢？</p>
+<p>这是因为在RxJs中的大部分函数都是围绕一个Observable类创建的，这些功能都体现为这个类的一个函数，并挂在这个Observable上。也就是说这些函数在内部已经被Observable这个类引用了。</p>
+<ul>
+<li>在node_modules/rxjs/Rx.hs中会发现功能模块都是被require进去的</li>
+<li>在某一个js文件中（如of），可以发现是先require获得Observable类，然后在Observable上添加一个类函数（如of），那么Observable.of就成为了一个函数，of被引用了，因此最终打包文件会包含of。</li>
+</ul>
+<p>因此，使用RxJS需要按需导入，采用deep-link的方式。不过更好的方式是，<em>用一个代码文件专门导入RxJS相关的功能，其他的代码文件再导入这个文件，这样就能把RxJS导入的工作做集中管理</em>。</p>
+<h4 id="Observer-和-Observable"><a href="#Observer-和-Observable" class="headerlink" title="Observer 和 Observable"></a>Observer 和 Observable</h4><p>RxJS的运行就是Observer和Observable之间的互动游戏</p>
+<ul>
+<li>Observable：可被观察的对象，在RxJS中就是数据流</li>
+<li>Observer：观察者</li>
+<li>subscribe：连接二者的桥梁</li>
+</ul>
+<p>Observable实现了两种模式</p>
+<ul>
+<li>观察者模式</li>
+<li>迭代器模式</li>
+</ul>
+<h5 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h5><p>将逻辑分为发布者和观察者，发布者只管产生数据，观察者负责处理产生的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">$source.subscribe(<span class="built_in">console</span>.log))</span><br></pre></td></tr></table></figure>
+
+<p>Observable负责发布者的责任，产生事件</p>
+<p>subscribe的参数负责观察者的责任，响应事件</p>
+<p>何时调用subscribe，发布者与观察者之间的关联状态</p>
+<h5 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h5><p>迭代器：能够遍历一个数据集合的对象。通常包含</p>
+<ul>
+<li>getCurrent；获取当前游标所指向的元素</li>
+<li>moveToNext：将游标移动到下一个元素</li>
+<li>isDone：是否已经遍历完所有元素</li>
+</ul>
+<p>而在RxJS中似乎看不到这样的代码，那是因为RxJS中的数据是推来的，而不是拉。这就是迭代器模式和观察者模式的结合。</p>
+<h4 id="创造Observable"><a href="#创造Observable" class="headerlink" title="创造Observable"></a>创造Observable</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onSubscribe = <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// observer为观察者的一个代理，而非观察者本身</span></span><br><span class="line">  <span class="comment">// 因此在该观察者完成后，不会再执行下一句error</span></span><br><span class="line">  observer.next(<span class="number">1</span>);</span><br><span class="line">  observer.next(<span class="number">2</span>);</span><br><span class="line">  observer.next(<span class="number">3</span>);</span><br><span class="line">  observer.complete();</span><br><span class="line">  observer.error(<span class="string">&#x27;xxx&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> source$ = <span class="keyword">new</span> Observable(onSubscrbe)</span><br><span class="line"><span class="comment">// Observable 是一个特殊的类，接收一个处理observer的函（发出数据）</span></span><br><span class="line"><span class="keyword">const</span> theObserver = &#123;</span><br><span class="line">  next: <span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一个必须包含next属性的对象，next方法用于处理推来的数据</span></span><br><span class="line">source$.subscribe(theObserver)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Observable的完结"><a href="#Observable的完结" class="headerlink" title="Observable的完结"></a>Observable的完结</h4><p>Observable的complete方法何时被调用完全取决于observable的行为，即onSubscribe函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> theObserver = &#123;</span><br><span class="line">  next: <span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item);</span><br><span class="line">  complete: <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;no more data&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> onSubscribe = <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> number = <span class="number">1</span></span><br><span class="line">  <span class="keyword">const</span> handle = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    observable.next(number++)</span><br><span class="line">    <span class="keyword">if</span> (number &gt; <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(handle)</span><br><span class="line">      observer.complete()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// no more data</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Observable的出错"><a href="#Observable的出错" class="headerlink" title="Observable的出错"></a>Observable的出错</h4><p>一个Observable对象只有一个终结状态，要么是complete，要么是error</p>
+<h4 id="退订Observable"><a href="#退订Observable" class="headerlink" title="退订Observable"></a>退订Observable</h4><p>其实，onSubscribe函数可以返回一个对象，对象上可以有一个unsubscribe函数，代表退订。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onSubscribe = <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> number = <span class="number">1</span></span><br><span class="line">  <span class="keyword">const</span> handle = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    observable.next(number++)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    unsubscribe: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      clearIntervel(handle)</span><br><span class="line">		&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> subscription = source$.subscribe(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item))</span><br><span class="line">setTimeOut(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subscription.unsbscribe()</span><br><span class="line">&#125;, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然observer在退订之后不会再接收observable推来的数据，但是observable依旧可以推送数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onSubscribe = <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> number = <span class="number">1</span></span><br><span class="line">  <span class="keyword">const</span> handle = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;fromObservable&#x27;</span>, number)</span><br><span class="line">    observable.next(number++)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    unsubscribe: <span class="function">() =&gt;</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> subscription = source$.subscribe(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item))</span><br><span class="line">setTimeOut(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subscription.unsbscribe()</span><br><span class="line">&#125;, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// fromObservable 1</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// fromObservable 2</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// fromObservable 3</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// fromObservable 4</span></span><br><span class="line"><span class="comment">// fromObservable 5</span></span><br><span class="line"><span class="comment">// ……</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Hot-Observable-amp-Cold-Observable"><a href="#Hot-Observable-amp-Cold-Observable" class="headerlink" title="Hot Observable &amp; Cold Observable"></a>Hot Observable &amp; Cold Observable</h4><p>Hot: 错过了就错过了，只需要从订阅的那一刻开始Observable产生数据就行</p>
+<p>Cold: 不能错过，需要获取observable之前产生的数据</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/07/13/Null%20is%20not%20a%20obeject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/13/Null%20is%20not%20a%20obeject/" class="post-title-link" itemprop="url">Null is not a object</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-13 16:54:06" itemprop="dateCreated datePublished" datetime="2020-07-13T16:54:06+08:00">2020-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:18:46" itemprop="dateModified" datetime="2021-04-16T16:18:46+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Null-is-not-a-object"><a href="#Null-is-not-a-object" class="headerlink" title="Null is not a object"></a>Null is not a object</h3><h4 id="null-is-a-object"><a href="#null-is-a-object" class="headerlink" title="null is a object ?"></a>null is a object ?</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> === <span class="string">&#x27;object&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="But-why-there-is-‘null-is-not-a-obejct’-error"><a href="#But-why-there-is-‘null-is-not-a-obejct’-error" class="headerlink" title="But why there is ‘null is not a obejct’ error?"></a>But why there is ‘null is not a obejct’ error?</h4><p>实际上，这是一个typeof的历史遗留问题，null本身应该是原始数据类型中的一种，而不属于object。</p>
+<p>在JavaScript的早期版本中，值以32为存储，其中前3位表示数据类型，其余表示值。对于一个对象，前三位是000，而在JavaScript中，null又表示没有任何内容/无效，因此将其表示为全0，所以才会出现<code>typeof null === &#39;object&#39;</code>的错误。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/07/13/InnerHtml%20InnerText%20And%20TextcCntent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/13/InnerHtml%20InnerText%20And%20TextcCntent/" class="post-title-link" itemprop="url">InnerHtml InnerText And TextcCntent</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-13 14:35:00" itemprop="dateCreated datePublished" datetime="2020-07-13T14:35:00+08:00">2020-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-16 16:18:33" itemprop="dateModified" datetime="2021-04-16T16:18:33+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="InnerHtml-InnerText-And-TextContent"><a href="#InnerHtml-InnerText-And-TextContent" class="headerlink" title="InnerHtml InnerText And TextContent"></a>InnerHtml InnerText And TextContent</h3><p>在js中，有三种方式设置/得到DOM中HTML元素的内容</p>
+<h4 id="InnerHtml"><a href="#InnerHtml" class="headerlink" title="InnerHtml"></a>InnerHtml</h4><p>设置/返回一个元素content，以新的HTML形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> example = <span class="built_in">document</span>.getElementById(‘example’)</span><br><span class="line">example.innerHTML = “&lt;p&gt;This is &lt;strong&gt;my&lt;<span class="regexp">/strong&gt; paragraph.&lt;/</span>p&gt;”</span><br></pre></td></tr></table></figure>
+
+
+
+<p>HTML5禁止在innerHtml中包含script标签，因为会产生XSS脚本攻击这类安全问题。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***以下alert将不会显示***/</span></span><br><span class="line"><span class="keyword">const</span> example1 = <span class="string">&quot;&lt;script&gt;alert(&#x27;I am an annoying alert!&#x27;)&lt;/script&gt;&quot;</span></span><br><span class="line">el.innerHTML = example1</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> example2 = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;example2&#x27;</span>)</span><br><span class="line">example2.innerHTML = <span class="string">&#x27;&lt;script deferred&gt;alert(&quot;XSS Attack&quot;);&lt;/script&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/***以下将产生脚本注入的网络问题***/</span></span><br><span class="line"><span class="keyword">const</span> example3 = <span class="string">&quot;&lt;img src=&#x27;x&#x27; onerror=&quot;</span>alert(<span class="number">1</span>)<span class="string">&quot;</span></span><br><span class="line"><span class="string">const example4 = &#x27;&lt;img src=x onerror=&quot;</span>alert(\<span class="string">&#x27;XSS Attack\&#x27;)&quot;&gt;&#x27;</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">&#x27;&lt;img src=&quot;urlNotExist&quot; onerror=&quot;alert(document.cookie)&quot;&gt;&#x27;</span></span><br><span class="line"><span class="keyword">const</span> example5 = <span class="string">&#x27;&lt;img src=x onerror=&quot;alert(\&#x27;XSS Attack\&#x27;)&quot;&gt;&#x27;</span></span><br><span class="line">&lt;button onmouseover=alert(<span class="string">&#x27;Wufff!&#x27;</span>)&gt;click me!&lt;/button&gt;</span><br><span class="line">&lt;img src=j&amp;#X41vascript:alert(<span class="string">&#x27;test2&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="innerText"><a href="#innerText" class="headerlink" title="innerText"></a>innerText</h4><p>返回内部除了script标签和style标签以外的所有元素的内容，返回的内容是可见的文本，并没有任何的格式化。(注意不会显示HTML代码中多余的空格)</p>
+<p>缺点：innerText会触发浏览器的重排（reflow），因为他是css层面的概念，这将会导致性能下降。</p>
+<p>reflow指的是浏览器重新计算页面元素及重新呈现文档时会出现的。触发reflow的例子包括调整浏览器的窗口大小或者更改DOM中的元素。这种计算是昂贵的，所以应该将其最小化以提高速度、效率及用户体验。</p>
+<h4 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a>textContent</h4><p>textContent将返回所有原始内容，不包括HTML标签。因此返回的值包括空格、换行符、回车符、script和style元素的内容等。与innerHTML不同的是，它具有更好的性能，因为他的值没有被解析为html，因此不会有XSS攻击的问题；与innerText相比，由于它与css无关，所以不会出发reflow。所有的node对象都有textConetnt，但是只有HTMLElement对象有innerText。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/06/30/js-%E5%85%B3%E4%BA%8E%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/30/js-%E5%85%B3%E4%BA%8E%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-30 13:55:01" itemprop="dateCreated datePublished" datetime="2020-06-30T13:55:01+08:00">2020-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-20 18:30:43" itemprop="dateModified" datetime="2020-07-20T18:30:43+08:00">2020-07-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="js-关于数字"><a href="#js-关于数字" class="headerlink" title="js-关于数字"></a>js-关于数字</h1><h4 id="浮点数转整数"><a href="#浮点数转整数" class="headerlink" title="浮点数转整数"></a>浮点数转整数</h4><ul>
+<li>Math.floor()： 向下取整</li>
+<li>Math.ceil(): 向上取整</li>
+<li>Math.trunc(): 去掉小数点</li>
+<li>Math.round(): 四舍五入</li>
+</ul>
+<p>####Infinity:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">Infinity</span> === <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">-<span class="literal">Infinity</span> === <span class="built_in">Math</span>.log(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">-<span class="built_in">Math</span>.log(<span class="number">0</span>) === <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> / <span class="literal">Infinity</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>####Array.flat()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>]];</span><br><span class="line">arr.flat(); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, [<span class="number">4</span>, [<span class="number">5</span>]]]];</span><br><span class="line">arr.flat(<span class="number">2</span>); <span class="comment">// [1, 2, 3, 4, [5]]</span></span><br><span class="line"><span class="comment">// 平铺数组</span></span><br><span class="line">arr.flat(<span class="literal">Infinity</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Date：Add-days"><a href="#Date：Add-days" class="headerlink" title="Date：Add days"></a>Date：Add days</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Date</span>(date)</span><br><span class="line">result.setDate(result.getDate() + days)</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/08/26/setTImeout%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/26/setTImeout%E4%B8%8E%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">setTImeout与循环的解决方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-26 18:03:18" itemprop="dateCreated datePublished" datetime="2018-08-26T18:03:18+08:00">2018-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="关于-setTimeout-在for-循环中的问题"><a href="#关于-setTimeout-在for-循环中的问题" class="headerlink" title="关于 setTimeout 在for 循环中的问题"></a>关于 setTimeout 在for 循环中的问题</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'i: '</span>, i);</span><br><span class="line">  &#125;,i*<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 每隔一秒 依次输出 0， 1， 2， 3， 4</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'i: '</span>, i);</span><br><span class="line">  &#125;,i*<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 每隔一秒 依次输出 5， 5， 5， 5， 5</span></span><br></pre></td></tr></table></figure>
+<h5 id="问题1：var-的输出为什么不理想"><a href="#问题1：var-的输出为什么不理想" class="headerlink" title="问题1：var 的输出为什么不理想"></a>问题1：var 的输出为什么不理想</h5><p> 首先需要两个知识点——事件循环、作用域</p>
+<ol>
+<li>setTimeout绑定的回调函数只是往Javascript的事件循环机制中注册了一个定时器，这个定时器只可能在当前时间循环的下一次事件循环中才有可能被执行（需要检查时间是否符合设置的时间点）</li>
+<li>js引擎遇到一个异步事件后并不会一直等待其返回结果，而是会将这个事件挂起，继续执行执行栈中的其他任务。当一个异步事件返回结果后，js会将这个事件加入与当前执行栈不同的另一个队列，我们称之为事件队列。被放入事件队列不会立刻执行其回调，而是等待当前执行栈中的所有任务都执行完毕， 主线程处于闲置状态时，主线程会去查找事件队列是否有任务。如果有，那么主线程会从中取出排在第一位的事件，并把这个事件对应的回调放入执行栈中，然后执行其中的同步代码…，如此反复，这样就形成了一个无限的循环。这就是这个过程被称为“事件循环（Event Loop）”的原因。</li>
+</ol>
+<p>根据以上两点，for循环执行的过程中，会将setTimeout 注册的5个定时器放入事件队列中，当for循环执行完毕之后，且主线程处于闲置状态时，从事件队列中依次执行setTimeout。因此，当setTimeout函数第一次执行的时候，在执行console.log(i)的时候，这个时候的i其实是全局作用域下的i，这个时候循环是已经结束了，这时候i为5.<br>输出5次5是因为javacript没有块作用域，只有函数作用域，一个函数在定义时其中变量的作用域就确定；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="如果非要用var呢"><a href="#如果非要用var呢" class="headerlink" title="如果非要用var呢"></a>如果非要用var呢</h3><h4 id="sol1-使用中介函数"><a href="#sol1-使用中介函数" class="headerlink" title="sol1 使用中介函数"></a>sol1 使用中介函数</h4><p>通过使用中介函数，可以复制变量的值。由于超时处理程序是在该副本的上下文中创建的，因此它具有自己的私有“i”。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSetTimeout</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(i); &#125;, i*<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; ++i)</span><br><span class="line">  doSetTimeout(i);</span><br></pre></td></tr></table></figure></p>
+<h4 id="sol2-IIFE-使用立即执行函数"><a href="#sol2-IIFE-使用立即执行函数" class="headerlink" title="sol2 IIFE - 使用立即执行函数"></a>sol2 IIFE - 使用立即执行函数</h4><p>使用立即调用的函数表达式（IIFE）来创建一个闭包setTimeout</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一般写法</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(x);</span><br><span class="line">          &#125;, i * <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 虽然第1个参数是一个表达式，还是会立即执行，但是这个表达式执行的结果不是输出数值，而是返回一个函数，这就满足了setTimeout对第1个参数是函数的要求，并且给定了正确的输入参数，所以每隔1秒种会输出一个正确的结果。</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(x);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;(i), i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// *WRONG solution*</span></span><br><span class="line"><span class="comment">//第1个参数不是一个函数，而是一个表达式，也就是说会立即执行的函数，它不会等到计时器起作用才执行，而是只要一碰到就会执行，所以表现形式就是直接打出了0，1，2，3，4。</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(x);</span><br><span class="line">  &#125;(i), i * <span class="number">1000</span>);</span><br><span class="line">&#125; <span class="comment">// wrong: print 1,2,3,4,5, immidiately</span></span><br></pre></td></tr></table></figure>
+<h4 id="sol3-使用bind-绑定i"><a href="#sol3-使用bind-绑定i" class="headerlink" title="sol3 使用bind 绑定i"></a>sol3 使用bind 绑定i</h4><p>this是一个number对象, 可以转化成string或者其他类型.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;.bind(i), i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/08/26/es6%E4%B9%8Blet-const/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/26/es6%E4%B9%8Blet-const/" class="post-title-link" itemprop="url">es6之let const</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-26 17:56:01" itemprop="dateCreated datePublished" datetime="2018-08-26T17:56:01+08:00">2018-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="let"><a href="#let" class="headerlink" title="let"></a>let</h2><ol>
+<li>let 不能重复声明</li>
+<li>只作用在当前代码块</li>
+<li>声明的变量不会覆盖window 上面的变量</li>
+<li>也有变量提升的</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Uncaught ReferenceError: i is not defined</span></span><br><span class="line"><span class="comment">// 说明是有变量提升的,详见临时性死区</span></span><br></pre></td></tr></table></figure>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><ol>
+<li>const 不能重复声明</li>
+<li>声明同时需要赋值</li>
+<li>不能重复赋值</li>
+<li>声明的是对象的话,可以修改对象的内容</li>
+<li>声明的变量不会覆盖window 上面的变量</li>
+</ol>
+<h2 id="var-变量提升"><a href="#var-变量提升" class="headerlink" title="var 变量提升"></a>var 变量提升</h2><p>var 的声明提升机制：<br>在函数作用域或全局作用域中通过关键字var 声明的变量,无论实际在哪里声明,都会被当成在当前作用域(ES5作用域,只有函数能起到块级作用域的目的)顶部声明的变量.<br>var 声明的变量会覆盖window的原有对象。</p>
+<h3 id="块级作用域绑定"><a href="#块级作用域绑定" class="headerlink" title="块级作用域绑定"></a>块级作用域绑定</h3><p>该块由一对大括号界定，可以是labelled： （比如case 1: ）</p>
+<h3 id="临时性死区-Temporal-Dead-Zone"><a href="#临时性死区-Temporal-Dead-Zone" class="headerlink" title="临时性死区(Temporal Dead Zone)"></a>临时性死区(Temporal Dead Zone)</h3><p>JavaScript引擎在扫描代码发现变量声明时，要么将它们提升至作用域顶部（遇到var声明），要么将声明放到TDZ中（遇到let和const声明），访问TDZ中的变量会触发运行时错误，只有执行过变量声明语句后，变量才会从TDZ中移出，才能正常访问。</p>
+<h3 id="全局作用域绑定"><a href="#全局作用域绑定" class="headerlink" title="全局作用域绑定"></a>全局作用域绑定</h3><p>当var被作用于全局作用域时，它会创建一个新的全局变量作用全局对象（浏览器环境中的window对象）的属性，这意味着用var很可能会无意中覆盖一个已经存在的全局变量<br>但是let或const会在全局作用域下创建一个新的绑定，但该绑定不会添加为全局对象的属性，换句话说用let或const不能覆盖全局变量，而只能遮蔽它<br>这个时候的RegExp和window.RegExp是不相同的<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">Math</span> = <span class="number">1</span>; <span class="comment">//window.Math === Math  false</span></span><br><span class="line"><span class="comment">/*带来的问题:</span></span><br><span class="line"><span class="comment">当你使用iframe去调用对象的时候.由于let 声明的变量不在window上面,</span></span><br><span class="line"><span class="comment">无法通过iframe调用,所以这种情况需要使用var来声明变量 */</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/08/06/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/06/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">基本数据类型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-06 18:03:18" itemprop="dateCreated datePublished" datetime="2018-08-06T18:03:18+08:00">2018-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="String类型（基本数据类型）"><a href="#String类型（基本数据类型）" class="headerlink" title="String类型（基本数据类型）"></a>String类型（基本数据类型）</h3><h4 id="转换为字符串"><a href="#转换为字符串" class="headerlink" title="转换为字符串"></a>转换为字符串</h4><ul>
+<li><code>toString(baseNumber)</code>方法<ul>
+<li>数值、字符串、对象、布尔值都有这个方法，参数为输出数值的基数（<code>nul</code>l和<code>undefined</code>没有该方法）</li>
+</ul>
+</li>
+<li><code>String()</code>方法<ul>
+<li>不知道操作数是不是<code>null</code>或<code>undefined</code>时，可以用转型函数<code>String()</code>方法，将<code>null</code>和<code>undefined</code>转换为字符串<code>‘null’</code>和<code>‘undefined’</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Array类型（引用类型）是Object对象"><a href="#Array类型（引用类型）是Object对象" class="headerlink" title="Array类型（引用类型）是Object对象"></a>Array类型（引用类型）是Object对象</h3><h4 id="length属性：-不是只读的，可以用来删除数组的最后几个元素，给它赋值回返回现在的长度（即赋的值）"><a href="#length属性：-不是只读的，可以用来删除数组的最后几个元素，给它赋值回返回现在的长度（即赋的值）" class="headerlink" title="length属性： 不是只读的，可以用来删除数组的最后几个元素，给它赋值回返回现在的长度（即赋的值）"></a>length属性： 不是只读的，可以用来删除数组的最后几个元素，给它赋值回返回现在的长度（即赋的值）</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">arr.length = <span class="number">2</span>; <span class="comment">// 返回2</span></span><br><span class="line"><span class="comment">// arr = [1, 2];</span></span><br><span class="line">arr.length = <span class="number">3</span>; <span class="comment">// 返回3</span></span><br><span class="line"><span class="comment">// arr = [1, 2, undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h4><ul>
+<li><p>toString()</p>
+</li>
+<li><p>valueOf()</p>
+</li>
+<li><p>toLocalString() (对每一个元素执行toLocalString()方法)</p>
+</li>
+<li><p>join()   // join(‘,’) = toStirng()</p>
+<p><strong>以上方法若有undefined或者null项则在返回结果中用空字符串表示）</strong></p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>];</span><br><span class="line">arr.toString() <span class="comment">// 'a,b,c'</span></span><br><span class="line">arr.valueOf() <span class="comment">// 'a,b,c'</span></span><br></pre></td></tr></table></figure>
+<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><ul>
+<li>栈方法<ul>
+<li>pop()</li>
+<li>push()</li>
+</ul>
+</li>
+<li>队列方法<ul>
+<li>shift()</li>
+<li>unshift()</li>
+</ul>
+</li>
+<li>重排方法<ul>
+<li>sort() a在b前返回负数，不变返回0，a在b后返回正数</li>
+<li>reverse() 反转数组</li>
+</ul>
+</li>
+<li>操作方法<ul>
+<li>concat</li>
+<li>slice</li>
+<li>splice(起始位置， 要删除的项数， 要插入的项1， 要插入的项2….)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Object类型（引用类型）"><a href="#Object类型（引用类型）" class="headerlink" title="Object类型（引用类型）"></a>Object类型（引用类型）</h3><ul>
+<li>所有对象都有 <code>toLocalString(), toString(), valueOf()</code>    方法，引用对象会重写以上方法</li>
+</ul>
+<h3 id="Function-类型"><a href="#Function-类型" class="headerlink" title="Function 类型"></a>Function 类型</h3><ul>
+<li><p>没有重载， 将函数名想象为指针</p>
+</li>
+<li><p>函数声明和函数表达式</p>
+<ul>
+<li>解析器在代码开始之前会读取<strong>函数声明</strong>，并使其在执行任何代码前可用（被访问）【function sum(){}】</li>
+<li><strong>函数表达式</strong>必须等到解析器执行到他所在的代码行才会被真正的解释执行 【let sum = function(){}】</li>
+</ul>
+</li>
+<li><p>函数内部属性</p>
+<ul>
+<li><p>arguments（类数组）</p>
+<ul>
+<li>主要用途：保存函数参数</li>
+<li>callee属性，是个指针，指向拥有arguments对象的函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//return num * factorial(num-1)//与factorial这个函数名强耦合</span></span><br><span class="line">        <span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num<span class="number">-1</span>) <span class="comment">//better</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>this</p>
+<ul>
+<li>函数在执行时所处的作用域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>函数属性和方法</p>
+<ul>
+<li>length</li>
+<li>prototype</li>
+</ul>
+</li>
+</ul>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/07/06/call-apply-bind%E7%9A%84%E4%BD%9C%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/06/call-apply-bind%E7%9A%84%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">call,apply,bind的作用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-06 18:03:18" itemprop="dateCreated datePublished" datetime="2018-07-06T18:03:18+08:00">2018-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.x = <span class="number">9</span>;    <span class="comment">// this refers to global "window" object here in the browser</span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">  x: <span class="number">81</span>,</span><br><span class="line">  getX: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>.x; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.getX(); <span class="comment">// 81</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> retrieveX = <span class="built_in">module</span>.getX;</span><br><span class="line">retrieveX();</span><br><span class="line"><span class="comment">// returns 9 - The function gets invoked at the global scope</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new function with 'this' bound to module</span></span><br><span class="line"><span class="comment">// New programmers might confuse the</span></span><br><span class="line"><span class="comment">// global var x with module's property x</span></span><br><span class="line"><span class="keyword">var</span> boundGetX = retrieveX.bind(<span class="built_in">module</span>);</span><br><span class="line">boundGetX(); <span class="comment">// 81</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">'文德嗣'</span>,</span><br><span class="line">    sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = &#123;</span><br><span class="line">    name: <span class="string">'马千瞩'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果我们想让文德嗣叫一下马路对面的马千瞩，咋办呢？</span></span><br><span class="line"><span class="comment">//只要call他一下就可以啦</span></span><br><span class="line">person.sayName.call(person1)</span><br><span class="line"><span class="comment">//同样的，使用apply和bind也可以达到相同的效果：</span></span><br><span class="line">person.sayName.apply(person1)</span><br><span class="line"><span class="comment">//下边会说，为什么bind后边多了个()</span></span><br><span class="line">person.sayName.bind(person1)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">     <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br><span class="line">func.call(<span class="keyword">this</span>, arg1, arg2);</span><br><span class="line">func.apply(<span class="keyword">this</span>, [arg1, arg2])</span><br></pre></td></tr></table></figure>
+<p>其中this是你想要指定的上下文环境，就是一开始那个例子中的person。后边有多个参数的时候，call需要按顺序传递参数，而apply只要传递一个参数数组就可以了。<br>js中参数数量是不定的，所以当参数数量已知固定时，用call，否则用apply，传入数组的长度就随意了。</p>
+<p>bind() 方法与 apply 和 call 很相似，其区别在于，call和apply会直接执行方法，文德嗣会当场叫马千瞩。而bind则是生成了一个新方法，不会自动执行。所以在一开始的例子中才会再后边多加一个括号，让他执行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/06/01/%E5%85%B3%E4%BA%8Evue%E4%B8%AD%E5%9C%A8input%E6%A1%86%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
+      <meta itemprop="name" content="Author">
       <meta itemprop="description" content="We were both young when I first saw you.">
     </span>
 
@@ -204,7 +1192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:36:05" itemprop="dateModified" datetime="2020-06-08T18:36:05+08:00">2020-06-08</time>
+                <time title="Modified: 2022-08-09 22:09:02" itemprop="dateModified" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,744 +1231,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/06/01/%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5-%E3%80%81%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/06/01/%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5-%E3%80%81%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数组插入 、排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-01 18:11:42" itemprop="dateCreated datePublished" datetime="2018-06-01T18:11:42+08:00">2018-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:39:23" itemprop="dateModified" datetime="2020-06-08T18:39:23+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Trick/" itemprop="url" rel="index"><span itemprop="name">Trick</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.insert = <span class="function"><span class="keyword">function</span> (<span class="params"> index, item </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.splice( index, <span class="number">0</span>, item );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arr = [ <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'D'</span>, <span class="string">'E'</span> ];</span><br><span class="line">arr.insert(<span class="number">2</span>, <span class="string">'C'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// =&gt; arr == [ 'A', 'B', 'C', 'D', 'E' ]</span></span><br></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>sort方法的底层实现</p>
-<ol>
-<li> V8 引擎 sort 函数只给出了两种排序 InsertionSort 和 QuickSort，数量小于10的数组使用 InsertionSort，比10大的数组则使用 QuickSort。</li>
-</ol>
-<p>2.<br>    20多种。。。稍微有点常识不会这么说的，排序一共都没有20多种。</p>
-<pre><code>[array源码](https://github.com/v8/v8/blob/ad82a40509c5b5b4680d4299c8f08d6c6d31af3c/src/js/array.js)
-
-<p>710行开始。<br></code></pre><p><strong>研究一波源码如何 少年</strong></p></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/30/queue-%E4%B8%8E-promise-promise%E9%98%9F%E5%88%97%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/30/queue-%E4%B8%8E-promise-promise%E9%98%9F%E5%88%97%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">queue 与 promise promise队列并发问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-30 18:11:42" itemprop="dateCreated datePublished" datetime="2018-05-30T18:11:42+08:00">2018-05-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:35:22" itemprop="dateModified" datetime="2020-06-08T18:35:22+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考文献：<br><a href="https://juejin.im/post/59cce36751882501c14db49c" target="_blank" rel="noopener">JavaScript 异步队列实现及拓展</a></p>
-<p><a href="http://web.jobbole.com/82601/" target="_blank" rel="noopener">promises 很酷，但很多人并没有理解就在用了</a></p>
-<p><a href="http://louiszhai.github.io/2017/03/12/promise/" target="_blank" rel="noopener">Promise使用手册</a>····</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/23/typeof-instanceof/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/23/typeof-instanceof/" class="post-title-link" itemprop="url">typeof instanceof</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-23 18:19:21" itemprop="dateCreated datePublished" datetime="2018-05-23T18:19:21+08:00">2018-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:35:49" itemprop="dateModified" datetime="2020-06-08T18:35:49+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-typeof是一个操作符-amp-amp-返回的是字符串哦！"><a href="#1-typeof是一个操作符-amp-amp-返回的是字符串哦！" class="headerlink" title="1. typeof是一个操作符&amp;&amp;返回的是字符串哦！"></a>1. typeof是一个操作符&amp;&amp;返回的是字符串哦！</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先看代码a</span></span><br><span class="line"><span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ary); <span class="comment">//输出结果是Object</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>typeof是检测基本数据类型的利器</strong></li>
-</ul>
-<p>（五种基本数据类型：String、Number、Boolean、Null、Undefined）</p>
-<ul>
-<li>当判断为初始化和为声明的变量时 typeof操作符返回的都是‘undefined’；</li>
-</ul>
-<p>上面的办法并不能实时的检测出是否是数组，只能判断其类型，所以说typeof判断基本类型数据还是挺好的，但是不能准确测试出是否是数组（typeof的具体用法以后提及，现在回归正题）</p>
-<h3 id="2-instanceof操作符返回的是boolean值，检测的是引用类型"><a href="#2-instanceof操作符返回的是boolean值，检测的是引用类型" class="headerlink" title="2. instanceof操作符返回的是boolean值，检测的是引用类型"></a>2. instanceof操作符返回的是boolean值，检测的是引用类型</h3><ul>
-<li>非引用类型则统统“返回false</li>
-</ul>
-<p><strong>2.instanceof 判断</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(ary <span class="keyword">instanceof</span> <span class="built_in">Array</span>)<span class="comment">//true;</span></span><br></pre></td></tr></table></figure>
-<p>从输出的效果来看，还是挺令人满意的，能准确的检测出数据类型是否是数组，不要高兴的太早，大家先想想这个的缺点，我们接着说第三种方法</p>
-<p><strong>3.原型链方法</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(ary.__proto__.constructor==<span class="built_in">Array</span>);<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ary.constructor==<span class="built_in">Array</span>)<span class="comment">//true 这两段代码是一样的</span></span><br></pre></td></tr></table></figure>
-<p>这个办法开起来好高大上哦~~，利用了原型链的方法，但是但是，这个是有兼容的哦，在IE早期版本里面<strong>proto</strong>是没有定义的哦~而且，这个仍然有局限性，我们现在就来总结一下第2种方法和第3种方法局限性</p>
-<p>总结一下第2种方法和第3种方法局限性</p>
-<p>instanceof 和constructor 判断的变量，必须在当前页面声明的，比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个ary，并将其赋值给父页面的一个变量，这时判断该变量，Array == object.constructor;会返回false；</p>
-<p><strong>原因：</strong></p>
-<p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
-<p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
-<p><strong>4.通用的方法</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(o)==<span class="string">'[object Array]'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(isArray(ary));</span><br></pre></td></tr></table></figure>
-<p>具体Object.prototype.toString 的用法，请参照 <a href="http://www.jb51.net/article/79941.htm" target="_blank" rel="noopener">Object.prototype.toString的用法</a></p>
-<p>—————————————————————————————</p>
-<h3 id="关于实现原理"><a href="#关于实现原理" class="headerlink" title="关于实现原理"></a>关于实现原理</h3><p><a href="https://juejin.im/post/5b0b9b9051882515773ae714?utm_source=wechat" target="_blank" rel="noopener">https://juejin.im/post/5b0b9b9051882515773ae714?utm_source=wechat</a></p>
-<p>浅谈 instanceof 和 typeof 的实现原理</p>
-<p>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息👉</p>
-<ul>
-<li>000：对象</li>
-<li>010：浮点数</li>
-<li>100：字符串</li>
-<li>110：布尔</li>
-<li>1：整数</li>
-<li>null：所有机器码均为0</li>
-<li>undefined：用 −2^30 整数来表示</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="literal">null</span> <span class="comment">// TypeError: Right-hand side of 'instanceof' is not an object</span></span><br></pre></td></tr></table></figure>
-<h1 id="instanceof-原理还得再看！"><a href="#instanceof-原理还得再看！" class="headerlink" title="instanceof 原理还得再看！"></a>instanceof 原理还得再看！</h1>
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/23/try-catch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/23/try-catch/" class="post-title-link" itemprop="url">try-catch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-23 18:18:12" itemprop="dateCreated datePublished" datetime="2018-05-23T18:18:12+08:00">2018-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:35:47" itemprop="dateModified" datetime="2020-06-08T18:35:47+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<ul>
-<li>使用 try catch 的使用无论是在 try 中的代码还是在 catch 中的代码性能消耗都是一样的。</li>
-<li>需要注意的性能消耗在于 try catch 中不要直接塞进去太多的代码（声明太多的变量），最好是吧所有要执行的代码放在另一个 function 中，通过调用这个 function 来执行。</li>
-</ul>
-<p>针对第二点，可以查看  ECMA 中关于 try catch 的解释，在代码进入 try catch 的时候 js引擎会拷贝当前的词法环境，拷贝的其实就是当前 scope 下的所有的变量。</p>
-<p>在使用 try catch 的时候尽量把 try catch 放在一个相对干净的 scope 中，同时在 try catch 语句中也尽量保证足够少的变量，最好通过函数调用方式来 try catch。</p>
-</blockquote>
-<p> <a href="http://taobaofed.org/blog/2015/10/28/try-catch-runing-problem/" target="_blank" rel="noopener">http://taobaofed.org/blog/2015/10/28/try-catch-runing-problem/</a></p>
-<p>最后一个问题</p>
-<p><strong>为什么将代码块外链就可以降低耗时？？？？</strong></p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/23/JS%E4%B8%AD%E5%85%B3%E4%BA%8E%E5%BB%B6%E6%97%B6%E7%9A%84%E9%83%A8%E5%88%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/23/JS%E4%B8%AD%E5%85%B3%E4%BA%8E%E5%BB%B6%E6%97%B6%E7%9A%84%E9%83%A8%E5%88%86/" class="post-title-link" itemprop="url">JS中关于延时的部分</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-23 18:15:10" itemprop="dateCreated datePublished" datetime="2018-05-23T18:15:10+08:00">2018-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:34:30" itemprop="dateModified" datetime="2020-06-08T18:34:30+08:00">2020-06-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天要写一个js的延时操作，延迟发送订单 ，用的await</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i  = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        i--;</span><br><span class="line">        <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;, i*<span class="number">20</span>*<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"sdsds"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">887</span><span class="comment">//？？？第二次是undefined</span></span><br><span class="line">sdsds</span><br><span class="line"><span class="number">-1</span><span class="comment">//setTimeout(0)可以使其放在执行的队列尾。</span></span><br><span class="line"><span class="comment">//延时输出开始，可看出延时循环也是起作用的，这个还待研究啊</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j&lt; <span class="number">10</span> ; j++) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(j);</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">let</span> i  = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++) &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(i, j);</span><br><span class="line">         setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">             i--;</span><br><span class="line">             <span class="built_in">console</span>.log(i);</span><br><span class="line">         &#125;, i*<span class="number">20</span>*<span class="number">1000</span>)</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">"sdsds"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">0</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">1</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">2</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">3</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">4</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">5</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">6</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">7</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">8</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line">VM9875:<span class="number">2</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">0</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">1</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">2</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">3</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">4</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">5</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">6</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">7</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">4</span> <span class="number">9</span> <span class="number">9</span></span><br><span class="line">VM9875:<span class="number">10</span> sdsds</span><br><span class="line"><span class="literal">undefined</span></span><br><span class="line"><span class="number">10</span> VM9875:<span class="number">7</span> <span class="number">-1</span></span><br><span class="line"><span class="number">10</span> VM9875:<span class="number">7</span> <span class="number">0</span></span><br><span class="line"><span class="number">10</span> VM9875:<span class="number">7</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ƒunction emm () &#123;</span><br><span class="line"><span class="keyword">let</span> i = <span class="string">'e'</span></span><br><span class="line">setTimeout(<span class="built_in">console</span>.log(i), <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = emm</span><br><span class="line"><span class="comment">//a = 'e'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_sleep</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, time*<span class="number">60</span>*<span class="number">1000</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/16/ES6-%E5%AD%A6%E4%B9%A0%E4%B9%8B-%E6%95%B0%E6%8D%AE%E6%AF%94%E8%BE%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/16/ES6-%E5%AD%A6%E4%B9%A0%E4%B9%8B-%E6%95%B0%E6%8D%AE%E6%AF%94%E8%BE%83/" class="post-title-link" itemprop="url">ES6 学习之 数据比较</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-16 18:20:28" itemprop="dateCreated datePublished" datetime="2018-05-16T18:20:28+08:00">2018-05-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:34:21" itemprop="dateModified" datetime="2020-06-08T18:34:21+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>数组与数组不能直接比较</p>
-<p>例如</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = [<span class="number">1</span>, <span class="number">2</span>, <span class="string">'2'</span>]</span><br><span class="line"><span class="keyword">let</span> j = [<span class="number">1</span>, <span class="number">2</span>, <span class="string">'2'</span>]</span><br><span class="line">i ===j</span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
-<p>解决方案： toString</p>
-<p>对象与对象不能直接比较</p>
-<p>解决方案：json.stringify，</p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/13/%E5%85%AB%E5%88%86%E9%9F%B3%E7%AC%A6%E9%85%B1%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%80%BB%E8%BE%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/13/%E5%85%AB%E5%88%86%E9%9F%B3%E7%AC%A6%E9%85%B1%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%80%BB%E8%BE%91/" class="post-title-link" itemprop="url">八分音符酱游戏设计与逻辑</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-13 18:23:11" itemprop="dateCreated datePublished" datetime="2018-05-13T18:23:11+08:00">2018-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:35:55" itemprop="dateModified" datetime="2020-06-08T18:35:55+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Magic/" itemprop="url" rel="index"><span itemprop="name">Magic</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>游戏设计与逻辑</p>
-<p>首先开机后会进入一个开机画面，点击OK确认后，进入菜单选择，分别是键控和声控两个选项，根据选择显示键控（或声控）被选择的画面，确定选择之后点击OK即可正式开始游戏。</p>
-<p>游戏的状态控制：初始化的时候记录菜单选择，游戏进行过程中根据玩家的选择控制中断中的行为，每一帧进行人物位置判断的时候，会结合地图位置来进行游戏状态判断，当人物达到死亡条件时，游戏不再进行，蜂鸣器报警并显示分数画面，玩家可选择重新开始。</p>
-<p>游戏的计分系统：记录玩家存活时间作为游戏的分数，在本逻辑中每过一帧计一分。</p>
-<p>游戏的初始地图是一个固定高度，宽度有限制随机的矩形数组集合，人物的位置也是随机（算法确保人物初始落在地面上，且距离“悬崖”较远），然后通过玩家在键控模式的按键中断，或者声控模式达到一定阈值的中断，结合人物的位置，来判断是否进行跳跃。其中，人物移动的每一帧都会结合地图及是否有中断信息来判断人物的位置、游戏的状态、同时使地图向前刷新。简化后的游戏状态模型可以参见游戏状态图。</p>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/13/ES6-%E5%AD%A6%E4%B9%A0%E4%B9%8B-async-await-by-wjj/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/13/ES6-%E5%AD%A6%E4%B9%A0%E4%B9%8B-async-await-by-wjj/" class="post-title-link" itemprop="url">ES6 学习之 async await -by wjj</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-13 18:22:03" itemprop="dateCreated datePublished" datetime="2018-05-13T18:22:03+08:00">2018-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:34:11" itemprop="dateModified" datetime="2020-06-08T18:34:11+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-           <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, ms);</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">Error</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">func1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> timeout(<span class="number">1000</span>).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'catch1'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'during1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">func2</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> timeout(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">throw</span> <span class="built_in">Error</span>();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'during2'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'start1'</span>);</span><br><span class="line">    <span class="keyword">await</span> func1()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'end1'</span>);</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'start2'</span>);</span><br><span class="line">    func2().catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'error2'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'end2'</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2018/05/13/Elastic-Search-%E5%AD%A6%E4%B9%A0%E6%97%B6%E7%9C%8B%E5%88%B0%E7%9A%84story/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sasuke.jpeg">
-      <meta itemprop="name" content="Rickie Woo">
-      <meta itemprop="description" content="We were both young when I first saw you.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickie Woo's Wonder Land">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/13/Elastic-Search-%E5%AD%A6%E4%B9%A0%E6%97%B6%E7%9C%8B%E5%88%B0%E7%9A%84story/" class="post-title-link" itemprop="url">Elastic Search 学习时看到的story</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-13 18:21:16" itemprop="dateCreated datePublished" datetime="2018-05-13T18:21:16+08:00">2018-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 18:33:56" itemprop="dateModified" datetime="2020-06-08T18:33:56+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Magic/" itemprop="url" rel="index"><span itemprop="name">Magic</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>许多年前，一个刚结婚的名叫 Shay Banon 的失业开发者，跟着他的妻子去了伦敦，他的妻子在那里学习厨师。 在寻找一个赚钱的工作的时候，为了给他的妻子做一个食谱搜索引擎，他开始使用 Lucene 的一个早期版本。</p>
-<p>直接使用 Lucene 是很难的，因此 Shay 开始做一个抽象层，Java 开发者使用它可以很简单的给他们的程序添加搜索功能。 他发布了他的第一个开源项目 Compass。</p>
-<p>后来 Shay 获得了一份工作，主要是高性能，分布式环境下的内存数据网格。这个对于高性能，实时，分布式搜索引擎的需求尤为突出， 他决定重写 Compass，把它变为一个独立的服务并取名 Elasticsearch。</p>
-<p>第一个公开版本在2010年2月发布，从此以后，Elasticsearch 已经成为了 Github 上最活跃的项目之一，他拥有超过300名 contributors(目前736名 contributors )。 一家公司已经开始围绕 Elasticsearch 提供商业服务，并开发新的特性，但是，Elasticsearch 将永远开源并对所有人可用。</p>
-<p>据说，Shay 的妻子还在等着她的食谱搜索引擎…</p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1038,9 +1292,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Rickie Woo"
+    <img class="site-author-image" itemprop="image" alt="Author"
       src="/images/sasuke.jpeg">
-  <p class="site-author-name" itemprop="name">Rickie Woo</p>
+  <p class="site-author-name" itemprop="name">Author</p>
   <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -1048,20 +1302,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1102,11 +1356,11 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Rickie Woo</span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
 </div>
 
         

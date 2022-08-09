@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="RxJs 学习操作符操作符的分类 按功能分类 创建类：of、from 转化类： map 过滤类：filter 合并类：merge，combineLatest，fork 错误处理类：catchError 多播类：publishReplay？ 辅助工具类 条件分支类 数学和合计类 背压控制类：zip 背压：发大水时，下游无法让水流即使通过，水流淤积，逐步把压力传递给上游，这种现象称为背压   可连接类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJS 学习">
+<meta property="og:url" content="http://rickiewoo.github.io/2022/08/09/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="RxJs 学习操作符操作符的分类 按功能分类 创建类：of、from 转化类： map 过滤类：filter 合并类：merge，combineLatest，fork 错误处理类：catchError 多播类：publishReplay？ 辅助工具类 条件分支类 数学和合计类 背压控制类：zip 背压：发大水时，下游无法让水流即使通过，水流淤积，逐步把压力传递给上游，这种现象称为背压   可连接类">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://rickiewoo.github.io/2022/08/09/post-images/image-20200908104000444.png">
+<meta property="article:published_time" content="2022-08-09T14:09:02.137Z">
+<meta property="article:modified_time" content="2022-08-09T14:09:02.137Z">
+<meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="RxJS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://rickiewoo.github.io/2022/08/09/post-images/image-20200908104000444.png">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2022/08/09/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>RxJS 学习 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxJS 学习<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/RxJs%20-%E6%93%8D%E4%BD%9C%E7%AC%A6.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="RxJs-学习"><a href="#RxJs-学习" class="headerlink" title="RxJs 学习"></a>RxJs 学习</h1><h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><h3 id="操作符的分类"><a href="#操作符的分类" class="headerlink" title="操作符的分类"></a>操作符的分类</h3><ul>
+<li>按功能分类<ul>
+<li>创建类：of、from</li>
+<li>转化类： map</li>
+<li>过滤类：filter</li>
+<li>合并类：merge，combineLatest，fork</li>
+<li>错误处理类：catchError</li>
+<li>多播类：publishReplay？</li>
+<li>辅助工具类</li>
+<li>条件分支类</li>
+<li>数学和合计类</li>
+<li>背压控制类：zip<ul>
+<li>背压：发大水时，下游无法让水流即使通过，水流淤积，逐步把压力传递给上游，这种现象称为背压</li>
+</ul>
+</li>
+<li>可连接类：connnect，全部和多播有关</li>
+<li>高阶Observable<ul>
+<li>指产生数据本身也是Observablele对象的Observable对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>静态和实例分类：都返回一个 Obsevable对象<ul>
+<li>静态：只能出现在首部，不需要Observable实例就可以执行的函数，如of<ul>
+<li>Observable.of = functionOf</li>
+</ul>
+</li>
+<li>实例：Obsevable的实例函数，前提是有一个创建好的observable对象，如map<ul>
+<li>Observable.prototype.map = functionMap</li>
+</ul>
+</li>
+<li>这两个形式没有本质区别，在链式调用的中间位置只能用实例函数形式的操作符</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作符的实现"><a href="#操作符的实现" class="headerlink" title="操作符的实现"></a>操作符的实现</h3><p>每个操作符都是一个函数，实现一个操作符必须考虑以下几点</p>
+<ul>
+<li>返回一个全新的Observable对象</li>
+<li>对上游和下游的订阅及退订<ul>
+<li>当不需要从某一个observable获取数据的时候，就退订这个observable</li>
+</ul>
+</li>
+<li>处理异常情况<ul>
+<li>捕获异常的错误并将其传递给下游</li>
+<li>将上游的异常传递给下游</li>
+</ul>
+</li>
+<li>及时释放资源<ul>
+<li>DOM操作要注意相关Observeable的及时释放</li>
+<li>Websocket等也是</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params">project</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Observbale(<span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 假设this是上游的observable</span></span><br><span class="line">    <span class="keyword">const</span> sub = <span class="built_in">this</span>.subscribe(&#123;</span><br><span class="line">      next: <span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">          Observer.next(project(value))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">					Observer.error(e)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      error: <span class="function"><span class="params">error</span> =&gt;</span> Observer.error(error),</span><br><span class="line">      complete: <span class="function">() =&gt;</span> observer.complete()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 提供退订方法</span></span><br><span class="line">    unsubscribe: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      sub.unsubscribe()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关联-Observable"><a href="#关联-Observable" class="headerlink" title="关联 Observable"></a>关联 Observable</h3><p>把上面的函数与 Observable 关联起来</p>
+<p>####打补丁（会污染全局Observable</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Observable.prototypr.map = map</span><br></pre></td></tr></table></figure>
+
+<p>####bind绑定特定 Observable 对象（无法使用链式调用</p>
+<ul>
+<li>缺点：无法使用链式调用（绑定操作符可解决问题，但是还未进入标准）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使 map 中的 this 指向source$</span></span><br><span class="line"><span class="comment">// bind 产生一个新函数: map.bind(source$)</span></span><br><span class="line"><span class="keyword">const</span> result$ = map.bind(source$)(<span class="function"><span class="params">x</span> =&gt;</span> x*<span class="number">2</span>)</span><br><span class="line"><span class="comment">// call 立即执行原函数</span></span><br><span class="line"><span class="keyword">const</span> result$ = map.call(source$, <span class="function"><span class="params">x</span> =&gt;</span> x*<span class="number">2</span>)</span><br><span class="line"><span class="comment">// 连续使用两个 map</span></span><br><span class="line"><span class="keyword">const</span> result$ = map.bind(map.bind(source$)(<span class="function"><span class="params">x</span> =&gt;</span> x*<span class="number">2</span>))(<span class="function"><span class="params">x</span> =&gt;</span> x+<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 绑定操作符链式调用</span></span><br><span class="line"><span class="keyword">const</span> result$ = source$:::map(<span class="function"><span class="params">x</span> =&gt;</span> x*<span class="number">2</span>)::map(<span class="function"><span class="params">x</span> =&gt;</span> x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="lift（应用层开发者很少使用"><a href="#lift（应用层开发者很少使用" class="headerlink" title="lift（应用层开发者很少使用"></a>lift（应用层开发者很少使用</h4><p>多是RxJs库的开发者使用，访问了this，违背了函数式编程的原则</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params">project</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//【注意】：当 observable 的对象被订阅，lift的函数参数就会被调用，因此在这里的this与上文的指向不同</span></span><br><span class="line">  <span class="comment">// this：observer 的对象</span></span><br><span class="line">  <span class="comment">// source$：上游 Observable 的对象</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.lift(<span class="function"><span class="keyword">function</span>(<span class="params">source$</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> source$.subscribe(&#123;</span><br><span class="line">      <span class="comment">// 内容与上文的sub一致</span></span><br><span class="line">      next: <span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">          Observer.next(project(value))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">					Observer.error(e)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      error: <span class="function"><span class="params">error</span> =&gt;</span> Observer.error(error),</span><br><span class="line">      complete: <span class="function">() =&gt;</span> observer.complete()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">Observable.prototype.map = map;</span><br></pre></td></tr></table></figure>
+
+<h4 id="pipeable-操作符（letable操作符）"><a href="#pipeable-操作符（letable操作符）" class="headerlink" title="pipeable 操作符（letable操作符）"></a>pipeable 操作符（letable操作符）</h4><p>前面几个关联Observable 的方法实际上都违背了函数式编程的原则，因为在实现上都访问了this，那就多了一个改变函数行为的因素，不算纯函数了。</p>
+<h5 id="操作符和-Observable-关联（打补丁）的缺点"><a href="#操作符和-Observable-关联（打补丁）的缺点" class="headerlink" title="操作符和 Observable 关联（打补丁）的缺点"></a>操作符和 Observable 关联（打补丁）的缺点</h5><ol>
+<li>不能应用treeShaking</li>
+<li>相当于修改了全局资源（Observable）</li>
+<li>使用了 this ，不是纯函数</li>
+</ol>
+<h4 id="letable-和-pipeable-操作符"><a href="#letable-和-pipeable-操作符" class="headerlink" title="letable 和 pipeable 操作符"></a>letable 和 pipeable 操作符</h4><ul>
+<li>静态类型操作符没有pipeable的形式</li>
+<li>多个上游的操作符没有pipeable的形式</li>
+<li>treeshaking可以保证没被引用的letable操作符不会进入打包文件</li>
+</ul>
+<h2 id="创建类操作符"><a href="#创建类操作符" class="headerlink" title="创建类操作符"></a>创建类操作符</h2><p><img src="../post-images/image-20200908104000444.png" alt="image-20200908104000444"></p>
+<p>创建类操作符，并不是说返回一个observable的操作符，因为任何一个操作符都会返回observable，是指<em>不依赖其他observable对象</em>，完全可以凭空或者根据其他数据源创造一个observable对象，往往是数据的源头，因此<em>大部分创建类操作符都是静态操作符</em>。</p>
+<h3 id="创建同步数据流"><a href="#创建同步数据流" class="headerlink" title="创建同步数据流"></a>创建同步数据流</h3><p>同步数据流不会关心时间相关的的问题，需要关心的是</p>
+<ul>
+<li>产生哪些数据</li>
+<li>数据之间的先后顺序</li>
+</ul>
+<h4 id="create-基本用不上"><a href="#create-基本用不上" class="headerlink" title="create- 基本用不上"></a>create- 基本用不上</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Observable.create = <span class="function"><span class="keyword">function</span>(<span class="params">subscribe</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Observable(subscribe)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="of-列举数据"><a href="#of-列举数据" class="headerlink" title="of - 列举数据"></a>of - 列举数据</h4><p>产生的是<code>cold observable</code>，对于每一个Observer都会吐出相同的数据，所以可以反复使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// 同步发出1，2，3 并顺序排列</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="range-指定范围"><a href="#range-指定范围" class="headerlink" title="range - 指定范围"></a>range - 指定范围</h4><p>根据<code>第一个参数</code>（可以是非整数），每次递增<code>1</code>，第二个参数是<code>序列的长度</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.range(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line"><span class="comment">// 同步发出1, 2, ... 100， 并顺序排列</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="generate-顺序创建（灵活的-for-循环）"><a href="#generate-顺序创建（灵活的-for-循环）" class="headerlink" title="generate - 顺序创建（灵活的 for 循环）"></a>generate - 顺序创建（灵活的 for 循环）</h4><p>相当于一个 for 循环</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> source$ = Observable.generate(</span><br><span class="line">  <span class="number">2</span>, <span class="comment">// 初始值 相当于for循环中的i=2</span></span><br><span class="line">  value =&gt; value &lt; <span class="number">10</span>, <span class="comment">// 继续的条件</span></span><br><span class="line">  value =&gt; value + <span class="number">2</span>, <span class="comment">// 每次循环中值的递增</span></span><br><span class="line">  value =&gt; value * value <span class="comment">// 产生的结果</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// 相当于⬇️</span></span><br><span class="line"><span class="keyword">let</span> source = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span>; i &lt; <span class="number">10</span>; i += <span class="number">2</span>) &#123;</span><br><span class="line">  source.push(i * i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="repeat：重复数据的数据流（实例操作符"><a href="#repeat：重复数据的数据流（实例操作符" class="headerlink" title="repeat：重复数据的数据流（实例操作符"></a>repeat：重复数据的数据流（实例操作符</h4><p><code>repeat</code>的功能是重复上游数据流若干次</p>
+<h4 id="单线程的-Javascript"><a href="#单线程的-Javascript" class="headerlink" title="单线程的 Javascript"></a>单线程的 Javascript</h4><p>JavaScript本身是一门单线程语言。当然，某些浏览器具有web worker功能，可以将没有web worker理解为一个线程，可以把JavaScript中执行的功能分配给多个线程。但是web worker具有一定的局限性：首先并不是所有浏览器都支持web worker，其次web worker访问资源会受限制，比如不能直接操作dom。</p>
+<h6 id="多线程的缺点：竞态"><a href="#多线程的缺点：竞态" class="headerlink" title="多线程的缺点：竞态"></a>多线程的缺点：竞态</h6><p>当两个异步事件同时发生时，在线程A更新资源X时，线程B被激活，线程B更新完资源X后，线程A重新获得控制权，继续更新资源X，这样可能导致资源X同时被线程A和B更新，最终的数据结果紊乱，失去了数据的一致性。解决的办法利用加锁等机制限制多个线程对同一资源的访问。但是如果某个地方忘记加锁，就可能在关键的时候造成致命的问题。</p>
+<h5 id="调用栈和事件循环"><a href="#调用栈和事件循环" class="headerlink" title="调用栈和事件循环"></a>调用栈和事件循环</h5><p>JavaScript的解析和运行环境统称为JavaScript引擎。引擎有许多种实现，其中Chrome和Nodejs使用的是V8引擎，edge使用的Chakra（脉轮：人体精神集中点之一）引擎，Firefox使用过gecko（壁虎）、TraceMonkey、JagerMonkey等。每个引擎都必须实现调用栈（call stack）和事件循环（event loop）的概念。</p>
+<p>调用栈是每一门编程语言都有的概念。当调用一个函数的时候，就是在调用栈中创造这个函数的运行空间，函数的参数、局部变量的创建都是在调用栈中完成。当一个函数执行完毕，对应的调用栈上该函数的本次运行空间就会被清除。</p>
+<p>调用栈的执行方式适合简单的数据运算，当函数之间的调用较多时，栈会变深，当函数执行完毕后，栈会变浅。而面对复杂的逻辑，就要用到事件循环。</p>
+<p>在JavaScript中，事件循环的工作方式大致是：事件循环相当于一个死循环，不断从任务队列中取需要处理的任务，然后把这个任务交给调用栈执行，当这个任务结束后，就从任务队列中拿下一个需要处理的任务给调用栈……周而复始，永不停歇</p>
+<p>注意，因为JavaScript是单线程的，所以当调用栈中有正在处理的任务时，事件循环不会去拿下一个任务，这就会导致明明setTimeOut的时间已经到了，但是实际上还要等上一个任务结束才能执行，时间并不真正准确。</p>
+<p>而任务队列中的任务可以分为：micro task和macro task。事件队列并不只是一条队列，由于引擎的不同，会把不同的任务区分对待，比如setTimeOut和setInterval和时间相关的任务排成一列，网络请求排一队。当调用栈空闲时，事件循环就会从<em>优先级较高</em>的队列中拿下一个任务交给调用栈，当这个队列被清空后，再去下一个优先级较高的队列中拿任务。因此，一个任务想要执行，并不光是等待队列前面的任务，还可能要等待别的队列完成。</p>
+<p>上面举例的任务都为macro task。micro task 在概念上只有一条队列，它是优先级最高的，每次调用栈空闲时，事件循环都会优先检查micro task的队列。不同的引擎micro task的定义不同，在V8引擎中，nextTick就是micro task，在某些引擎中 promise的the和catch也是micro task。微任务仅来自我们的代码。</p>
+<p>更多关于调用栈的参考⬇️</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4">https://github.com/mqyqingfeng/Blog/issues/4</a></p>
+<p><a target="_blank" rel="noopener" href="https://javascript.info/event-loop">https://javascript.info/event-loop</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/RxJS/" rel="tag"># RxJS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/09/TemplateRef/" rel="prev" title="TemplateRef 学习">
+      <i class="fa fa-chevron-left"></i> TemplateRef 学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/09/Redux/" rel="next" title="Redux 学习笔记">
+      Redux 学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxJs-%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">RxJs 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">操作符的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">操作符的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94-Observable"><span class="nav-number">1.1.3.</span> <span class="nav-text">关联 Observable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lift%EF%BC%88%E5%BA%94%E7%94%A8%E5%B1%82%E5%BC%80%E5%8F%91%E8%80%85%E5%BE%88%E5%B0%91%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">lift（应用层开发者很少使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pipeable-%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%88letable%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%89"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">pipeable 操作符（letable操作符）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C-Observable-%E5%85%B3%E8%81%94%EF%BC%88%E6%89%93%E8%A1%A5%E4%B8%81%EF%BC%89%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">操作符和 Observable 关联（打补丁）的缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#letable-%E5%92%8C-pipeable-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">letable 和 pipeable 操作符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">创建类操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建同步数据流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#create-%E5%9F%BA%E6%9C%AC%E7%94%A8%E4%B8%8D%E4%B8%8A"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">create- 基本用不上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#of-%E5%88%97%E4%B8%BE%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">of - 列举数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#range-%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">range - 指定范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generate-%E9%A1%BA%E5%BA%8F%E5%88%9B%E5%BB%BA%EF%BC%88%E7%81%B5%E6%B4%BB%E7%9A%84-for-%E5%BE%AA%E7%8E%AF%EF%BC%89"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">generate - 顺序创建（灵活的 for 循环）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repeat%EF%BC%9A%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%EF%BC%88%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">repeat：重复数据的数据流（实例操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84-Javascript"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">单线程的 Javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A%E7%AB%9E%E6%80%81"><span class="nav-number">1.2.1.6.0.1.</span> <span class="nav-text">多线程的缺点：竞态</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%A0%88%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.2.1.6.1.</span> <span class="nav-text">调用栈和事件循环</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Author"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Author</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

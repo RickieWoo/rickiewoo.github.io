@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="微前端菜单迁移解决方案web compoent 编写约定：componentName 需与文件名一致(zts-$&amp;#123;fileName&amp;#125;) [TOC] zts-web样式隔离在webComponentLoader中，将script和style都append到shadow DOM节点中，可以有效的样式隔离。但是由于popover、modal等弹出层会唤起 cdk-overlay ，在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微前端菜单迁移解决方案">
+<meta property="og:url" content="http://rickiewoo.github.io/2022/08/09/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="微前端菜单迁移解决方案web compoent 编写约定：componentName 需与文件名一致(zts-$&amp;#123;fileName&amp;#125;) [TOC] zts-web样式隔离在webComponentLoader中，将script和style都append到shadow DOM节点中，可以有效的样式隔离。但是由于popover、modal等弹出层会唤起 cdk-overlay ，在">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-09T14:09:02.139Z">
+<meta property="article:modified_time" content="2022-08-09T14:09:02.139Z">
+<meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Vite">
+<meta property="article:tag" content="微前端">
+<meta property="article:tag" content="业务">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2022/08/09/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>微前端菜单迁移解决方案 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2022/08/09/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微前端菜单迁移解决方案<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-09 22:09:02" itemprop="dateCreated datePublished" datetime="2022-08-09T22:09:02+08:00">2022-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="微前端菜单迁移解决方案"><a href="#微前端菜单迁移解决方案" class="headerlink" title="微前端菜单迁移解决方案"></a>微前端菜单迁移解决方案</h1><p>web compoent 编写约定：componentName 需与文件名一致(<code>zts-$&#123;fileName&#125;</code>)</p>
+<p>[TOC]</p>
+<h2 id="zts-web"><a href="#zts-web" class="headerlink" title="zts-web"></a>zts-web</h2><h4 id="样式隔离"><a href="#样式隔离" class="headerlink" title="样式隔离"></a>样式隔离</h4><p>在webComponentLoader中，将script和style都append到shadow DOM节点中，可以有效的样式隔离。但是由于popover、modal等弹出层会唤起 cdk-overlay ，在shadowDOM外面，因此此处antd的样式会被ng-zorro影响，导致样式混乱。随着进一步的迁移，未来web component应用到angular站的场景可能会增多，因此考虑将zts项目中打包的web component统一修改antd样式的prefix。具体的修改如下：</p>
+<h4 id="webpack-webcomponentify-config"><a href="#webpack-webcomponentify-config" class="headerlink" title="webpack.webcomponentify.config"></a>webpack.webcomponentify.config</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 此处 style 要从 css 改为 true，默认使用less才能使用 modifyVars 修改 prefix</span></span><br><span class="line"><span class="string">&quot;plugins&quot;</span>: [</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&quot;import&quot;</span>, &#123;</span><br><span class="line">      <span class="string">&quot;libraryName&quot;</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="string">&quot;style&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改less loader 中，变量 ant-prefix 的值</span></span><br><span class="line">&#123;</span><br><span class="line">  test: <span class="regexp">/\.(css|less)?$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">      MiniCssExtractPlugin.loader,</span><br><span class="line">      <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="built_in">require</span>.resolve(<span class="string">&#x27;less-loader&#x27;</span>),</span><br><span class="line">        options: &#123;</span><br><span class="line">          lessOptions: &#123;</span><br><span class="line">            javascriptEnabled: <span class="literal">true</span>,</span><br><span class="line">            modifyVars: &#123;</span><br><span class="line">              <span class="string">&#x27;ant-prefix&#x27;</span>: <span class="string">&#x27;zts-ant&#x27;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h4 id="webComponent"><a href="#webComponent" class="headerlink" title="webComponent/*"></a>webComponent/*</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; container.tsx</span><br><span class="line">&#x2F;&#x2F; 给外层的configProvider传入prefixCls属性，与config中保持一致</span><br><span class="line">const WrapperComponent: FC&lt;props&gt; &#x3D; (props) &#x3D;&gt; &#123;</span><br><span class="line">    const containerRef &#x3D; useRef&lt;HTMLDivElement&gt;(null);</span><br><span class="line">    return (</span><br><span class="line">        &lt;ConfigProvider prefixCls&#x3D;&quot;zts-ant&quot; locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">        		&lt;WechatMessageTaskNotificationWithAuth &#123;...props&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default WrapperComponent;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h5><p>将上面的包含prefixCls的wrapper封成了一个hoc: <code>withZtsCSSPrefix</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export function withZtsCSSPrefix&lt;T, P &#x3D; any&gt;(WrapperComponent: FC&lt;T&gt;) &#123;</span><br><span class="line">    return forwardRef&lt;P, PropsWithChildren&lt;T&gt;&gt;((props, ref) &#x3D;&gt; &#123; return (</span><br><span class="line">        &lt;ConfigProvider locale&#x3D;&#123;zhCN&#125; prefixCls&#x3D;&quot;zts-ant&quot;&gt;</span><br><span class="line">            &lt;WrapperComponent &#123;...props&#125; ref&#x3D;&#123;ref&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;ConfigProvider&gt;</span><br><span class="line">    ); &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="css"><a href="#css" class="headerlink" title="*/*.css"></a>*/*.css</h4><p>修改：将所有的.ant样式前缀修改为.zts-ant</p>
+<h2 id="cat-web"><a href="#cat-web" class="headerlink" title="cat-web"></a>cat-web</h2><h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><p>为了方便web component的开发和日常使用，当环境变量<code>NODE_ENV=react</code>时，使用proxy将<code> /conan-zts-web/web-component/*</code>转发到<code>localhost:9000/*</code>，否则会使用<code>peace-test</code>的url前缀（见proxy/conf.js）。</p>
+<p>配置参考： <a target="_blank" rel="noopener" href="https://angular.cn/guide/build#proxy-multiple-entries">Angular - 构建并运行 Angular 应用</a></p>
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...,</span><br><span class="line">  &quot;dev:react&quot;: &quot;NODE_ENV=react npm run dev-jit&quot;,</span><br><span class="line">  &quot;dev:local:react&quot;: &quot;NODE_ENV=react npm run dev:local&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="angular-json"><a href="#angular-json" class="headerlink" title="angular.json"></a>angular.json</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span>: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dev:local&quot;: &#123;</span><br><span class="line">    ...,</span><br><span class="line">    &quot;proxyConfig&quot;: &quot;./proxy.conf.js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>由于菜单是需要预先加载的资源，因此 index.html 中，使用preload 将 navigator和vendor的资源提前加载。其中vendor.css 除 preload外还将直接应用到全局（提供给在上文提到的样式隔离中，popover等弹出层的样式用）。</p>
+<p>最终的index.html和local-dev/index.html的修改如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/vendors.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/conan-zts-web/web-component/navigator.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span> <span class="attr">importance</span>=<span class="string">&quot;high&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Web-component-loader-优化"><a href="#Web-component-loader-优化" class="headerlink" title="Web-component-loader 优化"></a>Web-component-loader 优化</h3><p>input更加简单，保留了webComponentProps，并新增了componentName属性，与zts-web中对应组件的componentName一致。</p>
+<h4 id="下一步工作"><a href="#下一步工作" class="headerlink" title="下一步工作"></a>下一步工作</h4><p>目前的痛点：</p>
+<ol>
+<li>cat 中 componentName = zts 中 componentName =  zts-web 中的组件路径（文件夹名称），否则无法正常使用组件。其中组件路径的影响最难被感知。</li>
+<li>目前 zts-web中的url没有设置内容hash，无法控制版本，每一次zts-web的上线会直接影响cat中相应组件的使用。</li>
+</ol>
+<p>解决方案：</p>
+<p>在webpack中配置，将文件名设置为内容hash（css + js），使用 recordsPath 将打包文件记录导出。在cat中preload资源名称，获取records.json中记录的文件名，在 load 组件时获取对应的url。通过这种方法，组件路径不会影响组件的正常使用，且url中添加hash缓存会保证用户某场景下使用的组件版本一致。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/Vite/" rel="tag"># Vite</a>
+              <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag"># 微前端</a>
+              <a href="/tags/%E4%B8%9A%E5%8A%A1/" rel="tag"># 业务</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/09/webpack%205%20%E7%AE%80%E4%BB%8B/" rel="prev" title="webpack 5 简介">
+      <i class="fa fa-chevron-left"></i> webpack 5 简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/09/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" rel="next" title="内存泄露 + Deteched Element Tools">
+      内存泄露 + Deteched Element Tools <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%8F%9C%E5%8D%95%E8%BF%81%E7%A7%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">微前端菜单迁移解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#zts-web"><span class="nav-number">1.1.</span> <span class="nav-text">zts-web</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F%E9%9A%94%E7%A6%BB"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">样式隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-webcomponentify-config"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">webpack.webcomponentify.config</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webComponent"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">webComponent&#x2F;*</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HOC"><span class="nav-number">1.1.0.3.1.</span> <span class="nav-text">HOC</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">*&#x2F;*.css</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat-web"><span class="nav-number">1.2.</span> <span class="nav-text">cat-web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy"><span class="nav-number">1.2.1.</span> <span class="nav-text">proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#angular-json"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">angular.json</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8F%9C%E5%8D%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-component-loader-%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.3.</span> <span class="nav-text">Web-component-loader 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">下一步工作</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Author"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Author</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
