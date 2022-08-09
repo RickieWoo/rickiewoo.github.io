@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="TemplateRef https:&#x2F;&#x2F;angular.cn&#x2F;api&#x2F;core&#x2F;TemplateRef  定义：表示一个内嵌模板，它可用于实例化内嵌的视图。 说明：通过把一个指令放在ng-template上，或一个带*前缀的指令，可以访问TemplatRef实例。 内嵌视图的TemplateRef实例会以TemplateRef作为token，注入到该指令的构造函数中。 属性：abstract el">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TemplateRef 学习">
+<meta property="og:url" content="http://rickiewoo.github.io/2020/04/20/TemplateRef/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="TemplateRef https:&#x2F;&#x2F;angular.cn&#x2F;api&#x2F;core&#x2F;TemplateRef  定义：表示一个内嵌模板，它可用于实例化内嵌的视图。 说明：通过把一个指令放在ng-template上，或一个带*前缀的指令，可以访问TemplatRef实例。 内嵌视图的TemplateRef实例会以TemplateRef作为token，注入到该指令的构造函数中。 属性：abstract el">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://rickiewoo.github.io/2020/04/20/post-images/WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763.png">
+<meta property="og:image" content="http://rickiewoo.github.io/2020/04/20/post-images/image-20210322153553829.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVKyfW?w=469&h=201">
+<meta property="og:image" content="http://rickiewoo.github.io/2020/04/20/post-images/image-20210322170031878.png">
+<meta property="article:published_time" content="2020-04-20T10:15:10.000Z">
+<meta property="article:modified_time" content="2022-08-09T14:25:48.294Z">
+<meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="TemplateRef">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://rickiewoo.github.io/2020/04/20/post-images/WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763.png">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2020/04/20/TemplateRef/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>TemplateRef 学习 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2020/04/20/TemplateRef/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TemplateRef 学习<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/TemplateRef.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-20 18:15:10" itemprop="dateCreated datePublished" datetime="2020-04-20T18:15:10+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:25:48" itemprop="dateModified" datetime="2022-08-09T22:25:48+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="TemplateRef"><a href="#TemplateRef" class="headerlink" title="TemplateRef"></a>TemplateRef</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/TemplateRef">https://angular.cn/api/core/TemplateRef</a></p>
+</blockquote>
+<p>定义：表示一个内嵌模板，它可用于实例化内嵌的视图。</p>
+<p>说明：通过把一个指令放在ng-template上，或一个带*前缀的指令，可以访问TemplatRef实例。</p>
+<p>内嵌视图的TemplateRef实例会以TemplateRef作为token，注入到该指令的构造函数中。</p>
+<p>属性：abstract elementRef: ElementRef</p>
+<ul>
+<li>当前内嵌视图在父视图的锚点元素</li>
+<li>对于从这个 <code>TemplateRef</code> 创建的内嵌视图，其数据绑定和依赖注入的上下文是从<strong>当前位置</strong>的上下文中继承而来的。</li>
+<li>通常，新的内嵌视图会被附加到当前位置的视图容器中，<strong>但是在一些高级用例中，该视图可能被附加到别的容器中， 同时还保留原位置的数据绑定和依赖注入上下文</strong>。</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li><p>createEmbeddedView()</p>
+<ul>
+<li>创建一个视图对象，并把它附着到父视图的视图容器上。</li>
+<li><img src="../post-images/WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763.png" alt="WeChatWorkScreenshot_c87a6501-8bb3-4f25-a95c-d75d5876a763"></li>
+<li><img src="../post-images/image-20210322153553829.png" alt="image-20210322153553829"></li>
+</ul>
+<p>以下模板分别为两个单独的TemplateRef实例，一个外部实例和一个内部实例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let  item of items&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--外部 TemplatRef--&gt;</span></span><br><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-item</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;items&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--内部 TemplatRef--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 外部和内部 TemplateRef 实例按如下方式组装到视图中 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ViewRef: outer-0 --&gt;</span></span><br><span class="line">Count: 2</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">view-container-ref</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-1 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-1 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-2 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /ViewRef: outer-0 --&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="template"><a href="#template" class="headerlink" title="template"></a>template</h4><!-- ![preview](https://segmentfault.com/img/bVKyfR?w=680&h=389/view) -->
+
+
+
+<p>从上图中，我们发现 <template> 模板元素，渲染后被替换成 comment 元素，那么如何展示的呢？</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Component, TemplateRef, ViewChild, AfterViewInit&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h1&gt;Welcome to Angular World&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    &lt;template #tpl&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;I am span in template&lt;/span&gt;</span></span><br><span class="line"><span class="string">    &lt;/template&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">  name: <span class="built_in">string</span> = <span class="string">&#x27;Semlinker&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="string">&#x27;tpl&#x27;</span>)</span><br><span class="line">  tpl: TemplateRef&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngAfterViewInit</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> embeddedView = <span class="built_in">this</span>.tpl.createEmbeddedView(<span class="literal">null</span>);</span><br><span class="line">    <span class="built_in">console</span>.dir(embeddedView);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://segmentfault.com/img/bVKyfW?w=469&h=201" alt="图片描述"></p>
+<p>从图中我们可以知道，当调用 createEmbeddedView 方法后返回了 ViewRef_ 视图对象。该视图对象的 rootNodes 属性包含了 <template> 模板中的内容。在上面的例子中，我们知道了 TemplateRef 实例对象中的 elementRef 属性封装了我们的 comment 元素，那么我们可以通过 insertBefore 方法来创建我们模板中定义的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, TemplateRef, ViewChild, AfterViewInit &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#39;my-app&#39;,</span><br><span class="line">  template: &#96;</span><br><span class="line">    &lt;h1&gt;Welcome to Angular World&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;template #tpl&gt;</span><br><span class="line">      &lt;span&gt;I am span in template &#123;&#123;name&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">  &#96;,</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;</span><br><span class="line">  name: string &#x3D; &#39;Semlinker&#39;;</span><br><span class="line"></span><br><span class="line">  @ViewChild(&#39;tpl&#39;)</span><br><span class="line">  tpl: TemplateRef&lt;any&gt;;</span><br><span class="line"></span><br><span class="line">  ngAfterViewInit() &#123;</span><br><span class="line">    &#x2F;&#x2F; 页面中的&lt;!--template bindings&#x3D;&#123;&#125;--&gt;元素</span><br><span class="line">    let commentElement &#x3D; this.tpl.elementRef.nativeElement;</span><br><span class="line">    &#x2F;&#x2F; 创建内嵌视图</span><br><span class="line">    let embeddedView &#x3D; this.tpl.createEmbeddedView(null);</span><br><span class="line">    &#x2F;&#x2F; 动态添加子节点</span><br><span class="line">    embeddedView.rootNodes.forEach((node) &#x3D;&gt; &#123;</span><br><span class="line">        commentElement.parentNode</span><br><span class="line">          .insertBefore(node, commentElement.nextSibling);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建内嵌视图(embedded view)</li>
+<li>遍历内嵌视图中的 rootNodes，动态的插入 node</li>
+</ul>
+<h3 id="ViewContainerRef"><a href="#ViewContainerRef" class="headerlink" title="ViewContainerRef"></a>ViewContainerRef</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/ViewContainerRef">https://angular.cn/api/core/ViewContainerRef</a></p>
+</blockquote>
+<p>表示可以将一个或多个视图附着到组件中的容器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @angular/core/src/linker/view_container_ref.d.ts</span></span><br><span class="line"><span class="comment">// 用于表示一个视图容器，可添加一个或多个视图</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewContainerRef_</span> <span class="title">implements</span> <span class="title">ViewContainerRef</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    length: <span class="built_in">number</span>; <span class="comment">// 返回视图容器中已存在的视图个数</span></span><br><span class="line">    element: ElementRef;</span><br><span class="line">    injector: Injector;</span><br><span class="line">    parentInjector: Injector;</span><br><span class="line">      <span class="comment">// 基于TemplateRef创建内嵌视图，并自动添加到视图容器中，可通过index设置</span></span><br><span class="line">    <span class="comment">// 视图添加的位置</span></span><br><span class="line">    createEmbeddedView&lt;C&gt;(templateRef: TemplateRef&lt;C&gt;, context?: C,</span><br><span class="line">      index?: <span class="built_in">number</span>): EmbeddedViewRef&lt;C&gt;;</span><br><span class="line">    <span class="comment">// 基 ComponentFactory创建组件视图</span></span><br><span class="line">    createComponent&lt;C&gt;(componentFactory: ComponentFactory&lt;C&gt;,</span><br><span class="line">      index?: <span class="built_in">number</span>, injector?: Injector, projectableNodes?: <span class="built_in">any</span>[][]): ComponentRef&lt;C&gt;;</span><br><span class="line">    insert(viewRef: ViewRef, index?: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    move(viewRef: ViewRef, <span class="attr">currentIndex</span>: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    indexOf(viewRef: ViewRef): <span class="built_in">number</span>;</span><br><span class="line">    remove(index?: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br><span class="line">    detach(index?: <span class="built_in">number</span>): ViewRef;</span><br><span class="line">    clear(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TemplateRef：用于表示内嵌的 template 模板元素，通过 TemplateRef 实例，我们可以方便创建内嵌视图(Embedded Views)，且可以轻松地访问到通过 ElementRef 封装后的 nativeElement。需要注意的是组件视图中的 template 模板元素，经过渲染后会被替换成 comment 元素。</p>
+<p>ViewContainerRef：用于表示一个视图容器，可添加一个或多个视图。通过 ViewContainer<br>Ref 实例，我们可以基于 TemplateRef 实例创建内嵌视图，并能指定内嵌视图的插入位置，也可以方便对视图容器中已有的视图进行管理。简而言之，ViewContainerRef 的主要作用是创建和管理内嵌视图或组件视图。</p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view">https://angular.cn/guide/glossary#view</a></p>
+</blockquote>
+<p>视图是可显示元素的最小分组单位，它们会被同时创建和销毁。 Angular 在一个或多个<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#directive">指令 (directive)</a> 的控制下渲染视图。</p>
+<p>具体实现上，视图由一个与该组件相关的 <code>ViewRef</code> 实例表示。 直属于某个组件的视图叫做<em>宿主视图</em>。 通常会把视图组织成一些<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view-tree">视图树（view hierarchies）</a>。</p>
+<h3 id="EmbeddedViewRef"><a href="#EmbeddedViewRef" class="headerlink" title="EmbeddedViewRef"></a>EmbeddedViewRef</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/EmbeddedViewRef">https://angular.cn/api/core/EmbeddedViewRef</a></p>
+</blockquote>
+<p>表示视图容器中的 Angular <a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view">视图</a>。<a target="_blank" rel="noopener" href="https://angular.cn/guide/glossary#view-tree">嵌入视图</a>可以从在模板中定义它的宿主组件之外的组件中引用，也可以由 <code>TemplateRef</code> 进行独立定义。</p>
+<h3 id="ContentChild"><a href="#ContentChild" class="headerlink" title="ContentChild"></a>ContentChild</h3><p>用于配置内容查询的参数修饰器。</p>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>用于从内容 DOM 获取与此选择器匹配的第一个元素或指令。如果内容 DOM 发生了更改，并且有一个新的子项与选择器匹配，则该属性将被更新。</p>
+<p>在调用 <code>ngAfterContentInit</code> 之前设置的内容查询。</p>
+<p>不检索其他组件模板中的元素或指令，因为组件模板对其祖先来说始终是黑匣子。</p>
+<p><strong>元数据属性</strong>：</p>
+<ul>
+<li><strong>selector</strong> - 要查询的指令类型或名称。</li>
+<li><strong>read</strong> - 用于从查询到的元素读取不同的令牌。</li>
+<li><strong>static</strong> - 如果为 true，则在变更检测运行之前解析查询结果，如果为 false，则在变更检测之后解析。默认为 false。</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Component, ContentChild, Directive, Input&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;<span class="attr">selector</span>: <span class="string">&#x27;pane&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Pane</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Input</span>() id!: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;tab&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;pane: &#123;&#123;pane?.id&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Tab</span> </span>&#123;</span><br><span class="line">  <span class="meta">@ContentChild</span>(Pane) pane!: Pane;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">&#x27;example-app&#x27;</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;tab&gt;</span></span><br><span class="line"><span class="string">      &lt;pane id=&quot;1&quot; *ngIf=&quot;shouldShow&quot;&gt;&lt;/pane&gt;</span></span><br><span class="line"><span class="string">      &lt;pane id=&quot;2&quot; *ngIf=&quot;!shouldShow&quot;&gt;&lt;/pane&gt;</span></span><br><span class="line"><span class="string">    &lt;/tab&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;button (click)=&quot;toggle()&quot;&gt;Toggle&lt;/button&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentChildComp</span> </span>&#123;</span><br><span class="line">  shouldShow = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">toggle</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.shouldShow = !<span class="built_in">this</span>.shouldShow;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/api/core/ElementRef">https://angular.cn/api/core/ElementRef</a></p>
+</blockquote>
+<p>对视图中某个原生元素的包装器。它的背后是一个可渲染的具体元素，例如浏览器中通常为DOM元素。</p>
+<p><img src="../post-images/image-20210322170031878.png" alt="image-20210322170031878"></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="deepclone"><a href="#deepclone" class="headerlink" title="deepclone"></a>deepclone</h3><p>lodash的深拷贝方法是相对完善和严谨的，对于特殊的数据类型，环，兼容性等等都考虑到了。但是对于function类型，依然是引用。并且，也没有深拷贝在原型链上的属性。实现的方式主要是以Object.prototype.toString.call得到tag，再分类处理，环由stack解决，symbol由Object.getOwnPropertySymbols方法解决。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/TemplateRef/" rel="tag"># TemplateRef</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/20/webpack%205%20%E7%AE%80%E4%BB%8B/" rel="prev" title="webpack 5 简介">
+      <i class="fa fa-chevron-left"></i> webpack 5 简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/20/Vite%20%E5%AD%90%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5%20qiankun%20%EF%BC%88%E5%BE%AE%E5%89%8D%E7%AB%AF%EF%BC%89/" rel="next" title="Vite 子应用接入 qiankun （微前端）">
+      Vite 子应用接入 qiankun （微前端） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TemplateRef"><span class="nav-number">1.</span> <span class="nav-text">TemplateRef</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#template"><span class="nav-number">1.1.</span> <span class="nav-text">template</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewContainerRef"><span class="nav-number">2.</span> <span class="nav-text">ViewContainerRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View"><span class="nav-number">3.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EmbeddedViewRef"><span class="nav-number">4.</span> <span class="nav-text">EmbeddedViewRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ContentChild"><span class="nav-number">5.</span> <span class="nav-text">ContentChild</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">5.1.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElementRef"><span class="nav-number">6.</span> <span class="nav-text">ElementRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deepclone"><span class="nav-number">8.</span> <span class="nav-text">deepclone</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Author"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Author</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

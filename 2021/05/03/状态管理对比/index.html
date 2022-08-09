@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/160.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/160.jpg">
+  <link rel="mask-icon" href="/images/160.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rickiewoo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="状态管理https:&#x2F;&#x2F;daveceddia.com&#x2F;react-state-management&#x2F; Redux通常与React捆绑在一起，但是其核心是独立的，因此可以与任何UI库或框架一起使用。  缺点： 陡峭的学习曲线 冗长的 action 到 reducer  的过程（严重依赖不变性）   优点 最大的社区和生态系统 官方Redux Toolkit库减少了样板代码 size Time tra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="状态管理">
+<meta property="og:url" content="http://rickiewoo.github.io/2021/05/03/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/index.html">
+<meta property="og:site_name" content="Rickie Woo&#39;s Wonder Land">
+<meta property="og:description" content="状态管理https:&#x2F;&#x2F;daveceddia.com&#x2F;react-state-management&#x2F; Redux通常与React捆绑在一起，但是其核心是独立的，因此可以与任何UI库或框架一起使用。  缺点： 陡峭的学习曲线 冗长的 action 到 reducer  的过程（严重依赖不变性）   优点 最大的社区和生态系统 官方Redux Toolkit库减少了样板代码 size Time tra">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-03T10:24:57.000Z">
+<meta property="article:modified_time" content="2022-08-09T14:27:39.424Z">
+<meta property="article:author" content="Rickie Woo">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://rickiewoo.github.io/2021/05/03/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>状态管理 | Rickie Woo's Wonder Land</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png" alt="Rickie Woo's Wonder Land">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rickie Woo's Wonder Land</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Why is a raven like a writing-desk?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://rickiewoo.github.io/2021/05/03/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sasuke.jpeg">
+      <meta itemprop="name" content="Author">
+      <meta itemprop="description" content="We were both young when I first saw you.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickie Woo's Wonder Land">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          状态管理<a href="https://github.com/RickieWoo/blog/tree/master/source/_posts/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%AF%B9%E6%AF%94.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-03 18:24:57" itemprop="dateCreated datePublished" datetime="2021-05-03T18:24:57+08:00">2021-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-09 22:27:39" itemprop="dateModified" datetime="2022-08-09T22:27:39+08:00">2022-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keep-learning/" itemprop="url" rel="index"><span itemprop="name">keep-learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h1><p><a target="_blank" rel="noopener" href="https://daveceddia.com/react-state-management/">https://daveceddia.com/react-state-management/</a></p>
+<h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>通常与React捆绑在一起，但是其核心是<strong>独立的</strong>，因此可以与任何UI库或框架一起使用。</p>
+<ul>
+<li>缺点：<ul>
+<li>陡峭的学习曲线</li>
+<li>冗长的 action 到 reducer  的过程（严重依赖不变性）</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>最大的社区和生态系统</li>
+<li>官方<a target="_blank" rel="noopener" href="https://redux-toolkit.js.org/">Redux Toolkit</a>库减少了样板代码</li>
+<li>size</li>
+<li>Time travel debugging</li>
+<li>拥有自己的库生态系统，可用于执行与本地存储同步，管理API请求等操作</li>
+<li>出色的devtools使调试变得简单</li>
+</ul>
+</li>
+</ul>
+<h2 id="MobX"><a href="#MobX" class="headerlink" title="MobX"></a>MobX</h2><p><strong>MobX</strong>是一个非常流行的，<strong>包含电池？的</strong>状态管理库，主要（但非专门）用于React。</p>
+<p>MobX无疑是 <a target="_blank" rel="noopener" href="https://bundlephobia.com/result?p=mobx">不小的 lib</a>，但是与Redux相比，有些人可能会发现它的API和<strong>可观察的方法</strong>更令人愉悦。这种库仍然有一个明显的学习曲线，但是在那之后，它确实比传统的Redux感觉更好并且<strong>没有重复性</strong>。</p>
+<p>MobX的API很好，并且可以生成一些非常漂亮和干净的代码，但是深层来说，它是一个沉重的库，很难完全掌握。最重要的是，它会带来一个明显更小的社区和生态系统。</p>
+<hr>
+<p>MobX基于观察者/可观察模式。创建一个可观察的数据模型，将组件标记为该数据的“观察者”，MobX将自动跟踪它们访问的数据，并在更改时重新呈现它们。</p>
+<p>使用者可以随意定义自己认为合适的数据模型，并提供监视模型变化、并对这些变化做出反应的工具。</p>
+<p>MobX的背后是使用ES6代理来检测更改，因此更新可观察数据就像使用普通的旧赋值运算符<code>=</code>一样容易。</p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li>以一种真正的“反应式”方式管理状态，以便在您修改值时，使用该值的所有组件都将自动重新呈现</li>
+<li>无需进行任何操作或减速器，只需修改您的状态，应用程序便会反映出来。</li>
+<li>神奇的反应性意味着更少的代码编写。</li>
+<li>您可以编写常规的可变代码。无需特殊的设置器功能或不变性。</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>由于没有Redux广泛使用，因此社区支持（教程等）较少，但是受到用户的喜爱</li>
+<li>神奇的反应性意味着不太明确的代码。（根据您对自动更新“魔术”的感觉，这可能是赞成也可能是反对）</li>
+<li>对ES6代理的要求意味着不支持IE11及以下版本。（如果您的应用程序要求支持IE，则较旧版本的MobX无需代理即可工作）</li>
+</ul>
+</li>
+</ul>
+<h2 id="Recoil"><a href="#Recoil" class="headerlink" title="Recoil"></a>Recoil</h2><p><a target="_blank" rel="noopener" href="https://www.recoiljs.cn/docs/introduction/getting-started">https://www.recoiljs.cn/docs/introduction/getting-started</a></p>
+<blockquote>
+<p><strong>Recoil</strong>作为<em>“ Facebook实验”</em>，它在今年年初处于<strong>不稳定阶段</strong>“启动”时获得了很大的吸引力。</p>
+<p>现代<strong>的基于原子的</strong>状态管理方法和<strong>以钩子为中心的</strong>流畅<strong>API</strong>确实使它颇具吸引力。</p>
+<p>但是，由于Recoil的试验阶段，现在建议不要在生产级项目中使用它。</p>
+</blockquote>
+<p>API就像是React的useState和Context API的组合，因此感觉与React非常相似。</p>
+<p>要使用它，您可以将组件树包装为<code>RecoilRoot</code>（类似于使用自己的Context Provider的方式）。然后在顶层创建状态的“atom”，每个原子都有一个唯一的键。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> currentLanguage = atom(&#123;</span><br><span class="line">  key: <span class="string">&#x27;currentLanguage&#x27;</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">&#x27;en&#x27;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>然后，组件可以使用<code>useRecoilState</code>钩子访问此状态，该钩子的工作方式非常类似于<code>useState</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LanguageSelector</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [language, setLanguage] = useRecoilState(currentLanguage);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;Languauge is &#123;language&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button onClick=&#123;<span class="function">() =&gt;</span> setLanguage(<span class="string">&#x27;es&#x27;</span>)&#125;&gt;</span><br><span class="line">      Switch to Español</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一个“selectors”的概念，可让您创建一个原子视图：想到<em>派生</em>状态，例如“将TODO列表过滤为已完成的状态”。</p>
+<p>通过跟踪对的调用<code>useRecoilState</code>，Recoil可以跟踪哪些组件使用哪些原子。这样，它可以<em>仅</em>在数据更改时<em>仅</em>重新呈现“订阅”到数据的组件，因此该方法应在性能方面很好地扩展。</p>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ul>
+<li>与React非常相似的简单API</li>
+<li>Facebook在其一些内部工具中使用了它</li>
+<li>专为性能而设计</li>
+<li>在有或没有React Suspense的情况下均可使用（虽然仍处于试验阶段）</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>只有几个月的历史，因此社区资源和最佳实践还不如其他库强大。</li>
+</ul>
+<h2 id="Akita？"><a href="#Akita？" class="headerlink" title="Akita？"></a>Akita？</h2><p>基于类的组件比较合适</p>
+<p>是面向对象的API</p>
+<h2 id="HookStat"><a href="#HookStat" class="headerlink" title="HookStat"></a>HookStat</h2><p>它体积小，最小，干净，可扩展，并且具有一个漂亮<strong>的基于钩子的API</strong>。</p>
+<p>它不仅可以用于全局状态，还可以通过附加功能增强本地<code>useState（）</code>，在不影响性能的情况下处理<strong>嵌套状态</strong>，并轻松处理<strong>异步数据</strong>！</p>
+<h3 id="useStat什么时候not-enough"><a href="#useStat什么时候not-enough" class="headerlink" title="useStat什么时候not enough"></a>useStat什么时候not enough</h3><p>该<a target="_blank" rel="noopener" href="https://daveceddia.com/usestate-hook-examples/">useState钩</a>非常适合少量llocal组件状态。每个<code>useState</code>调用可以包含一个值，虽然您<em>可以</em>使一个值成为包含许多其他值的对象，但是最好将它们拆分。</p>
+<p>一旦您<code>useState</code>在一个组件中遇到3-5次调用，事情就可能变得难以跟踪。<em>尤其是</em>那些状态位彼此依赖时。对于复杂的相互依赖关系，适当的<a target="_blank" rel="noopener" href="https://daveceddia.com/react-confirmation-modal-state-machine/">状态机</a>可能是更好的选择。</p>
+<h3 id="next，-useReducer：-中度复杂的React组件状态管理"><a href="#next，-useReducer：-中度复杂的React组件状态管理" class="headerlink" title="next， useReducer： 中度复杂的React组件状态管理"></a>next， useReducer： 中度复杂的React组件状态管理</h3><p>useState的下一步“向上”是<code>useReducer</code>。reducer提供了一个集中的位置，可以拦截“action”并相应地更新状态。像这样的调用<code>useState</code>只能保存一个值，但是更为普遍的是使用<code>useReducer</code>处理一个包含多个值的对象。</p>
+<h3 id="useContext-将值传递给子组件而不用层层钻"><a href="#useContext-将值传递给子组件而不用层层钻" class="headerlink" title="useContext : 将值传递给子组件而不用层层钻"></a>useContext : 将值传递给子组件而不用层层钻</h3><p>除了<code>useState</code>和<code>useReducer</code>，另一个痛点是：当您拥有一个拥有某种状态的组件，然后需要向下访问5个子组件的状态时，您必须手动钻取每个级别的子组件。</p>
+<p>这里最简单的解决方案是Context API。它内置在React中。</p>
+<p>尽管它很简单，但是Context有一个重要的缺点，那就是性能，因此要小心使用。</p>
+<p>原因是<code>useContext</code>当提供者的<code>value</code>属性更改时，调用的每个组件都会重新呈现。设想如果该值是一个对象，该对象包含整个应用程序中使用的50个不同的状态位，将会发生什么。而且它们经常且独立地变化。这些值<em>之一</em>每次更改时，使用其中<em>任何</em>一个的每个组件都会重新呈现。</p>
+<p><strong>为了避免这种陷阱，请在每个上下文中存储一小部分相关数据，然后将数据拆分到多个上下文中（您可以根据需要拥有尽可能多的数据）。或者，考虑使用第三方库。</strong></p>
+<p>另一个要避免的性能陷阱是<code>value</code>，每次都将一个新的对象传递给提供程序的对象。 比如 <code>value = &#123; aProp &#125;</code>,每次渲染都会重新创建包裹<code>aProp</code>的对象。</p>
+<h3 id="结合Redux"><a href="#结合Redux" class="headerlink" title="结合Redux"></a>结合Redux</h3><p><strong>您可以同时使用Redux和Context，并且可以<code>useReducer</code>一起使用！</strong> 我们特别鼓励<a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-2-app-structure#component-state-and-forms">在Redux中放置“全局状态”，在React组件中放置“本地状态”</a>，并<a target="_blank" rel="noopener" href="https://redux.js.org/style-guide/style-guide#evaluate-where-each-piece-of-state-should-live">仔细决定每个状态应该处于Redux还是组件状态</a>。因此，您可以<code>useReducer</code>在同一应用程序中同时将Redux用于全局的某些状态，将+ Context用于更局部的状态，将Context本身用于某些半静态值。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.isquaredsoftware.com/2021/01/context-redux-differences/">了解Context与Redux的不同之处</a></p>
+<h2 id="Dova-。。。"><a href="#Dova-。。。" class="headerlink" title="Dova 。。。"></a>Dova 。。。</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%B2%E5%AD%A6/" rel="prev" title="软件设计的哲学">
+      <i class="fa fa-chevron-left"></i> 软件设计的哲学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/23/angular%E5%92%8Creact%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%8F%9C%E5%8D%95%E5%90%88%E5%B9%B6/" rel="next" title="angular和react项目的菜单合并解决方案">
+      angular和react项目的菜单合并解决方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">状态管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux"><span class="nav-number">1.1.</span> <span class="nav-text">Redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobX"><span class="nav-number">1.2.</span> <span class="nav-text">MobX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recoil"><span class="nav-number">1.3.</span> <span class="nav-text">Recoil</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%BD%E5%A4%84"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Akita%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">Akita？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HookStat"><span class="nav-number">1.5.</span> <span class="nav-text">HookStat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useStat%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99not-enough"><span class="nav-number">1.5.1.</span> <span class="nav-text">useStat什么时候not enough</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#next%EF%BC%8C-useReducer%EF%BC%9A-%E4%B8%AD%E5%BA%A6%E5%A4%8D%E6%9D%82%E7%9A%84React%E7%BB%84%E4%BB%B6%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">next， useReducer： 中度复杂的React组件状态管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useContext-%E5%B0%86%E5%80%BC%E4%BC%A0%E9%80%92%E7%BB%99%E5%AD%90%E7%BB%84%E4%BB%B6%E8%80%8C%E4%B8%8D%E7%94%A8%E5%B1%82%E5%B1%82%E9%92%BB"><span class="nav-number">1.5.3.</span> <span class="nav-text">useContext : 将值传递给子组件而不用层层钻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E5%90%88Redux"><span class="nav-number">1.5.4.</span> <span class="nav-text">结合Redux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dova-%E3%80%82%E3%80%82%E3%80%82"><span class="nav-number">1.6.</span> <span class="nav-text">Dova 。。。</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Author"
+      src="/images/sasuke.jpeg">
+  <p class="site-author-name" itemprop="name">Author</p>
+  <div class="site-description" itemprop="description">We were both young when I first saw you.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rickiewoo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rickiemeow@gmail.com" title="E-Mail → mailto:rickiemeow@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/rickiewoo" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;rickiewoo" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3296105801" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3296105801" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">the way you played with me like a child</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
